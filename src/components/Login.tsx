@@ -5,6 +5,7 @@ import { actions } from '../store/action';
 import { Formik, Field, Form, FormikHelpers, ErrorMessage } from "formik";
 import * as Yup from "yup";
  
+import React from 'react';
 
 
 
@@ -64,11 +65,11 @@ function Login(props: any) {
   
     return(
         <form onSubmit={(e)=>LoginTime(e)}>
-        //     <input onChange={(e) => setLogin_entity_number(e.target.value)} placeholder="הsetLogin_entity_number" />
-        //     <input onChange={(e) => setLogin_ID(e.target.value)} placeholder="setLogin_ID" />
-        //     <input onChange={(e) => setLogin_password(e.target.value)} placeholder="setLogin_password" />
-        //     <button type="submit">Submit</button>
-        // </form>
+            <input onChange={(e) => setLogin_entity_number(e.target.value)} placeholder="הsetLogin_entity_number" />
+             <input onChange={(e) => setLogin_ID(e.target.value)} placeholder="setLogin_ID" />
+             <input onChange={(e) => setLogin_password(e.target.value)} placeholder="setLogin_password" />
+            <button type="submit">Submit</button>
+         </form>
     ) ;     
 
 
