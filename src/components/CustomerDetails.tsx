@@ -1,59 +1,81 @@
 import React from "react";
-import '../scss/base.scss';
+import '../scss/form.scss';
 import Subheading from "./Subheading";
 import { useTranslation } from 'react-i18next';
-import { DefaultButton ,IContextualMenuItem,IContextualMenuProps,ITextFieldStyles,TextField} from "@fluentui/react";
+import { Calendar, DefaultButton, IContextualMenuItem, IContextualMenuProps, ITextFieldStyles, TextField } from "@fluentui/react";
 import { useConst } from '@fluentui/react-hooks';
 import { IStackProps, IStackStyles, Stack } from '@fluentui/react/lib/Stack';
+import { Input } from "@material-ui/core";
+import { DropdownRequiredExample } from "./Option";
 
 const CustomerDetails = () => {
-    const [t, i18n] = useTranslation();
-    const stackTokens = { childrenGap: 50 };
-    const stackStyles: Partial<IStackStyles> = { root: { width: 282 ,height:32 } };
-    const columnProps: Partial<IStackProps> = {
-      tokens: { childrenGap: 15 },
-      styles: { root: { width: 300 } },
-    };
-// const textFieldStyles: Partial<ITextFieldStyles> = { fieldGroup: { width: 300 } };
-// const narrowTextFieldStyles: Partial<ITextFieldStyles> = { fieldGroup: { width: 100 } };
-// const stackTokens = { childrenGap: 15 };      
+  const [t, i18n] = useTranslation();
+  const stackTokens = { childrenGap: 50 };
+  const stackStyles: Partial<IStackStyles> = { root: { width: 282, height: 32 } };
+  const columnProps: Partial<IStackProps> = {
+    tokens: { childrenGap: 15 },
+    styles: { root: { width: 300 } },
+  };
+       
 
-    return (
-        <div >
-        <ContextualMenuPersistedExample/>
-        <Stack tokens={stackTokens}  styles={stackStyles} className='container-fluid'>
-
+  return (
+    // <div id="features">
+      <div className="container-fluid">
+        
+         
+          <Stack tokens={stackTokens} styles={stackStyles} >
+            <Subheading
+            title='לקוחות'/>
+             {/* <ContextualMenuPersistedExample />
+             <Calendar/> */}
+             <DropdownRequiredExample/>
             {/* <Subheading title='לקוחות' /> */}
+            <TextField
+              required
+              label={t("customer.Customer-status")}
+            // onChange={(e: any) => setLogin_entity_number(e.target.value)}
+            />
+           
+            <TextField
+              required
+              label={t("customer.last-name")}
+            // onChange={(e: any) => setLogin_entity_number(e.target.value)}
+            />
+            <TextField
+              required
+              label={t("customer.first-name")}
+            // onChange={(e: any) => setLogin_entity_number(e.target.value)}
+            />
             
-            <TextField
 
-                className="p-2 bg "
-                required
-                label={t("customer.first-name")}
-
-            // onChange={(e: any) => setLogin_entity_number(e.target.value)}
-            />
-            <TextField
-                className="p-2 bg"
-                required
-                label={t("customer.last-name")}
-            // onChange={(e: any) => setLogin_entity_number(e.target.value)}
-            />
-       </Stack>
-       </div>
-    )
+          </Stack>
+        </div>
+      
+    // </div>
+  )
 }
 export const ContextualMenuPersistedExample: React.FunctionComponent = () => {
-    const menuProps = useConst<IContextualMenuProps>(() => ({
-      shouldFocusOnMount: true,
-      shouldFocusOnContainer: true,
-      items: [
-        { key: 'rename', text: 'Rename', onClick: () => console.log('Rename clicked') },
+  const [t, i18n] = useTranslation();
+  
+  const menuProps = useConst<IContextualMenuProps>(() => ({
+    shouldFocusOnMount: true,
+    shouldFocusOnContainer: true,
+    items: [
+      { key: 'male', text: t('male')},
+      
+    // onChange={(e: any) => setLogin_entity_number(e.target.value)}
+    
+      {key: 'female', text: t('female'), onClick: () => (<input />)},
+      {key: 'other', text: t('other'), onClick: () => console.log('Rename clicked')}
 
-      ],
-    }));
-  
-    return <DefaultButton text="Click for ContextualMenu" persistMenu menuProps={menuProps} />;
-  };
-  
+    ],
+  }));
+   
+  return <DefaultButton text="" persistMenu menuProps={menuProps} />;
+};
+
 export default CustomerDetails;
+
+function handleChange(event: Event | undefined) {
+  throw new Error("Function not implemented.");
+}

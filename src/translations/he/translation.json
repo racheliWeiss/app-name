@@ -6,9 +6,9 @@
      "login.userName":"שם משתמש",
      "login.password":"סיסמה",
     "siderbar.customer-search":"איתור לקוח" ,
-     "siderbar.customer-details":"פרטי לקוח",
+     "siderBar.customer-details":"פרטי לקוח",
      "siderbar.contact":"יצירת קשר",
-     "siderbar.representatives_or-involved-parties":"נציגים/גורמים מעורבים",
+     "siderbar.representatives-or-involved-parties":"נציגים/מעורבים",
      "siderbar.obligo":"אובליגו",
      "siderbar.security":"בטחון",
      "siderbar.price-list":"מחירון",
@@ -17,7 +17,13 @@
      "siderbar.documents":"מסמכים",
      "siderbar.money-laundering":"הלבנת הון",
      "siderbar.concentration-of-actions":"ריכוז פעולות",
-     "siderbar.log-changes":"לוג שינוים"
+     "siderbar.log-changes":"לוג שינוים",
+     "customer.first-name":"שם פרטי",
+     "customer.last-name":"שם משפחה",
+     "customer.Customer-status":"מעמד לקוח",
+     "male":"זכר",
+     "female":"נקבה",
+      "other":"אחר"
      }
  
   

@@ -21,33 +21,24 @@ import LogChanges from '../LogChanges';
 
 
 
-const navStyles: Partial<INavStyles> = { root: { width: 70 } };
+const navStyles: Partial<INavStyles> = { root: { width: 160 } };
 initializeIcons();
 
 
 
   const SideDemo: React.FunctionComponent = (props:any) => {
-    const [t, i18n] = useTranslation();  ///זה הפוקציה של state
+    const [t, i18n] = useTranslation();  ///function of translate
     const  handleNavClick= (ev?: React.MouseEvent<HTMLElement>, item?: INavLink) => {
-    ev?.preventDefault();
-            
-  props.history.push(item?.url);
+        ev?.preventDefault();
+        props.history.push(item?.url);
       }
     const navLinkGroups: INavLinkGroup[] = [
       {
-       
-        
-        
         links:[
         {  key: "Breadcrumb",
            iconProps: { iconName: "Sunny" },
             name:t('siderbar.customer-search'),
-            // name: {t('customer_locator')},
-            // target:"_blank",
             url:"/customer-search",
-            // text:"siderBar.customer_locator",
-            // component:'CustomerLocator',
-          
             onClick: handleNavClick
            },
            {
@@ -66,14 +57,13 @@ initializeIcons();
            component:'Contact' , 
            name:t("siderbar.contact"),
            onClick: handleNavClick
-           
           },
           {
             key:'4',
             iconProps: { iconName: "Sunny" },
             url:'/representatives',
             component:'Representatives',
-            name:t("siderbar.representatives-or-involved parties"),
+            name:t("siderbar.representatives-or-involved-parties"),
             onClick: handleNavClick
          },
          {
@@ -83,15 +73,13 @@ initializeIcons();
             component:'Obligo',
             name:t("siderbar.obligo") ,  
             onClick: handleNavClick 
-          
         },{
             key:'6',
             iconProps: { iconName: "Sunny" },
             url:'/security',
             component:'Security',
             name:t("siderbar.security"),
-            onClick: handleNavClick
-            
+            onClick: handleNavClick 
         },{
             key:'7',
             iconProps: { iconName: "Sunny" },
@@ -99,7 +87,6 @@ initializeIcons();
             component:'PriceList',
             name:t("siderbar.price-list"),
             onClick: handleNavClick
-    
         },{
             key:'8',
             iconProps: { iconName: "Sunny" },
@@ -147,7 +134,7 @@ initializeIcons();
     return (
       
         <div>
-     <div>{t('siderbar.customer-search')}</div>
+    
          <Switch>
             <Route exact path="/customer-search" component={CustomerLocator} />
             <Route exact path='/customer-details' component={CustomerDetails}/> 

@@ -17,7 +17,7 @@ const navStyles: Partial<INavStyles> = { root: { width: 70 } };
       {
         key: 'Breadcrumb',
         iconProps: { iconName: "Sunny" },
-         name:'a',
+         name:'aששג',
         //  , // name:{t('a')},///כאן אני רוצה לרשום
         url: '#/examples/button',
         

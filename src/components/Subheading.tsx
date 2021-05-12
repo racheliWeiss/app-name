@@ -7,7 +7,7 @@ interface Title{
 
 const Subheading=(prop:Title)=>{
     return(
-        <h1 className="SubBar">{prop.title}</h1>
+        <h1 className="subBar">{prop.title}</h1>
     )
 }
 
