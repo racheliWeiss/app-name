@@ -1,0 +1,77 @@
+// import React from 'react';
+// import '../../scss/sidebar.scss'
+// import LabelBar from '../../shared/components/navItem';
+// import { NavDemo } from './NavDemo';
+// import { NavOption } from './NavOption';
+// import { CompoundButton } from '@fluentui/react/lib/Button';
+// import {navItems}  from '../../Models/NavItems';
+// import NavItem from '../../shared/components/navItem';
+// import {
+//     BrowserRouter , Route, Switch
+//   } from "react-router";
+
+
+// const Sidebar = () => {
+
+//     return (
+
+//        <div>
+//             <div className="userName">
+//                 <h1>user</h1>
+//             </div>
+//             <div className="sidebar">
+//                 <div className="catgory">
+//                    {/* <NavOption /> */}
+//                 </div>
+                
+                  
+
+
+  
+                 
+//                 <BrowserRouter>
+//                   <div className="items">
+       
+//                 <Switch>
+//              {routes.map(route => {
+//               return <Route key={route.path} path={route.path} component={route.component} />
+//             })}
+//           </Switch>
+      
+          
+//             </div>  
+    
+
+                  
+               
+                
+            
+//        </div>
+
+
+
+        
+
+
+//     );
+
+// }
+
+// export default Sidebar;
+
+
+
+
+
+
+// {/* 
+// { {const routeComponents:any = navItems.map((i:{nav or any}) => {returen <Route exact path={i.path} component={i.component} key={i.key} />});} */}
+//                    {/* { {const routeComponents:any = navItems.map(({path, component}, key) => <Route exact path={path} component={component} key={key} />);} */}
+
+//                 {/* //    {navItems.map((navItem: { key: (React.Key | null | undefined) & Number; title: string; icon: object; }) => ( */}
+//                 //     <NavItem
+//                 //     key={navItem.key}
+//                 //     text={navItem.title}
+//                 //     icon={navItem.icon}
+//                 //    />
+//                 // ))}

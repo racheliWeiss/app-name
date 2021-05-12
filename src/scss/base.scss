@@ -1,0 +1,33 @@
+
+html{
+    width: 1900px;
+    height: 1080;
+    // width: 100vw;
+    // height: 100vh;
+    display: grid;
+
+}
+.row {  
+    display: flex;
+    flex-wrap: wrap;
+}
+//   }{
+//     display: grid;
+//     fle
+//     width: 1045px;
+//     height: 1996px;
+//     top: 194px;
+   
+//     background: #FFFFFF;
+//     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+//     border-radius: 4px;
+// }
+@font-face {
+    font-family: 'Rajdhani';
+    src: local('Rajdhani'), url() format('truetype');
+  }
+  title{
+      font-family: 'font';
+  }
+
+  

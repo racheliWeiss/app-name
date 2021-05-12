@@ -1,10 +1,34 @@
-{
+
+  {
     "welcome": "",
-    "date_format_one": "{{date, YYYY-MM-DD}}",
-    "keyWithCount": "Anne has bought {{count}} book",
-    "keyWithCount_plural": "Anne has bought {{count}} books",
-    "date_format_two": "{{date, DD-MM-YYYY}}",
-    "number_format": "There are {{number, ','}} books in the shop.",
-    "sigin":"הכנס"
-  }
+     "login.sigin":"להתחבר",
+     "login.business":"מזהה עסק",
+     "login.userName":"שם משתמש",
+     "login.password":"סיסמה",
+    "siderbar.customer-search":"איתור לקוח" ,
+     "siderbar.customer-details":"פרטי לקוח",
+     "siderbar.contact":"יצירת קשר",
+     "siderbar.representatives_or-involved-parties":"נציגים/גורמים מעורבים",
+     "siderbar.obligo":"אובליגו",
+     "siderbar.security":"בטחון",
+     "siderbar.price-list":"מחירון",
+     "siderbar.bank-accounts":"חשבונות בנק" ,
+     "siderbar.loans":"הלוואות",
+     "siderbar.documents":"מסמכים",
+     "siderbar.money-laundering":"הלבנת הון",
+     "siderbar.concentration-of-actions":"ריכוז פעולות",
+     "siderbar.log-changes":"לוג שינוים"
+     }
+ 
   
+  
+  
+ 
+  
+  
+
+  
+  
+
+ 
+ 

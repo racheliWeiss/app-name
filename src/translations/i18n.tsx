@@ -1,26 +1,4 @@
-// import i18n from "i18next";
-// import { initReactI18next } from "react-i18next";
-// import LanguageDetector from "i18next-browser-languagedetector";
-// // import moment from "momentsjs";
 
-// import { default as TRANSLATIONS_HB} from "./hb/translation.json";
-// import {default as TRANSLATIONS_EN } from "./en/translation.json";
-   
-// i18n
-//  .use(LanguageDetector)
-//  .use(initReactI18next)
-//  .init({
-//    resources: {
-//      en: {
-//        translation: TRANSLATIONS_EN
-//      },
-//      hb: {
-//        translation: TRANSLATIONS_HB
-//      }
-//    }
-//  });
- 
-// i18n.changeLanguage("hb");
 import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
 
@@ -43,7 +21,7 @@ i18n
   .use(initReactI18next) // passes i18n down to react-i18next
   .init({
     resources,
-    lng: "en",
+    lng: "he",
 
     keySeparator: false, // we do not use keys in form messages.welcome
     returnObjects:true,

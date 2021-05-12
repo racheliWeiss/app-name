@@ -6,5 +6,6 @@
     "date_format_two": "{{date, DD-MM-YYYY}}",
     "number_format": "There are {{number, ','}} books in the shop.",
     "sigin":"sigin"
+    
   }
    
