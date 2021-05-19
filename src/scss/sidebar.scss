@@ -8,10 +8,9 @@
 .sidebar{
     display:flex;
     justify-content:space-around;
-    height: 100vh;
+    height: 100%;
     width: 230px;
     background-color:white;
-    
     .choose{
       width: 160px;
       height:46px;
@@ -23,18 +22,21 @@
         font-family: "Calibri";
     }
 }
-
+// .dd{
+//     margin-left: 0px !important;
+// }
 
 .items{   
-    width: 160px;
+    width: 210px;
     height:100% ;
 }
 
 .catgory{
-    margin-top:0px;
-     height: 100%;
+    background: #1A1F71;
+     margin-top:0px;
+     height:100vh;
      width: 70px;
-     background-color:blue;
+
 }
 .warper{
     flex-direction: column;

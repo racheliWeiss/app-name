@@ -12,7 +12,7 @@ export async function login(user:LoginUser, tokenId: string) {
         }
     )
     try {
-        if (res.status == 200) {
+        if (res.status === 200) {
             console.log(res.data)
             // const myUser = respons.data.user;
             console.log(res.data.user)

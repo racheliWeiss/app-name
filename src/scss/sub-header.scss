@@ -1,0 +1,35 @@
+.sub-header{
+    display: flex;
+    
+    // background-color: dimgrey;
+
+}
+
+.sub-header-buttom{
+   display: flex;
+}
+
+.title-componenta{
+    font-family: Segoe UI;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 48px;
+    line-height: 133.51%;
+    /* or 64px */
+    
+    display: flex;
+    align-items: center;
+    text-align: right;
+    
+    /* Gray Dark */
+    
+    color: #20201F;
+}
+.heading{
+   width: 152px;
+   height: 80px;
+}
+.sub-heading{
+  width: 175px;
+  height: 48px;
+}

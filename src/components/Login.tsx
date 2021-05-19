@@ -6,7 +6,6 @@ import { TextField, MaskedTextField } from '@fluentui/react/lib/TextField';
 import { Stack, IStackProps, IStackStyles } from '@fluentui/react/lib/Stack';
 import React from 'react';
 import { initializeIcons } from '@fluentui/react';
-import { ButtonDefaultExample } from '../shared/components/Button';
 import { useTranslation } from 'react-i18next';
 import { login } from '../shared/services/login.service';
 import { LoginUser } from '../Models/LoginUser';

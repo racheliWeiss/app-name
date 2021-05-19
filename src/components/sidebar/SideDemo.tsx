@@ -37,7 +37,7 @@ initializeIcons();
         links:[
         {  key: "Breadcrumb",
            iconProps: { iconName: "Sunny" },
-            name:t('siderbar.customer-search'),
+            name:t('siderbar.customerSearch'),
             url:"/customer-search",
             onClick: handleNavClick
            },
@@ -45,7 +45,7 @@ initializeIcons();
             key:'customer-details',
             iconProps: { iconName: "Sunny" },
             url:'/customer-details',
-            name:t("siderBar.customer-details"),
+            name:t("siderBar.customerDetails"),
             component:'CustomerDetails',
             onClick: handleNavClick
     
@@ -63,7 +63,7 @@ initializeIcons();
             iconProps: { iconName: "Sunny" },
             url:'/representatives',
             component:'Representatives',
-            name:t("siderbar.representatives-or-involved-parties"),
+            name:t("siderbar.representativesOrInvolvedParties"),
             onClick: handleNavClick
          },
          {
@@ -85,14 +85,14 @@ initializeIcons();
             iconProps: { iconName: "Sunny" },
             url:'/price-list',
             component:'PriceList',
-            name:t("siderbar.price-list"),
+            name:t("siderbar.priceList"),
             onClick: handleNavClick
         },{
             key:'8',
             iconProps: { iconName: "Sunny" },
             url:'/bank-accounts',
             component:'BankAccounts',
-            name:t("siderbar.bank-accounts"),
+            name:t("siderbar.bankAccounts"),
             onClick: handleNavClick
         },{
             key:'9',
@@ -113,19 +113,19 @@ initializeIcons();
             key:'11',
             url:'/money-laundering',
             component:'MoneyLaundering',
-            name:t("siderbar.money-laundering"),
+            name:t("siderbar.moneyLaundering"),
             onClick: handleNavClick
         },{
             key:'12',
             url:'/concentration-of-ctions',
             component:'ConcentrationOfActions',
-            name:t("siderbar.concentration-of-actions"),
+            name:t("siderbar.concentrationOfActions"),
             onClick: handleNavClick
         },{
             key:'13',
             url:'/log-changes',
             component:'LogChanges',
-            name:t("siderbar.log-changes"),
+            name:t("siderbar.logChanges"),
             onClick: handleNavClick
         },
         ],
