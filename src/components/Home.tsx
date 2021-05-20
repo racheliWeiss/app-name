@@ -6,6 +6,10 @@ import Login from './Login';
 import Sidebar from './sidebar/Sidebar';
 import Subheading from '../shared/components/Subheading';
 import  '../scss/base.scss';
+import ContentSideCustomers from './sidebar/ContentSideCustomers';
+import SideCustomers from './sidebar/SideCustomers';
+import { SideMain } from './sidebar/SideMain';
+
 
 
 
@@ -15,8 +19,9 @@ const  Home=()=> {
     <div className="grid-container">
         <Header />
         {/* <Login/> */}
-      
-        
+        {/* <SideMain/>
+        <ContentSideCustomers/>
+        <SideCustomers /> */}
        
         <Sidebar/>
         {/* <Login/> */}

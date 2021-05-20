@@ -1,12 +1,14 @@
 .sub-header{
     display: flex;
-    
+    margin-inline-start:100vh ;
+    flex-flow: row wrap;
     // background-color: dimgrey;
 
 }
 
 .sub-header-buttom{
    display: flex;
+   justify-content: flex-start;
 }
 
 .title-componenta{
@@ -30,6 +32,7 @@
    height: 80px;
 }
 .sub-heading{
-  width: 175px;
-  height: 48px;
+  min-width: 175px;
+  min-height: 48px;
+
 }

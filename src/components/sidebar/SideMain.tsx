@@ -1,8 +1,7 @@
-import * as React from 'react';
-import {Nav, INavStyles, INavLinkGroup } from '@fluentui/react/lib/Nav';
+import * as react from 'react';
 import { } from '@fluentui/react/lib/Button';
-import { BrowserRouter, Route, Switch, useHistory,Link } from "react-router-dom";
-import { useTranslation } from 'react-i18next';
+import { Nav, INavStyles, INavLinkGroup, INavLink } from '@fluentui/react/lib/Nav';
+
 
 
 const navStyles: Partial<INavStyles> = { root: { width: 70 } };
@@ -44,7 +43,7 @@ const navStyles: Partial<INavStyles> = { root: { width: 70 } };
       },
     ],
   }]
-  export const SideOption: React.FunctionComponent = () => {
+  export const SideMain: React.FunctionComponent = () => {
    
     function linkClickHandler(event:any){
       event.preventDefault();
