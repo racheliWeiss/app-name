@@ -30,9 +30,10 @@ class Customer {
   MiddleName: string;
   CustomerCondition: Number;
   CustomerType: Number;
+  ViewNoteWhenPerformingAction:boolean;
   constructor(firstName: string = '', gender: Number = 0, statusCustomer: string = '', note = '',
     lastName = '', customerLock = false, dateOfBirth = new Date("2021-2-19"),
-    otherGender = '', middleName = '', otherCustomerStatus = '', customerCondition = 0, customerType = 0) {
+    otherGender = '', middleName = '', otherCustomerStatus = '', customerCondition = 0, customerType = 0,viewNoteWhenPerformingAction:boolean=false) {
     this.Gender = gender;
     this.StatusCustomer = statusCustomer;
     this.FirstName = firstName;
@@ -45,6 +46,7 @@ class Customer {
     this.OtherCustomerStatus = otherCustomerStatus;
     this.CustomerCondition = customerCondition;
     this.CustomerType = customerType;
+    this.ViewNoteWhenPerformingAction=viewNoteWhenPerformingAction
   }
 }
 
@@ -123,18 +125,19 @@ const CustomerDetails = () => {
 <CustomDropdown otherInputId={'othercustomerCondition'} hasOtherValue={true} options={statusCustomerArray} label={t('customerCondition')} onChange={updateUser} selectedKey={customer.CustomerCondition} id={'CustomerCondition'} othertextInput={t('othercustomerCondition')} />
 <CustomDropdown otherInputId={''} hasOtherValue={false} options={statusCustomerArray} label={t('customerStatus')} onChange={updateUser} selectedKey={customer.StatusCustomer} id={'StatusCustomer'} othertextInput={t('')} />
 <CustomDropdown otherInputId={''} hasOtherValue={false} options={statusCustomerArray} label={t('customerType')} onChange={updateUser} selectedKey={customer.CustomerType} id={'StatusCustomer'} othertextInput={t('')} />
-{/* <Stack tokens={stackTokens} styles={stackStyles} > */}
+<Stack styles={stackStyles} >
 
   <CustomDropdown otherInputId={'OtherGender'} hasOtherValue={true} options={genderArray} label={t('gander')} onChange={updateUser} selectedKey={customer.Gender} id={'Gender'} othertextInput={t('other')} />
-
+  <CustomDropdown otherInputId={''} hasOtherValue={true} options={genderArray} label={t('gander')} onChange={updateUser} selectedKey={customer.Gender} id={'Gender'} othertextInput={t('other')} />
+   
   <CustomTextFieldAddInput required={true} label={t('firstName')} onChange={updateUser} id={'FirstName'} iconProps={addIcon} otherInputId={'MiddleName'} othertextItnput={t("middleName")} />
   <CustomTextField required={true} label={t('lastName')} onChange={updateUser} id={'LastName'} />
   <CustomTextField required={true} label={t('dateOfBirth')} onChange={updateUser} id={'DateOfBirth'} />
   <CustomTextField required={true} label={t('customerNumber')} onChange={updateUser} id={'customerNumber'} />
   <TextFeildNote label={t('note')} onChange={updateUser} id={'Note'} />
-  <CustomTextFieldAddInput required={true} label={t('ViewNoteWhenPerformingAnAction')} onChange={updateUser} id={'FirstName'} iconProps={addIcon} otherInputId={'MiddleName'} othertextItnput={t("middleName")} />
+  <CustomToggle onText={t('viewNoteWhenPerformingAction')} onChange={updateUser} id={'ViewNoteWhenPerformingAnAction'} defaultChecked={true} />
 
-{/* </Stack> */}
+</Stack>
 
 {/* 
 

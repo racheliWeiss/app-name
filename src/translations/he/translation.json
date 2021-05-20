@@ -42,7 +42,9 @@
       "othercustomerCondition":"מעמד לקוח אחר",
       "customerCondition":"מעמד לקוח",
       "customerType":"סוג לקוח",
-      "customers":"לקוחות"
+      "customers":"לקוחות",
+      "viewNoteWhenPerformingAnAction":"הצגת הערה בעת ביצוע פעולה",
+      "busyFieldOrGeneralIndustry":"תחום עסוק/ענף כללי"
       
 
       
