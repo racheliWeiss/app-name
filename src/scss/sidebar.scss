@@ -6,23 +6,30 @@
     font-family: 'Font Awesome 5 Pro';
 }
 .sidebar{
-    display:flex;
-    justify-content:space-around;
-    height: 100%;
+    
     width: 230px;
+    height: 100vh;
+    box-sizing: border-box;
+    grid-area: side;
+    display: flex;
+    justify-content:space-around;
     background-color:white;
-    .choose{
-      width: 160px;
-      height:46px;
-      background-color: yellowgreen;
-      border:2px ;
-      border-style: solid;
-      border-color: red;
-    }p{
-        font-family: "Calibri";
-    }
+    // @media (min-width: 700px) {
+    //     overflow: auto;
+    //     flex-direction: column
+    // }
+    
+  
+    
+    
+    
 }
-// .dd{
+// display:flex;
+// justify-content:space-around;
+// height: 100vh;
+// width: 230px;
+// background-color:white;
+// // .dd{
 //     margin-left: 0px !important;
 // }
 

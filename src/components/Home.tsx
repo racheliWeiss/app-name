@@ -5,13 +5,14 @@ import Header from './Header';
 import Login from './Login';
 import Sidebar from './sidebar/Sidebar';
 import Subheading from '../shared/components/Subheading';
+import  '../scss/base.scss';
 
 
 
 
 const  Home=()=> {
     return(
-    <div>
+    <div className="grid-container">
         <Header />
         {/* <Login/> */}
       

@@ -1,9 +1,11 @@
 import React from "react";
-
+import '../scss/form.scss';
 
 const CustomerLocator=()=>{
     return(
-        <div></div>
+        <div className="form">
+            <h1>fg</h1>
+        </div>
     )
 }
 

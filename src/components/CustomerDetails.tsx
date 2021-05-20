@@ -89,30 +89,24 @@ const CustomerDetails = () => {
   return (
     <>
 
-<div className="container-fluid">
+<div className="from">
 
-<div className="row">
-  <div className="col-7"></div>
-  <div className="col-5">
+  
+  
     <Heading
       title={t("customers")} />
-    <div className="col sub-header-buttom d-flex flex-row">
+    {/* <div className="sub-header-buttom d-flex flex-r</div>ow"><div className="sub-header-buttom d-flex flex-row"> */}
       <PrimaryButton className='buttom' checked={false} text={t('createCustomer')} onClick={_alertClicked} iconProps={addFriend} />
       <DefaultButton className='buttom' checked={false} text={t('editing')} id={'Editing'} onClick={_alertClicked} iconProps={editContact} />
       <DefaultButton className='buttom' checked={false} iconProps={UserRemove} text={t('deletion')} id={'Deletion'} onClick={_alertClicked} />
       <DefaultButton className='buttom' checked={false} text={t('save')} id={'Save'} onClick={_alertClicked} />
-    </div>
-  </div>
-</div>
+    {/* </div> */}
+  
 
-
-</div >
-<div className="row">
-<div className="form">
 
 <Subheading title={t("customerDetails")} />
 
-{/* <div className="position"> */}
+{/* <div className=""> */}
 <b>{customer.Gender}</b>
 <br></br>
 <b>{customer.StatusCustomer}</b>
@@ -129,7 +123,7 @@ const CustomerDetails = () => {
 <CustomDropdown otherInputId={'othercustomerCondition'} hasOtherValue={true} options={statusCustomerArray} label={t('customerCondition')} onChange={updateUser} selectedKey={customer.CustomerCondition} id={'CustomerCondition'} othertextInput={t('othercustomerCondition')} />
 <CustomDropdown otherInputId={''} hasOtherValue={false} options={statusCustomerArray} label={t('customerStatus')} onChange={updateUser} selectedKey={customer.StatusCustomer} id={'StatusCustomer'} othertextInput={t('')} />
 <CustomDropdown otherInputId={''} hasOtherValue={false} options={statusCustomerArray} label={t('customerType')} onChange={updateUser} selectedKey={customer.CustomerType} id={'StatusCustomer'} othertextInput={t('')} />
-<Stack tokens={stackTokens} styles={stackStyles} >
+{/* <Stack tokens={stackTokens} styles={stackStyles} > */}
 
   <CustomDropdown otherInputId={'OtherGender'} hasOtherValue={true} options={genderArray} label={t('gander')} onChange={updateUser} selectedKey={customer.Gender} id={'Gender'} othertextInput={t('other')} />
 
@@ -155,13 +149,13 @@ const CustomerDetails = () => {
   // onChange={(e: any) => setLogin_entity_number(e.target.value)}
   />
 
-</Stack>
+{/* </Stack> */}
 
 {/* 
 
 </div> */}
 </div>
-</div>
+
     </>
   );
 }

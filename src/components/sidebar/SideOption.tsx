@@ -50,7 +50,7 @@ const navStyles: Partial<INavStyles> = { root: { width: 70 } };
       event.preventDefault();
      }
      return(
-      <Nav className="catgory" styles={navStyles} onLinkClick={linkClickHandler} ariaLabel="Nav example similar to one found in this demo page" groups={navLinkGroups} />
+      <Nav className="catgory" onLinkClick={linkClickHandler} ariaLabel="Nav example similar to one found in this demo page" groups={navLinkGroups} />
     );
   };
 
