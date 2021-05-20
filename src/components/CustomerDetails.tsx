@@ -132,22 +132,7 @@ const CustomerDetails = () => {
   <CustomTextField required={true} label={t('dateOfBirth')} onChange={updateUser} id={'DateOfBirth'} />
   <CustomTextField required={true} label={t('customerNumber')} onChange={updateUser} id={'customerNumber'} />
   <TextFeildNote label={t('note')} onChange={updateUser} id={'Note'} />
-  <TextField
-    required
-    label={t("customer.Customer-status")}
-  // onChange={(e: any) => setLogin_entity_number(e.target.value)}
-  />
-
-  <TextField
-    required
-    label={t("customer.last-name")}
-  // onChange={(e: any) => setLogin_entity_number(e.target.value)}
-  />
-  <TextField
-    required
-    label={t("customer.first-name")}
-  // onChange={(e: any) => setLogin_entity_number(e.target.value)}
-  />
+  <CustomTextFieldAddInput required={true} label={t('ViewNoteWhenPerformingAnAction')} onChange={updateUser} id={'FirstName'} iconProps={addIcon} otherInputId={'MiddleName'} othertextItnput={t("middleName")} />
 
 {/* </Stack> */}
 
