@@ -39,8 +39,9 @@
 .form{
      
     display: grid;
-    margin-inline-end:0px;
-    
+    grid-template-columns: 1fr 1fr;
+    margin-inline-start:7%;
+    // margin-inline-end:0px;
     // flex-wrap: wrap;
     // justify-content: space-around;
     
@@ -57,15 +58,26 @@
     // flex-grow: 1;
     
 }
-@media only screen and (min-width: 1800px) {
+@media only screen and (min-width: 700px) {
     .form{
-       
-        position: initial;
+ 
+        position: initial
       }
 } 
 
 .buttom{
     text-align: center;
 }
+.text-feild{
+    max-width: 282px;
+    max-height: 32px;
+    padding-top: 35px;
+    padding-bottom: 35px;
+    
+}
+.flex-container {
+    display: flex;
+    flex-direction: column;
+  }
 
 

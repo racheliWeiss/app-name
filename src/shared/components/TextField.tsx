@@ -1,9 +1,8 @@
 import { TextField, values } from '@fluentui/react';
 import React from 'react';
-import react from 'react';
 import ComponenetProps from '../../Models/ComponenetProps';
 import { useBoolean } from '@fluentui/react-hooks';
-
+import "../../scss/form.scss"
 import { IIconProps } from '@fluentui/react';
 import { Interface } from 'node:readline';
 
@@ -21,6 +20,7 @@ export const CustomTextField: React.FunctionComponent<MyProps> = (props) => {
     const [muted, { toggle: setMuted }] = useBoolean(false);
     const { onChange, label, id,required, iconProps} = props;
     return (
+        
         <TextField
             required={required?true:undefined}
             label={label}
@@ -29,8 +29,9 @@ export const CustomTextField: React.FunctionComponent<MyProps> = (props) => {
                  onChange(id, e.currentTarget.value)
             }}
             iconProps={iconProps}
+            className=" text-feild"
             onClick={setMuted}
-
+      
    // onChange={(e, selectedOption) => {
             //     console.log(e + "" + selectedOption);
             //     onChange(id,selectedOption?.key);

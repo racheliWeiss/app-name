@@ -1,7 +1,9 @@
 .sub-header{
     display: flex;
-    margin-inline-start:100vh ;
-    flex-flow: row wrap;
+    margin-inline-start:0px ;
+    // flex-flow: row wrap;
+    //  justify-content: space-around;
+
     // background-color: dimgrey;
 
 }
@@ -28,8 +30,9 @@
     color: #20201F;
 }
 .heading{
-   width: 152px;
-   height: 80px;
+   max-width: 152px;
+   max-height: 80px;
+   align-items: flex-end;
 }
 .sub-heading{
   min-width: 175px;

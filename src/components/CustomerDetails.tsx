@@ -30,13 +30,13 @@ class Customer {
   MiddleName: string;
   CustomerCondition: Number;
   CustomerType: Number;
-  ViewNoteWhenPerformingAction:boolean;
-  BusyFieldOrGeneralIndustry:Number;
-  CreditGroup:Number;
-  Agent:Number;
+  ViewNoteWhenPerformingAction: boolean;
+  BusyFieldOrGeneralIndustry: Number;
+  CreditGroup: Number;
+  Agent: Number;
   constructor(firstName: string = '', gender: Number = 0, statusCustomer: string = '', note = '',
     lastName = '', customerLock = false, dateOfBirth = new Date("2021-2-19"),
-    otherGender = '', middleName = '', otherCustomerStatus = '', customerCondition = 0, customerType = 0,viewNoteWhenPerformingAction:boolean=false,busyFieldOrGeneralIndustry:Number=0,creditGroup=0,agent=0) {
+    otherGender = '', middleName = '', otherCustomerStatus = '', customerCondition = 0, customerType = 0, viewNoteWhenPerformingAction: boolean = false, busyFieldOrGeneralIndustry: Number = 0, creditGroup = 0, agent = 0) {
     this.Gender = gender;
     this.StatusCustomer = statusCustomer;
     this.FirstName = firstName;
@@ -49,10 +49,10 @@ class Customer {
     this.OtherCustomerStatus = otherCustomerStatus;
     this.CustomerCondition = customerCondition;
     this.CustomerType = customerType;
-    this.ViewNoteWhenPerformingAction=viewNoteWhenPerformingAction
-    this.BusyFieldOrGeneralIndustry=busyFieldOrGeneralIndustry
-    this.CreditGroup=creditGroup
-    this.Agent=agent
+    this.ViewNoteWhenPerformingAction = viewNoteWhenPerformingAction
+    this.BusyFieldOrGeneralIndustry = busyFieldOrGeneralIndustry
+    this.CreditGroup = creditGroup
+    this.Agent = agent
   }
 }
 
@@ -67,12 +67,12 @@ const UserRemove: IIconProps = { iconName: 'UserRemove' }
 const CustomerDetails = () => {
   const [t, i18n] = useTranslation();
   const stackTokens = { childrenGap: 50 };
-  const stackStyles: Partial<IStackStyles> = { root: { width: 282, height: 32 } };
-  const columnProps: Partial<IStackProps> = {
-    tokens: { childrenGap: 15 },
-    styles: { root: { width: 300 } },
-  };
-  const ButtomStyle: Partial<IStackStyles> = { root: { width: 120, height: 35 } };
+  // const stackStyles: Partial<IStackStyles> = { root: { width: 282, height: 32 } };
+  // const columnProps: Partial<IStackProps> = {
+  //   tokens: { childrenGap: 15 },
+  //   styles: { root: { width: 300 } },
+  // };
+  // const ButtomStyle: Partial<IStackStyles> = { root: { width: 120, height: 35 } };
 
   const genderArray = [{ key: 1, text: t('male') }, { key: 2, text: t('female') }, { key: 3, text: t('other') }];
   const statusCustomerArray = [{ key: 'admin', text: t('admin') }, { key: 'user', text: t('user') }];
@@ -95,74 +95,77 @@ const CustomerDetails = () => {
 
 
   return (
-    <>
-
-<div className="from">
-
-  
-  <div className="sub-header">
-    <Heading
-      title={t("customers")} />
-    {/* <div className="sub-header-buttom d-flex flex-r</div>ow"><div className="sub-header-buttom d-flex flex-row"> */}
-      <PrimaryButton className='buttom' checked={false} text={t('createCustomer')} onClick={_alertClicked} iconProps={addFriend} />
-      <DefaultButton className='buttom' checked={false} text={t('editing')} id={'Editing'} onClick={_alertClicked} iconProps={editContact} />
-      <DefaultButton className='buttom' checked={false} iconProps={UserRemove} text={t('deletion')} id={'Deletion'} onClick={_alertClicked} />
-      <DefaultButton className='buttom' checked={false} text={t('save')} id={'Save'} onClick={_alertClicked} />
-    {/* </div> */}
-    </div>
 
 
-<Subheading title={t("customerDetails")} />
+    <div className="form">
+       {/* <div className="flex-container"> */}
+      {/* <Stack styles={stackStyles}> */}
 
-{/* <div className=""> */}
-<b>{customer.Gender}</b>
-<br></br>
-<b>{customer.StatusCustomer}</b>
-<br></br>
-<b>{customer.FirstName}</b>
-<b>{customer.LastName}</b>
-<b>{customer.Note}</b>
-<b>{customer.CustomerLock}</b>
-<b>{customer.FirstName}</b>
-{/* <b>{customer.DateOfBirth}</b> */}
+        <div className="sub-header">
+          <Heading
+            title={t("customers")} />
+          {/* <div className="sub-header-buttom d-flex flex-r</div>ow"><div className="sub-header-buttom d-flex flex-row"> */}
+          <PrimaryButton className='buttom' checked={false} text={t('createCustomer')} onClick={_alertClicked} iconProps={addFriend} />
+          <DefaultButton className='buttom' checked={false} text={t('editing')} id={'Editing'} onClick={_alertClicked} iconProps={editContact} />
+          <DefaultButton className='buttom' checked={false} iconProps={UserRemove} text={t('deletion')} id={'Deletion'} onClick={_alertClicked} />
+          <DefaultButton className='buttom' checked={false} text={t('save')} id={'Save'} onClick={_alertClicked} />
+          {/* </div> */}
+        </div>
 
-<CustomToggle onText={t('customerLock')} onChange={updateUser} id={'CustomerLock'} defaultChecked={true} />
-<p>{t('personalDetails')}</p>
-<CustomDropdown otherInputId={'othercustomerCondition'} hasOtherValue={true} options={statusCustomerArray} label={t('customerCondition')} onChange={updateUser} selectedKey={customer.CustomerCondition} id={'CustomerCondition'} othertextInput={t('othercustomerCondition')} />
-<CustomDropdown otherInputId={''} hasOtherValue={false} options={statusCustomerArray} label={t('customerStatus')} onChange={updateUser} selectedKey={customer.StatusCustomer} id={'StatusCustomer'} othertextInput={t('')} />
-<CustomDropdown otherInputId={''} hasOtherValue={false} options={statusCustomerArray} label={t('customerType')} onChange={updateUser} selectedKey={customer.CustomerType} id={'StatusCustomer'} othertextInput={t('')} />
 
-<Stack styles={stackStyles} >
+        <Subheading title={t("customerDetails")} />
 
-  <CustomTextFieldAddInput required={true} label={t('firstName')} onChange={updateUser} id={'FirstName'} iconProps={addIcon} otherInputId={'MiddleName'} othertextItnput={t("middleName")} />
-  <CustomTextField required={true} label={t('lastName')} onChange={updateUser} id={'LastName'} />
-  <CustomTextField required={true} label={t('dateOfBirth')} onChange={updateUser} id={'DateOfBirth'} />
-  
-  <CustomDropdown otherInputId={'OtherGender'} hasOtherValue={true} options={genderArray} label={t('gander')} onChange={updateUser} selectedKey={customer.Gender} id={'Gender'} othertextInput={t('other')} />
-  <CustomDropdown otherInputId={''} hasOtherValue={false} options={genderArray} label={t('busyFieldOrGeneralIndustry')} onChange={updateUser} selectedKey={customer.BusyFieldOrGeneralIndustry} id={'BusyFieldOrGeneralIndustry'} othertextInput={t('')} />
-  <CustomDropdown otherInputId={''} hasOtherValue={false} options={genderArray} label={t('creditGroup')} onChange={updateUser} selectedKey={customer.CreditGroup} id={'CreditGroup'} othertextInput={t('')} />
-  <CustomDropdown otherInputId={''} hasOtherValue={false} options={genderArray} label={t('agent')} onChange={updateUser} selectedKey={customer.Agent} id={'Agent'} othertextInput={t('')} />
+        {/* <div className=""> */}
+        <b>{customer.Gender}</b>
+        <br></br>
+        <b>{customer.StatusCustomer}</b>
+        <br></br>
+        <b>{customer.FirstName}</b>
+        <b>{customer.LastName}</b>
+        <b>{customer.Note}</b>
+        <b>{customer.CustomerLock}</b>
+        <b>{customer.FirstName}</b>
+        {/* <b>{customer.DateOfBirth}</b> */}
 
-  <CustomTextField required={true} label={t('idNumber')} onChange={updateUser} id={'customerNumber'} />
-  <CustomTextField required={true} label={t('customerNumber')} onChange={updateUser} id={'customerNumber'} />
-  <TextFeildNote label={t('note')} onChange={updateUser} id={'Note'} />
-  <CustomToggle onText={t('viewNoteWhenPerformingAction')} onChange={updateUser} id={'ViewNoteWhenPerformingAnAction'} defaultChecked={true} />
+        <CustomToggle onText={t('customerLock')} onChange={updateUser} id={'CustomerLock'} defaultChecked={true} />
+        <p>{t('personalDetails')}</p>
+        <CustomDropdown otherInputId={'othercustomerCondition'} hasOtherValue={true} options={statusCustomerArray} label={t('customerCondition')} onChange={updateUser} selectedKey={customer.CustomerCondition} id={'CustomerCondition'} othertextInput={t('othercustomerCondition')} />
+        <CustomDropdown otherInputId={''} hasOtherValue={false} options={statusCustomerArray} label={t('customerStatus')} onChange={updateUser} selectedKey={customer.StatusCustomer} id={'StatusCustomer'} othertextInput={t('')} />
+        <CustomDropdown otherInputId={''} hasOtherValue={false} options={statusCustomerArray} label={t('customerType')} onChange={updateUser} selectedKey={customer.CustomerType} id={'StatusCustomer'} othertextInput={t('')} />
+        {/* </Stack> */}
+        {/* <Stack styles={stackStyles} > */}
+        {/* <Stack styles={stackStyles}> */}
+          <CustomTextFieldAddInput required={true} label={t('firstName')} onChange={updateUser} id={'FirstName'} iconProps={addIcon} otherInputId={'MiddleName'} othertextItnput={t("middleName")} />
+          <CustomTextField required={true} label={t('lastName')} onChange={updateUser} id={'LastName'} />
+          <CustomTextField required={true} label={t('dateOfBirth')} onChange={updateUser} id={'DateOfBirth'} />
 
-</Stack>
+          <CustomDropdown otherInputId={'OtherGender'} hasOtherValue={true} options={genderArray} label={t('gander')} onChange={updateUser} selectedKey={customer.Gender} id={'Gender'} othertextInput={t('other')} />
+          <CustomDropdown otherInputId={''} hasOtherValue={false} options={genderArray} label={t('busyFieldOrGeneralIndustry')} onChange={updateUser} selectedKey={customer.BusyFieldOrGeneralIndustry} id={'BusyFieldOrGeneralIndustry'} othertextInput={t('')} />
+          <CustomDropdown otherInputId={''} hasOtherValue={false} options={genderArray} label={t('creditGroup')} onChange={updateUser} selectedKey={customer.CreditGroup} id={'CreditGroup'} othertextInput={t('')} />
+          <CustomDropdown otherInputId={''} hasOtherValue={false} options={genderArray} label={t('agent')} onChange={updateUser} selectedKey={customer.Agent} id={'Agent'} othertextInput={t('')} />
 
-{/* 
+          <CustomTextField required={true} label={t('idNumber')} onChange={updateUser} id={'customerNumber'} />
+          <CustomTextField required={true} label={t('customerNumber')} onChange={updateUser} id={'customerNumber'} />
+          {/* <TextFeildNote label={t('note')} onChange={updateUser} id={'Note'} /> */}
+          <CustomToggle onText={t('viewNoteWhenPerformingAction')} onChange={updateUser} id={'ViewNoteWhenPerformingAnAction'} defaultChecked={true} />
+
+          {/* </Stack> */}
+
+          {/* 
 
 </div> */}
-</div>
+        {/* </Stack> */}
+        </div>
+      // </div>
 
-    </>
+
   );
 }
 
 
 
 function _alertClicked(): void {
-  alert('Clicked');
+        alert('Clicked');
 }
 
 
