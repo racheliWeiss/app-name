@@ -1,41 +1,66 @@
 .sub-header{
     display: flex;
-    margin-inline-start:0px ;
+    // flex-direction: row;
+
+     padding-inline-end: 30px;
+
+   
+   justify-content:space-between;
+    // margin-inline-start:0px ;
+
     // flex-flow: row wrap;
     //  justify-content: space-around;
 
     // background-color: dimgrey;
 
 }
+.divider {
+  display: flex;
+ 
+  flex: 0.8;
+}
 
 .sub-header-buttom{
    display: flex;
-   justify-content: flex-start;
-}
+   flex-basis: auto;
 
-.title-componenta{
-    font-family: Segoe UI;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 48px;
-    line-height: 133.51%;
-    /* or 64px */
-    
-    display: flex;
-    align-items: center;
-    text-align: right;
-    
-    /* Gray Dark */
-    
-    color: #20201F;
+  
+   
+  //  justify-content: flex-end;
+  
 }
-.heading{
-   max-width: 152px;
-   max-height: 80px;
-   align-items: flex-end;
+.button{
+  margin-top: 12px;
 }
-.sub-heading{
-  min-width: 175px;
-  min-height: 48px;
+.title{
+  font-family: Segoe UI;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 48px;
+  line-height: 133.51%;
+  // flex-shrink: 0;
+  /* or 64px */
+
+  display: flex;
+  align-items: center;
+
+
+  /* Gray Dark */
+
+ color: #20201F;
+}
+// .heading{
+//    max-width: 152px;
+//    max-height: 80px;
+//    align-items: flex-end;
+// }
+.subtitle {
+ 
+  font-family: Segoe UI;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 36px;
+  line-height: 133.51%;
+  color: #1A1F71;
 
 }

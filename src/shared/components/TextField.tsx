@@ -60,6 +60,7 @@ export const CustomTextFieldAddInput: React.FunctionComponent<AddInputProp> = (p
             }}
             iconProps={iconProps}
             onClick={setMuted}
+            className="text-feild"
 
    // onChange={(e, selectedOption) => {
             //     console.log(e + "" + selectedOption);

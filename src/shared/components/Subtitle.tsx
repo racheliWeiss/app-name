@@ -5,13 +5,13 @@ interface Title{
     title:string
 }
 
-const Subheading=(prop:Title)=>{
+const Subtitle =(prop:Title)=>{
     return(
-        <div  className="sub-heading">
-        <h1 >{prop.title}</h1>
+        <div  >
+        <h1 className="subtitle ">{prop.title}</h1>
         </div>
         // className="subBar"
     )
 }
 
-export default Subheading;
+export default Subtitle;

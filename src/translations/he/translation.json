@@ -44,9 +44,12 @@
       "customerType":"סוג לקוח",
       "customers":"לקוחות",
       "viewNoteWhenPerformingAction":"הצגת הערה בעת ביצוע פעולה",
-      "busyFieldOrGeneralIndustry":"תחום עסוק/ענף כללי",
+      "areaOfPracticeOrIndustry":"תחום עסוק/ענף כלכלי",
       "creditGroup":"קבוצת אשראי",
-      "agent":"סוכן"
+      "agent":"סוכן",
+      "identityDetails":"פרטי זהוי",
+      "typeIdentityNumber":"סוג מספר זהות",
+      "typeIdentityNumberOther":"סוג מספר זהות אחר"
 
       
 
