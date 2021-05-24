@@ -11,14 +11,20 @@ interface MyProps extends ComponenetProps {
     label?: string,
     required?:boolean,
     iconProps ?: IIconProps
-    
+    type?:string,
+    nameOfClassStyle?:string
+ 
 
     // ?:IIconProps
 }
 
+
 export const CustomTextField: React.FunctionComponent<MyProps> = (props) => {
-    const [muted, { toggle: setMuted }] = useBoolean(false);
-    const { onChange, label, id,required, iconProps} = props;
+    // const [muted, { toggle: setMuted }] = useBoolean(false); 
+    const { onChange, label, id,required, iconProps ,type ,nameOfClassStyle="text-field"} = props;
+    // if(nameOfClassStyle===undefined){
+    //       const nameOfClassStyle="text-field"
+    // }
     return (
         
         <TextField
@@ -29,8 +35,9 @@ export const CustomTextField: React.FunctionComponent<MyProps> = (props) => {
                  onChange(id, e.currentTarget.value)
             }}
             iconProps={iconProps}
-            className=" text-feild"
-            onClick={setMuted}
+            className={nameOfClassStyle}
+            type={type}
+            // onClick={setMuted}
       
    // onChange={(e, selectedOption) => {
             //     console.log(e + "" + selectedOption);
@@ -60,7 +67,8 @@ export const CustomTextFieldAddInput: React.FunctionComponent<AddInputProp> = (p
             }}
             iconProps={iconProps}
             onClick={setMuted}
-            className="text-feild"
+            className="text-field"
+            
 
    // onChange={(e, selectedOption) => {
             //     console.log(e + "" + selectedOption);
@@ -71,7 +79,10 @@ export const CustomTextFieldAddInput: React.FunctionComponent<AddInputProp> = (p
         />
         {muted  ? <CustomTextField required={true} label={othertextItnput} onChange={onChange} id={otherInputId} /> : false}
         </>
+
     );
 
 }
+
+
 

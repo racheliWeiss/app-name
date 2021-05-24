@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import '../scss/form.scss';
 import Subheading from "../shared/components/Subtitle";
 import { useTranslation } from 'react-i18next';
-import { Calendar, DefaultButton, DropdownMenuItemType, IContextualMenuItem, IContextualMenuProps, ITextFieldStyles, PrimaryButton, TextField } from "@fluentui/react";
+import { Calendar, DefaultButton, DropdownMenuItemType, IconButton, IContextualMenuItem, IContextualMenuProps, ITextFieldStyles, PrimaryButton, TextField } from "@fluentui/react";
 import { useConst } from '@fluentui/react-hooks';
 import { IStackProps, IStackStyles, Stack } from '@fluentui/react/lib/Stack';
 import { CustomDropdown } from "../shared/components/Option";
@@ -37,12 +37,21 @@ class Customer {
   AreaOfPracticeIndustry: Number;
   CreditGroup: Number;
   Agent: Number;
-  TypeIdentityNumber:Number;
-  TypeIdentityNumberOther:string;
+  TypeIdentityNumber: Number;
+  TypeIdentityNumberOther: string;
+  CountryIdentityNumber: string;
+  NameIDEmployee: Number;
+  Adress: string;
+  HouseNumber: Number;
+  AddressCity: string
+  IDCountryCode: string;
+  Telephone: string;
+  TelephoneCountryCode: Number;
+  Email: string;
   constructor(firstName: string = '', gender: Number = 0, customerStatus: string = '', note = '',
     lastName = '', customerLock = false, dateOfBirth = new Date("2021-2-19"),
     otherGender = '', middleName = '', otherCustomerStatus = '', customerCondition = 0, customerType = 0, viewNoteWhenPerformingAction: boolean = false, areaOfPracticeIndustry: Number = 0, creditGroup = 0, agent = 0,
-    typeIdentityNumber=0,typeIdentityNumberOther='') {
+    typeIdentityNumber = 0, typeIdentityNumberOther = '', countryIdentityNumber = '', nameIDEmployee = 0, adress = '', houseNumber = 0, addressCity = '', iDCountryCode = '', telephone = '', telephoneCountryCode = 0, email = '') {
     this.Gender = gender;
     this.CustomerStatus = customerStatus;
     this.FirstName = firstName;
@@ -59,8 +68,17 @@ class Customer {
     this.AreaOfPracticeIndustry = areaOfPracticeIndustry;
     this.CreditGroup = creditGroup;
     this.Agent = agent;
-    this.TypeIdentityNumber=typeIdentityNumber
-    this.TypeIdentityNumberOther=typeIdentityNumberOther
+    this.TypeIdentityNumber = typeIdentityNumber
+    this.TypeIdentityNumberOther = typeIdentityNumberOther
+    this.CountryIdentityNumber = countryIdentityNumber
+    this.NameIDEmployee = nameIDEmployee;
+    this.Adress = adress;
+    this.HouseNumber = houseNumber;
+    this.AddressCity = addressCity;
+    this.IDCountryCode = iDCountryCode;
+    this.Telephone = telephone
+    this.TelephoneCountryCode = telephoneCountryCode;
+    this.Email = email
   }
 }
 
@@ -68,7 +86,12 @@ class Customer {
 const addIcon: IIconProps = { iconName: 'Add' };
 const addFriend: IIconProps = { iconName: 'AddFriend' }
 const editContact: IIconProps = { iconName: 'EditContact' }
-const UserRemove: IIconProps = { iconName: 'UserRemove' }
+const userRemove: IIconProps = { iconName: 'UserRemove' }
+const calendar: IIconProps = { iconName: 'Calendar' };
+const cloudUpload: IIconProps = { iconName: 'CloudUpload' };
+
+
+
 
 
 
@@ -114,79 +137,132 @@ const CustomerDetails = () => {
         <Title
           title={t("customers")} />
         <div className="divider"></div>
-        {/* <div className="sub-header-buttom"> */}
-        {/* // </div>ow"><div className="sub-header-buttom d-flex flex-row"> */}
         <PrimaryButton className='button' checked={false} text={t('createCustomer')} onClick={_alertClicked} iconProps={addFriend} />
         <DefaultButton className='button' checked={false} text={t('editing')} id={'Editing'} onClick={_alertClicked} iconProps={editContact} />
-        <DefaultButton className='button' checked={false} iconProps={UserRemove} text={t('deletion')} id={'Deletion'} onClick={_alertClicked} />
-        <DefaultButton className='button' checked={false} text={t('save')} id={'Save'} onClick={_alertClicked} />
-        {/* </div> */}
-        {/* </div> */}
+        <DefaultButton className='button' checked={false} iconProps={userRemove} text={t('deletion')} id={'Deletion'} onClick={_alertClicked} />
+        <DefaultButton className='button' checked={false} text={t('save')} id={'Save'} onClick={_alertClicked} iconProps={cloudUpload} />
+        <IconButton
+        iconProps={{ iconName: 'PDF' }}
+        styles={{
+          icon: {color: 'red', fontSize: 36}
+          
+        }}
+        className="button"
+      />
+       <IconButton
+        iconProps={{ iconName: 'Print' }}
+        styles={{
+          icon: {color: 'black', fontSize: 36}
+          
+        }}
+        className="button"
+      />
+         <IconButton
+        iconProps={{ iconName: 'Print' }}
+        styles={{
+          icon: {color: 'black', fontSize: 36}
+          
+        }}
+        className="button"
+      />
       </div>
 
       <div className="content-wrapper">
 
 
 
-        <Subtitle title={t("customerDetails")} />
-        <div></div>
-        <p className="title-text">{t('personalDetails')}</p>
-        <CustomToggle onText={t('customerLock')} onChange={updateUser} id={'CustomerLock'} defaultChecked={true} />
-        <hr className="hr"></hr>
+          <Subtitle title={t("customerDetails")} />
+          <div></div>
+          <p className="title-text">{t('personalDetails')}</p>
+          <CustomToggle onText={t('customerLock')} onChange={updateUser} id={'CustomerLock'} defaultChecked={false} offText={t('customerLock')}/>
           <hr className="hr"></hr>
-        <div>
-        <CustomDropdown otherInputId={'othercustomerCondition'} hasOtherValue={true} options={statusCustomerArray} label={t('customerCondition')} onChange={updateUser} selectedKey={customer.CustomerCondition} id={'CustomerCondition'} othertextInput={t('othercustomerCondition')} />
-        </div>
-       
-        <div>
-        <CustomDropdown otherInputId={''} hasOtherValue={false} options={statusCustomerArray} label={t('customerStatus')} onChange={updateUser} selectedKey={customer.CustomerStatus} id={'CustomerStatus'} othertextInput={t('')} />
-   
-        <CustomDropdown otherInputId={''} hasOtherValue={false} options={statusCustomerArray} label={t('customerType')} onChange={updateUser} selectedKey={customer.CustomerType} id={'CustomerType'} othertextInput={t('')} />
-        {/* </Stack> */}
-        </div>
-        <hr ></hr>
-        <hr ></hr>
-        {/* <Stack styles={stackStyles} > */}
-        {/* <Stack styles={stackStyles}> */}
-        <div>
-          <CustomTextFieldAddInput required={true} label={t('firstName')} onChange={updateUser} id={'FirstName'} iconProps={addIcon} otherInputId={'MiddleName'} othertextItnput={t("middleName")} />
-         
-          <CustomTextField required={true} label={t('lastName')} onChange={updateUser} id={'LastName'} />
-          <CustomTextField required={true} label={t('dateOfBirth')} onChange={updateUser} id={'DateOfBirth'} />
+          <hr className="hr text-width"></hr>
+          <div>
+            <CustomDropdown otherInputId={'othercustomerCondition'} hasOtherValue={true} options={statusCustomerArray} label={t('customerCondition')} onChange={updateUser} selectedKey={customer.CustomerCondition} id={'CustomerCondition'} othertextInput={t('othercustomerCondition')} />
+          </div>
 
-          <CustomDropdown otherInputId={'OtherGender'} hasOtherValue={true} options={genderArray} label={t('gander')} onChange={updateUser} selectedKey={customer.Gender} id={'Gender'} othertextInput={t('other')} />
-          <p className="title-text">{t("identityDetails")}</p>
+          <div>
+            <CustomDropdown otherInputId={''} hasOtherValue={false} options={statusCustomerArray} label={t('customerStatus')} onChange={updateUser} selectedKey={customer.CustomerStatus} id={'CustomerStatus'} othertextInput={t('')} />
+
+            <CustomDropdown otherInputId={''} hasOtherValue={false} options={statusCustomerArray} label={t('customerType')} onChange={updateUser} selectedKey={customer.CustomerType} id={'CustomerType'} othertextInput={t('')} />
+            {/* </Stack> */}
+          </div>
+          <hr ></hr>
+          <hr className="text-width"></hr>
+          {/* <Stack styles={stackStyles} > */}
+          {/* <Stack styles={stackStyles}> */}
+          <div>
+            <CustomTextFieldAddInput required={true} label={t('firstName')} onChange={updateUser} id={'FirstName'} iconProps={addIcon} otherInputId={'MiddleName'} othertextItnput={t("middleName")} />
+
+            <CustomTextField required={true} label={t('lastName')} onChange={updateUser} id={'LastName'} />
+            <CustomTextField required={true} label={t('dateOfBirth')} onChange={updateUser} id={'DateOfBirth'} iconProps={calendar} />
+
+            <CustomDropdown otherInputId={'OtherGender'} hasOtherValue={true} options={genderArray} label={t('gander')} onChange={updateUser} selectedKey={customer.Gender} id={'Gender'} othertextInput={t('other')} />
+            <p className="title-text">{t("identityDetails")}</p>
           </div>
           <div>
-          <CustomDropdown otherInputId={''} hasOtherValue={false} options={genderArray} label={t('areaOfPracticeOrIndustry')} onChange={updateUser} selectedKey={customer.AreaOfPracticeIndustry} id={'AreaOfPracticeOrIndustry'} othertextInput={t('')} />
-        
-          <CustomDropdown otherInputId={''} hasOtherValue={false} options={genderArray} label={t('creditGroup')} onChange={updateUser} selectedKey={customer.CreditGroup} id={'CreditGroup'} othertextInput={t('')} />
-          <CustomDropdown otherInputId={''} hasOtherValue={false} options={genderArray} label={t('agent')} onChange={updateUser} selectedKey={customer.Agent} id={'Agent'} othertextInput={t('')} />
-         
+            <CustomDropdown otherInputId={''} hasOtherValue={false} options={genderArray} label={t('areaOfPracticeOrIndustry')} onChange={updateUser} selectedKey={customer.AreaOfPracticeIndustry} id={'AreaOfPracticeOrIndustry'} othertextInput={t('')} />
+
+            <CustomDropdown otherInputId={''} hasOtherValue={false} options={genderArray} label={t('creditGroup')} onChange={updateUser} selectedKey={customer.CreditGroup} id={'CreditGroup'} othertextInput={t('')} />
+            <CustomDropdown otherInputId={''} hasOtherValue={false} options={genderArray} label={t('agent')} onChange={updateUser} selectedKey={customer.Agent} id={'Agent'} othertextInput={t('')} />
+
           </div>
-         
-        
-          <hr></hr>
-          <hr></hr>
+
+
+          <hr className="hr"></hr>
+          <hr className="hr text-width"></hr>
           <div>
+
+            <CustomTextField required={true} label={t('identityNumber')} onChange={updateUser} id={'customerNumber'} />
+            <CustomDropdown otherInputId={'typeIdentityNumberOther'} hasOtherValue={true} options={genderArray} label={t('typeIdentityNumber')} onChange={updateUser} selectedKey={customer.TypeIdentityNumber} id={'TypeIdentityNumberOther'} othertextInput={t('typeIdentityNumberOther')} />
+            <CustomDropdown otherInputId={''} hasOtherValue={false} options={[]} label={t('countryIdentityNumber')} onChange={updateUser} selectedKey={customer.CountryIdentityNumber} id={'CountryIdentityNumber'} othertextInput={t('')} />
+            <p className="title-text">{t('contactInformation')}</p>
+
+          </div>
+          <div>
+            <CustomDropdown otherInputId={''} hasOtherValue={false} options={[]} label={t('nameIDEmployee')} onChange={updateUser} selectedKey={customer.NameIDEmployee} id={'NameIDEmployee'} othertextInput={t('')} />
+
+
+            <CustomTextField required={true} label={t('customerNumber')} onChange={updateUser} id={'customerNumber'} />
+
+
+          </div>
+          <hr className="hr"></hr>
+          <hr className="hr text-width"></hr>
+
+          <div>
+            <p className="title-text">{t('address')}</p>
+            <hr className="hr text-width"></hr>
+            <CustomTextField required={true} label={t('address')} onChange={updateUser} id={'Adress'} />
+            <CustomTextField required={true} label={t('houseNumber')} onChange={updateUser} id={'HouseNumber'} />
+            <CustomDropdown otherInputId={''} hasOtherValue={false} options={[]} label={t('city')} onChange={updateUser} selectedKey={customer.AddressCity} id={'AddressCity'} othertextInput={t('')} />
+
+            <CustomDropdown otherInputId={''} hasOtherValue={false} options={[]} label={t('country')} onChange={updateUser} selectedKey={customer.IDCountryCode} id={'IDCountryCode'} othertextInput={t('')} />
+
+          </div>
+          <div>
+            <p className="title-text">{t('phone')}</p>
+            <hr className="hr text-width"></hr>
+            <CustomTextField required={true} label={t('phone')} onChange={updateUser} id={'Telephone'} />
+            <CustomDropdown otherInputId={''} hasOtherValue={false} options={[]} label={t('countryPhone')} onChange={updateUser} selectedKey={customer.TelephoneCountryCode} id={'TelephoneCountryCode'} othertextInput={t('')} />
+            <p className="title-text">{t('email')}</p>
+            <hr className="hr text-width"></hr>
+            <CustomTextField required={true} label={t('emailAddress')} onChange={updateUser} id={'Email'} type='email' />
+
+          </div>
+          <p className="title-text">{t('note')}</p>
+          <div>
+            <p></p>
+            <CustomToggle onText={t('viewNoteWhenPerformingAction')} onChange={updateUser} id={'ViewNoteWhenPerformingAnAction'} defaultChecked={true} offText={t('viewNoteWhenPerformingAction')} />
+          </div>
+          <hr className="hr"></hr>
+          <hr className="hr text-width"></hr>
+
+
+        </div>
+        <TextFeildNote label={t('')} onChange={updateUser} id={'Note'} />
           
-          <CustomTextField required={true} label={t('idNumber')} onChange={updateUser} id={'customerNumber'} />
-          <CustomDropdown otherInputId={'typeIdentityNumberOther'} hasOtherValue={false} options={genderArray} label={t('typeIdentityNumber')} onChange={updateUser} selectedKey={customer.TypeIdentityNumber} id={'TypeIdentityNumberOther'} othertextInput={t('typeIdentityNumberOther')} />
 
-          </div>
-          <div>
-          <CustomTextField required={true} label={t('customerNumber')} onChange={updateUser} id={'customerNumber'} />
-         
-          {/* <TextFeildNote label={t('note')} onChange={updateUser} id={'Note'} /> */}
-          <CustomToggle onText={t('viewNoteWhenPerformingAction')} onChange={updateUser} id={'ViewNoteWhenPerformingAnAction'} defaultChecked={true} />
-          </div>
-          {/* </Stack> */}
-
-          {/* 
-
-
-        {/* </Stack> */}
-        </div>
      
    
 

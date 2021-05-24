@@ -2,19 +2,22 @@
     display: flex;
     z-index: 100;
     background: #1A1F71;
-    align-items: center;
-    justify-content: center;
     grid-area: header;
     padding: 20px;
     position: fixed;
     top: 0;
     width: 100%;
     height: 70px;
+    justify-content:space-between;
     // border: 1px solid rgba(17, 87, 144, 0.67);
     // -webkit-box-shadow: 0px 4px 13px -2px rgba(0,0,0,0.75);
     // -moz-box-shadow: 0px 4px 13px -2px rgba(0,0,0,0.75);
     // box-shadow: 0px 4px 13px -2px rgba(0,0,0,0.75);
 }
+.user{
+    display: flex;
+}
+
    
     @media only screen and (max-width: 1920px) {
         .header{
@@ -23,7 +26,59 @@
           }
     } 
    
-   
+.user-name{
     
+   
+   
+    top: 0px;
+    
+    font-family: Calibri;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 18px;
+    // line-height: 22px;
+    /* identical to box height */
+    
+    // text-align: right;
+    // letter-spacing: 0.15em;
+    
+    color: #FFFFFF;
+    
+    
+}
+.logout{
+    font-family: Calibri;
+   font-style: normal;
+   font-weight: bold;
+ font-size: 18px;
+   line-height: 22px;
+   color: #FAF9F8;
+   padding-inline-start:20px;
+
+
+}
+.logoutIcon{
+    color:  #FAF9F8;
+    // font-family: Font Awesome 5 Pro;
+font-style: normal;
+font-weight: 800;
+font-size: 20px;
+padding-inline-start: 7px;
+}
+.divider {
+    display: flex;
+   
+    flex: 2;
+  }
+    
+.name-company{
+    margin-inline-end:2px;
+    font-family: Cairo;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 18px;
+   
+   color: #FFFFFF;
+}
     
    

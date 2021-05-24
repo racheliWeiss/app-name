@@ -50,7 +50,7 @@ export const CustomDropdown: React.FunctionComponent<MyProps> = (props) => {
           }}
           options={options}
           required
-          className=" text-feild"
+          className=" text-field"
           // styles={dropdownStyles}
 
         ></Dropdown>

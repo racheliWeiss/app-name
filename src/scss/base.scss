@@ -1,12 +1,15 @@
-
-html{
-    width:100vw;
-    min-height: 100vh;
-    ;
-    // width: 100vw;
-    // height: 100vh;
+// html{
+//     max-width:1920px
+//     ;
+// }
+// html{
+    
+//     min-height: 1800px;
+    
+//     // width: 100vw;
+//     // height: 100vh;
  
-}
+// }
 // .grid-container{
 //     display: grid;
 //     // 
@@ -35,13 +38,17 @@ html{
        "side main main main main " 
        " side main main main main "
        "side main main main main " ;
-    
+     
     overflow: auto;
+    min-height: 100%;
+
    
 }
 @media only screen and (min-width: 767px){
     .grid-container{
         margin-top: 0px;
+        // min-height: 1800px;
+
         grid-template-areas:
         "header header  header  header  header"
       " side main main main main "
