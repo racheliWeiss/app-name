@@ -34,10 +34,10 @@
     grid-template-columns: 1fr 4fr ;
     grid-template-areas: 
       "header header  header  header  header"
-      " side main main main main "
-       "side main main main main " 
-       " side main main main main "
-       "side main main main main " ;
+      " side   main   main    main    main "
+       "side    main  main    main    main " 
+       " side   main   main   main    main "
+       "side   main    main   main    main " ;
      
     overflow: auto;
     min-height: 100%;
@@ -77,5 +77,4 @@
   title{
       font-family: 'font';
   }
-
   

@@ -18,6 +18,8 @@ import Documents from '../Documents';
 import MoneyLaundering from '../MoneyLaundering';
 import ConcentrationOfActions from '../ConcentrationOfActions';
 import LogChanges from '../LogChanges';
+import Home from '../Home';
+import HomePage from '../HomePage';
 
 
 
@@ -33,6 +35,7 @@ import LogChanges from '../LogChanges';
         <div>
     
          <Switch>
+           <Route exact path='/home-page'component={HomePage}/>
             <Route exact path="/customer-search" component={CustomerLocator} />
             <Route exact path='/customer-details' component={CustomerDetails}/> 
             <Route exact path='/contact' component={Contact}/> 

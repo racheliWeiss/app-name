@@ -4,7 +4,7 @@ import { Provider } from 'react-redux'
 import store from '../store/configureStore';
 import { i18n } from "../translations/i18n";
 import Login from './Login';
-import  '../scss/base.scss';
+// import  '../scss/base.scss';
 import { useState } from 'react';
 import Home from './Home';
 
@@ -34,7 +34,7 @@ function App() {
 {/*    
       <Login/> */}
        <Home/>
-     
+     {/* <Login/> */}
     
     </Provider>
   );

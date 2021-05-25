@@ -1,0 +1,34 @@
+.grid-container{
+    display: grid;
+    
+    grid-template-columns: 1fr 1fr ;
+    align-items: center;
+    overflow: auto;
+    min-height: 100%;
+    
+}
+.login{
+    display: flex;
+    flex-direction: column;
+   
+    // grid-template-rows: auto;
+    margin-inline-start: 10%;
+    margin-top: 20%;
+    
+
+
+}
+.text-field{
+  
+    max-width: 350px;
+   
+    padding-bottom:20px;
+    text-align: center;
+    
+    // padding-top: 35px;
+    // padding-bottom: 35px;
+    
+}
+.button{
+    max-width: 350px;
+}

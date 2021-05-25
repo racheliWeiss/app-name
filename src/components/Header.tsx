@@ -16,9 +16,11 @@ const Header = () => {
              <p className="logout">יציאה</p>
              <IconButton
         iconProps={{ iconName: 'NavigateBack'}}
+        className="icon"
         styles={{
           icon: { color:'white',fontSize: 24},
           root: { selectors: {
+            
             ':hover .ms-Button-icon': {
               color: '#FFB400'
             },
@@ -28,6 +30,7 @@ const Header = () => {
             },
            
         },
+        
         rootHovered: {backgroundColor: '1A1F71'},
         // rootPressed: {backgroundColor: 'blue'}
 

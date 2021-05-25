@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react';
+import '../scss/login.scss';
 import axios from "axios";
 import { connect } from 'react-redux';
 import { actions } from '../store/action';
 import { TextField, MaskedTextField } from '@fluentui/react/lib/TextField';
 import { Stack, IStackProps, IStackStyles } from '@fluentui/react/lib/Stack';
 import React from 'react';
-import { initializeIcons } from '@fluentui/react';
+import { initializeIcons, PrimaryButton } from '@fluentui/react';
 import { useTranslation } from 'react-i18next';
 import { login } from '../shared/services/login.service';
 import { LoginUser } from '../Models/LoginUser';
@@ -65,21 +66,20 @@ function Login() {
 
 
     return (
-        <div className="container-fluid">
+        <div className="grid-container">
             {/* <div className=""> */}
-            <form onSubmit={(e) => LoginTime(e)}>
-                <div className="row" >
+            <form className="login"onSubmit={(e) => LoginTime(e)}>
+                {/* <div className="row" > */}
                     
-                        <div className=" col-lg-4">
-                            <Stack horizontal tokens={stackTokens} >
+                        {/* <div className=" col-lg-4"> */}
+                            {/* <Stack horizontal tokens={stackTokens} > */}
 
-                                <Stack {...columnProps}>
-
+                                {/* <Stack {...columnProps}> */}
+                   
                                     <TextField
 
-                                        className="p-2 bg"
+                                        className="text-field"
                                         required
-                                        iconProps={iconProps }
                                         placeholder={t("login.business")}
                                         
                                         onChange={(e:any) =>setLogin_entity_number(e.target.value)}
@@ -88,7 +88,7 @@ function Login() {
 
                                     <TextField
 
-                                        className="p-2 bg"
+                                        className="text-field"
                                         required
                                         placeholder={t("login.userName")}
                                         
@@ -98,26 +98,28 @@ function Login() {
                                     />
                                     {/* <div className="d-flex p-2 bd-highlight"></div> */}
                                     <TextField
-                                        className="p-2 bg"
+                                        className="text-field"
                                         type="password"
                                         placeholder={t("login.password")}
-                                        
+                                        required
                                         canRevealPassword
                                         revealPasswordAriaLabel="Show password"
                                         onChange={(e:any) => setLogin_password(e.target.value)}
 
-                                    />
+                                    /> 
+                                    
+                                    <PrimaryButton className='button' checked={false} text={t('login.sigin')} type="submit" />
+                                  
+                                {/* </Stack> */}
 
-                                    <button type="submit">{t("login.sigin")}</button>
-                                </Stack>
-
-                            </Stack>
-                        </div >
+                            {/* </Stack> */}
+                        {/* </div > */}
                     
-                    <div className="picture col-lg-6" >link to img </div>
+                   
 
-                </div >
+                {/* </div > */}
             </form>
+            <div className="picture" >link to img </div>
         </div >
 
     );

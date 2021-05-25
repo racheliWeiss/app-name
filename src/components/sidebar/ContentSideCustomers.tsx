@@ -1,11 +1,13 @@
 import React from "react";
 import { Nav } from "@fluentui/react/lib/Nav";
 import "../../scss/sidebar.scss";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCode } from '@fortawesome/free-solid-svg-icons';
 
 import { INavStyles, INavLinkGroup, INavLink } from "@fluentui/react/lib/Nav";
 import { initializeIcons } from "@fluentui/react/lib/Icons";
 import { withRouter } from "react-router-dom";
-
+import '../../scss/sidebar.scss'
 import { useTranslation } from "react-i18next";
 
 const navStyles: Partial<INavStyles> = { root: { width: 160 } };
@@ -24,23 +26,46 @@ const Sidebar = (props: any) => {
     {
       links: [
         {
-          key: "Breadcrumb",
-          iconProps: { iconName: "Sunny" },
+           key:"home-page",
+           className:"side-sub",
+           iconProps: { iconName: "Home" }
+           , styles: {
+             icon: { color: '#1A1F71' }
+           },
+           name: t("siderbar.homePage"),
+           url:"home-page",
+           onClick: handleNavClick
+           
+        },
+        {
+          key: "customer-search",
+          iconProps: { iconName: "Search" },
+          styles: {
+            icon: { color: '#1A1F71' }
+          },
           name: t("siderbar.customerSearch"),
           url: "/customer-search",
           onClick: handleNavClick
         },
         {
           key: "customer-details",
-          iconProps: { iconName: "Sunny" },
+          iconProps: { iconName: "Search" },
+          styles: {
+            icon: { color: '#1A1F71' }
+          },
           url: "/customer-details",
           name: t("siderBar.customerDetails"),
+          
           component: "CustomerDetails",
           onClick: handleNavClick
         },
         {
           key: "3",
-          iconProps: { iconName: "Sunny" },
+          iconProps: { iconName: "ContactCard " },
+         
+          styles: {
+            icon: { color: 'blue' }
+          },
           url: "/contact",
           component: "Contact",
           name: t("siderbar.contact"),
@@ -80,7 +105,7 @@ const Sidebar = (props: any) => {
         },
         {
           key: "8",
-          iconProps: { iconName: "Sunny" },
+          iconProps: <FontAwesomeIcon icon={faCode} />,
           url: "/bank-accounts",
           component: "BankAccounts",
           name: t("siderbar.bankAccounts"),
