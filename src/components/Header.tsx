@@ -1,11 +1,16 @@
-import {IconButton, FontIcon } from '@fluentui/react';
+import {IconButton, FontIcon, registerIcons, Button, PrimaryButton } from '@fluentui/react';
 import React from 'react';
 // import styled from 'styled-components';
 import  '../scss/header.scss';
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const Header = () => {
-
+  registerIcons({
+    icons: {
+      'check-square': <FontAwesomeIcon icon='home' />,
+      
+    }
+  });
     return (
         <>
         
@@ -41,6 +46,7 @@ const Header = () => {
       <div className='divider'></div>
       <div className="name-company">
       <p >InSight Systems 2.0</p>
+     <PrimaryButton iconProps={{ iconName: 'bell' }} />
       </div>
              {/* <FontIcon iconName="IncreaseIndentArrowMirrored" className="logoutIcon"/> */}
          </div>

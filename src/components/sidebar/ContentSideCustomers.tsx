@@ -2,16 +2,22 @@ import React from "react";
 import { Nav } from "@fluentui/react/lib/Nav";
 import "../../scss/sidebar.scss";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCode } from '@fortawesome/free-solid-svg-icons';
+import {faUniversity } from '@fortawesome/free-solid-svg-icons';
 
 import { INavStyles, INavLinkGroup, INavLink } from "@fluentui/react/lib/Nav";
 import { initializeIcons } from "@fluentui/react/lib/Icons";
 import { withRouter } from "react-router-dom";
 import '../../scss/sidebar.scss'
 import { useTranslation } from "react-i18next";
+import { registerIcons } from "@fluentui/react";
 
 const navStyles: Partial<INavStyles> = { root: { width: 160 } };
-initializeIcons();
+initializeIcons('https://lybekk.tech/fluenticons/');
+registerIcons({
+  icons: {
+    FaUniversity: <FontAwesomeIcon icon='university' />
+  }
+});
 
 const Sidebar = (props: any) => {
   const [t, i18n] = useTranslation(); ///function of translate
@@ -68,7 +74,7 @@ const Sidebar = (props: any) => {
           },
           url: "/contact",
           component: "Contact",
-          name: t("siderbar.contact"),
+          name: t("siderbar.contactInformation"),
           onClick: handleNavClick
         },
         {
@@ -105,7 +111,8 @@ const Sidebar = (props: any) => {
         },
         {
           key: "8",
-          iconProps: <FontAwesomeIcon icon={faCode} />,
+          
+          iconProps:{iconName: 'FaUniversity'} ,
           url: "/bank-accounts",
           component: "BankAccounts",
           name: t("siderbar.bankAccounts"),
@@ -121,7 +128,7 @@ const Sidebar = (props: any) => {
         },
         {
           key: "10",
-          iconProps: { iconName: "Sunny" },
+          iconProps: { iconName: "Attach" },
           url: "/documents",
           component: "Documents",
           name: t("siderbar.documents"),
