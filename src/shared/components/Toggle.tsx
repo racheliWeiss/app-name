@@ -1,7 +1,7 @@
 import { ContextualMenu, Toggle } from "@fluentui/react";
 import React from "react";
 import { useId, useBoolean } from '@fluentui/react-hooks';
-import ComponenetProps from "../../Models/ComponenetProps";
+import ComponenetProps from "../../Models/type/interface";
 import "../../scss/form.scss"
 
 const dialogStyles = { main: { maxWidth: 450 } };

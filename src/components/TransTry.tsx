@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Lable from './App'
+import Lable from '../App'
 import { useTranslation } from 'react-i18next';
 
 export function MyComponent(props:any) {

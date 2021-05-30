@@ -1,6 +1,5 @@
 import axios from "axios";
-import { LoginUser } from "../../Models/LoginUser";
-
+import { LoginUser } from "../../Models/type/LoginUser";
 
 export async function login(user:LoginUser, tokenId: string) {
 
@@ -22,7 +21,6 @@ export async function login(user:LoginUser, tokenId: string) {
             console.log("gd")
         }
     }
-
     catch (err) {
         console.log(res.status)
         console.warn('error in login component', err)

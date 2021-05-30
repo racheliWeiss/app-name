@@ -10,16 +10,17 @@ import { CustomTextField, CustomTextFieldAddInput } from "../shared/components/T
 import { ButtonDefault, ButtonPrimary } from "../shared/components/Button";
 import { TextFeildNote } from "../shared/components/Note";
 import { CustomToggle } from "../shared/components/Toggle";
-import '../scss/sub-header.scss';
 import '../scss/form.scss';
 import { IIconProps } from '@fluentui/react';
 import Heading from "../shared/components/Title";
 import Subtitle from "../shared/components/Subtitle";
 import Title from "../shared/components/Title";
 import TitleText from "../shared/components/TitleText";
+import SubHeader from "./SubHeader";
+import { icon } from "@fortawesome/fontawesome-svg-core";
+import { Icons } from "../Models/Icon";
 
-
-
+//form's object
 class Customer {
   Gender: Number;
   OtherGender: String;
@@ -81,98 +82,25 @@ class Customer {
     this.Email = email
   }
 }
-
-//varible icon
-const addIcon: IIconProps = { iconName: 'Add' };
-const addFriend: IIconProps = { iconName: 'AddFriend' }
-const editContact: IIconProps = { iconName: 'EditContact' }
-const userRemove: IIconProps = { iconName: 'UserRemove' }
-const calendar: IIconProps = { iconName: 'Calendar' };
-const cloudUpload: IIconProps = { iconName: 'CloudUpload' };
-
-
-
-
-
-
 const CustomerDetails = () => {
   const [t, i18n] = useTranslation();
-  const stackTokens = { childrenGap: 50 };
-  // const stackStyles: Partial<IStackStyles> = { root: { width: 282, height: 32 } };
-  // const columnProps: Partial<IStackProps> = {
-  //   tokens: { childrenGap: 15 },
-  //   styles: { root: { width: 300 } },
-  // };
-  // const ButtomStyle: Partial<IStackStyles> = { root: { width: 120, height: 35 } };
-
   const genderArray = [{ key: 1, text: t('male') }, { key: 2, text: t('female') }, { key: 3, text: t('other') }];
   const statusCustomerArray = [{ key: 'admin', text: t('admin') }, { key: 'user', text: t('user') }];
-
 
   ///object befor get details to componnent
   const [customer, setCustomer] = useState(new Customer(''));
 
-
+//set state from custem component
   const updateUser = (key: string, value: any) => {
     let newCus = { ...customer };
     (newCus as any)[key] = value;
     setCustomer(newCus);
-    console.log(customer)
-
   }
 
-
-
-
-
   return (
-
-
     <>
-
-
-
-
-      <div className="sub-header">
-        <Title
-          title={t("customers")} />
-        <div className="divider"></div>
-        <PrimaryButton className='button' checked={false} text={t('createCustomer')} onClick={_alertClicked} iconProps={addFriend} />
-        <DefaultButton className='button' checked={false} text={t('editing')} id={'Editing'} onClick={_alertClicked} iconProps={editContact} />
-        <DefaultButton className='button' checked={false} iconProps={userRemove} text={t('deletion')} id={'Deletion'} onClick={_alertClicked} />
-        <DefaultButton className='button' checked={false} text={t('save')} id={'Save'} onClick={_alertClicked} iconProps={cloudUpload} />
-        <IconButton
-        iconProps={{ iconName: 'PDF' }}
-        styles={{
-          icon: {color: 'red', fontSize: 36}
-          
-        }}
-        className="button"
-      />
-       <IconButton
-        iconProps={{ iconName: 'Print' }}
-        styles={{
-          icon: {color: 'black', fontSize: 36}
-          
-        }}
-        className="button"
-      />
-         <IconButton
-        iconProps={{ iconName: 'Print' }}
-        styles={{
-          icon: {color: 'black', fontSize: 36}
-          
-        }}
-        className="button"
-      />
-         
-        
-      </div>
-
+      <SubHeader/>
       <div className="content-wrapper">
-
-
-
           <Subtitle title={t("customerDetails")} />
           <div></div>
           <p className="title-text">{t('personalDetails')}</p>
@@ -182,22 +110,16 @@ const CustomerDetails = () => {
           <div>
             <CustomDropdown otherInputId={'othercustomerCondition'} hasOtherValue={true} options={statusCustomerArray} label={t('customerCondition')} onChange={updateUser} selectedKey={customer.CustomerCondition} id={'CustomerCondition'} othertextInput={t('othercustomerCondition')} />
           </div>
-
           <div>
             <CustomDropdown otherInputId={''} hasOtherValue={false} options={statusCustomerArray} label={t('customerStatus')} onChange={updateUser} selectedKey={customer.CustomerStatus} id={'CustomerStatus'} othertextInput={t('')} />
-
             <CustomDropdown otherInputId={''} hasOtherValue={false} options={statusCustomerArray} label={t('customerType')} onChange={updateUser} selectedKey={customer.CustomerType} id={'CustomerType'} othertextInput={t('')} />
-            {/* </Stack> */}
           </div>
           <hr ></hr>
           <hr className="text-width"></hr>
-          {/* <Stack styles={stackStyles} > */}
-          {/* <Stack styles={stackStyles}> */}
           <div>
-            <CustomTextFieldAddInput required={true} label={t('firstName')} onChange={updateUser} id={'FirstName'} iconProps={addIcon} otherInputId={'MiddleName'} othertextItnput={t("middleName")} />
-
+            <CustomTextFieldAddInput required={true} label={t('firstName')} onChange={updateUser} id={'FirstName'} iconProps={Icons.add} otherInputId={'MiddleName'} othertextItnput={t("middleName")} />
             <CustomTextField required={true} label={t('lastName')} onChange={updateUser} id={'LastName'} />
-            <CustomTextField required={true} label={t('dateOfBirth')} onChange={updateUser} id={'DateOfBirth'} iconProps={calendar} />
+            <CustomTextField required={true} label={t('dateOfBirth')} onChange={updateUser} id={'DateOfBirth'} iconProps={Icons.calendar} />
 
             <CustomDropdown otherInputId={'OtherGender'} hasOtherValue={true} options={genderArray} label={t('gander')} onChange={updateUser} selectedKey={customer.Gender} id={'Gender'} othertextInput={t('other')} />
             <p className="title-text">{t("identityDetails")}</p>
@@ -223,22 +145,16 @@ const CustomerDetails = () => {
           </div>
           <div>
             <CustomDropdown otherInputId={''} hasOtherValue={false} options={[]} label={t('nameIDEmployee')} onChange={updateUser} selectedKey={customer.NameIDEmployee} id={'NameIDEmployee'} othertextInput={t('')} />
-
-
             <CustomTextField required={true} label={t('customerNumber')} onChange={updateUser} id={'customerNumber'} />
-
-
           </div>
           <hr className="hr"></hr>
           <hr className="hr text-width"></hr>
-
           <div>
             <p className="title-text">{t('address')}</p>
             <hr className="hr text-width"></hr>
             <CustomTextField required={true} label={t('address')} onChange={updateUser} id={'Adress'} />
             <CustomTextField required={true} label={t('houseNumber')} onChange={updateUser} id={'HouseNumber'} />
             <CustomDropdown otherInputId={''} hasOtherValue={false} options={[]} label={t('city')} onChange={updateUser} selectedKey={customer.AddressCity} id={'AddressCity'} othertextInput={t('')} />
-
             <CustomDropdown otherInputId={''} hasOtherValue={false} options={[]} label={t('country')} onChange={updateUser} selectedKey={customer.IDCountryCode} id={'IDCountryCode'} othertextInput={t('')} />
 
           </div>
@@ -250,7 +166,6 @@ const CustomerDetails = () => {
             <p className="title-text">{t('email')}</p>
             <hr className="hr text-width"></hr>
             <CustomTextField required={true} label={t('emailAddress')} onChange={updateUser} id={'Email'} type='email' />
-
           </div>
           <p className="title-text">{t('note')}</p>
           <div>
@@ -259,8 +174,6 @@ const CustomerDetails = () => {
           </div>
           <hr className="hr"></hr>
           <hr className="hr text-width"></hr>
-
-
         </div>
         <TextFeildNote label={t('')} onChange={updateUser} id={'Note'} />
           
@@ -274,9 +187,6 @@ const CustomerDetails = () => {
 
 
 
-function _alertClicked(): void {
-        alert('Clicked');
-}
 
 
 

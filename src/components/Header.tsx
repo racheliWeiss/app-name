@@ -46,7 +46,7 @@ const Header = () => {
       <div className='divider'></div>
       <div className="name-company">
       <p >InSight Systems 2.0</p>
-     <PrimaryButton iconProps={{ iconName: 'bell' }} />
+     
       </div>
              {/* <FontIcon iconName="IncreaseIndentArrowMirrored" className="logoutIcon"/> */}
          </div>

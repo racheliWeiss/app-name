@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Dropdown, DropdownMenuItemType, IDropdown, IDropdownOption, IDropdownProps } from '@fluentui/react/lib/Dropdown';
 import { PrimaryButton } from '@fluentui/react/lib/Button';
 import { IStackTokens, Stack } from '@fluentui/react/lib/Stack';
-import ComponenetProps from '../../Models/ComponenetProps'
+import ComponenetProps from '../../Models/type/interface'
 import { useState } from 'react';
 import "../../scss/form.scss"
 import { CustomTextField } from './TextField';
