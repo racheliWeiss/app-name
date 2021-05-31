@@ -64,7 +64,7 @@ export default interface ComponenetProps {
   export interface IAppNavbar {
     auth?: {
       isAuthenticated: boolean;
-      user: IUser;
+    
     };
   }
   

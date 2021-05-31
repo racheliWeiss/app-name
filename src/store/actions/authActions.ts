@@ -29,7 +29,7 @@ export const loadUser = () => (dispatch: any, getState: any) => {
         })
 }  
 // Login User
-export const login = (user:IUser) => (
+export const login = (loginUser :User) => (
     dispatch: Function
   ) => {
     // Headers
@@ -38,7 +38,11 @@ export const login = (user:IUser) => (
         'Content-Type': 'application/json'
       }
     };
-  
+    const user={
+      login_entity_number:loginUser.LoginEntityNumber,
+      login_ID:loginUser.LoginID,
+      login_password:loginUser.LoginPassword
+    }
     // Request body
     const body = JSON.stringify(user);
   

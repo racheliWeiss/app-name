@@ -73,10 +73,9 @@ const Login = ({
 
      function LoginTime(event: any) {
         event.preventDefault();
-        let tokenId: string = '';
-        
-        // let user: LoginUser = { login_entity_number, login_password, login_ID, login_finger_print }
         login(userLogin)
+        // let tokenId: string = '';
+        // let user: LoginUser = { login_entity_number, login_password, login_ID, login_finger_print }
         // // let res = await login(userLogin, tokenId);
         // if (res) {
         //     console.log('sucsses')

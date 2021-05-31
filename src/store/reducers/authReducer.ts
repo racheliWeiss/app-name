@@ -28,7 +28,7 @@ USERֹֹ_LOADING,
                 isLoading:false,
                 user:action.payload
             };
-        case LOGIN_FAIL:    
+        case LOGIN_SUCCESS:    
         case REGISTER_SUCCESS:
             localStorage.setItem('token', action.payload.token);
             return{
