@@ -5,6 +5,7 @@ import { DetailsListBasicExample } from '../shared/components/DetailsList';
 export interface IDetailsListItem {
     key: number;
     value: number;
+    name:string;
   }
 const Documents =()=>{
     
@@ -12,7 +13,12 @@ const Documents =()=>{
         { key: 'column1', name: 'Name', fieldName: 'name', minWidth: 100, maxWidth: 200, isResizable: true },
         { key: 'column2', name: 'Value', fieldName: 'value', minWidth: 100, maxWidth: 200, isResizable: true },
       ];
-     const item:IDetailsListItem[]=[{key: 1,value:2},{key:2,value:3}]
+     const item:IDetailsListItem[]=[
+         {key: 1,value:2 ,name:"good"},
+         {key:2,value:3,name:"good"},
+         {key: 3,value:2 ,name:"good"},
+         {key:4,value:3,name:"good"}
+        ]
     return(
         <>
         <h1>Documents</h1>
