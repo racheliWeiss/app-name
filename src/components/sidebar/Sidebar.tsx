@@ -13,9 +13,6 @@ import { SideMain } from './SideMain';
 
 const Sidebar = () => {
     return (
-
-      
-
                <>
                <div className='sidebar'>
                 <SideMain/>

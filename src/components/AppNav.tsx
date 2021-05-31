@@ -1,7 +1,6 @@
 import React from 'react';
-import { connect, useSelector } from 'react-redux';
-
-import { IAppNavbar, IAuthReduxProps } from '../Models/type/interface';
+import {  useSelector } from 'react-redux';
+// import { IAppNavbar, IAuthReduxProps } from '../Models/type/interface';
 import Home from './Home';
 import Login from './Login';
 // import Login from './Login';

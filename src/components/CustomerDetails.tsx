@@ -1,24 +1,14 @@
 import React, { useEffect, useState } from "react";
 import '../scss/form.scss';
-import Subheading from "../shared/components/Subtitle";
 import { useTranslation } from 'react-i18next';
-import { Calendar, DefaultButton, DropdownMenuItemType, IconButton, IContextualMenuItem, IContextualMenuProps, ITextFieldStyles, PrimaryButton, TextField } from "@fluentui/react";
-import { useConst } from '@fluentui/react-hooks';
-import { IStackProps, IStackStyles, Stack } from '@fluentui/react/lib/Stack';
 import { CustomDropdown } from "../shared/components/Option";
 import { CustomTextField, CustomTextFieldAddInput } from "../shared/components/TextField";
-import { ButtonDefault, ButtonPrimary } from "../shared/components/Button";
 import { TextFeildNote } from "../shared/components/Note";
 import { CustomToggle } from "../shared/components/Toggle";
 import '../scss/form.scss';
-import { IIconProps } from '@fluentui/react';
-import Heading from "../shared/components/Title";
-import Subtitle from "../shared/components/Subtitle";
-import Title from "../shared/components/Title";
-import TitleText from "../shared/components/TitleText";
-import SubHeader from "./SubHeader";
-import { icon } from "@fortawesome/fontawesome-svg-core";
 import { Icons } from "../Models/Icon";
+import SubHeader from "./SubHeader";
+import Subtitle from "../shared/components/Subtitle";
 
 //form's object
 class Customer {

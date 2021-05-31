@@ -1,4 +1,4 @@
-import { DefaultButton, IconButton, IIconProps, PrimaryButton } from '@fluentui/react';
+import { DefaultButton, IconButton, PrimaryButton } from '@fluentui/react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Icons } from '../Models/Icon';

@@ -1,18 +1,10 @@
 import * as react from 'react';
 import { } from '@fluentui/react/lib/Button';
-import { Nav, INavStyles, INavLinkGroup, INavLink } from '@fluentui/react/lib/Nav';
+import { Nav, INavLinkGroup } from '@fluentui/react/lib/Nav';
 import '../../scss/sidebar.scss';
-
-
-
-const navStyles: Partial<INavStyles> = { root: { width: 70 } };
-
-    
 
  const navLinkGroups: INavLinkGroup[] = [
   {
-   
-  
     links: [
       {
         key: 'Breadcrumb',

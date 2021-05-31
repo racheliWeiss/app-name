@@ -10,12 +10,19 @@ import { withRouter } from "react-router-dom";
 import '../../scss/sidebar.scss'
 import { useTranslation } from "react-i18next";
 import { registerIcons } from "@fluentui/react";
-
+import { faFilter } from '@fortawesome/free-solid-svg-icons';
 const navStyles: Partial<INavStyles> = { root: { width: 160 } };
-initializeIcons('https://lybekk.tech/fluenticons/');
+initializeIcons();
+// registerIcons({
+//   icons: {
+//     university: <FontAwesomeIcon icon='university' />
+//   }
+// });
+
+
 registerIcons({
   icons: {
-    FaUniversity: <FontAwesomeIcon icon='university' />
+    Filter: <FontAwesomeIcon icon={faFilter} />
   }
 });
 
@@ -112,7 +119,7 @@ const Sidebar = (props: any) => {
         {
           key: "8",
           
-          iconProps:{iconName: 'FaUniversity'} ,
+          iconProps:{iconName: 'Filter'} ,
           url: "/bank-accounts",
           component: "BankAccounts",
           name: t("siderbar.bankAccounts"),

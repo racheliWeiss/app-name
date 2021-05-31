@@ -1,7 +1,5 @@
 import * as React from 'react';
-import { Dropdown, DropdownMenuItemType, IDropdown, IDropdownOption, IDropdownProps } from '@fluentui/react/lib/Dropdown';
-import { PrimaryButton } from '@fluentui/react/lib/Button';
-import { IStackTokens, Stack } from '@fluentui/react/lib/Stack';
+import { Dropdown, IDropdown } from '@fluentui/react/lib/Dropdown';
 import ComponenetProps from '../../Models/type/interface'
 import { useState } from 'react';
 import "../../scss/form.scss"
@@ -30,11 +28,7 @@ export const CustomDropdown: React.FunctionComponent<MyProps> = (props) => {
   const { onChange, options, label, selectedKey, id, othertextInput,hasOtherValue,otherInputId } = props;
   const [selected, setSelected] = useState<String | undefined>("");
   const [selectedIndex, setSelectedIndex] = useState<number | undefined>(0);
-
-  // const stackTokens: IStackTokens = { childrenGap: 20 };
-
   return (
-   
       <div>
         <Dropdown
           // componentRef={dropdownRef}
@@ -52,12 +46,9 @@ export const CustomDropdown: React.FunctionComponent<MyProps> = (props) => {
           required
           className=" text-field"
           // styles={dropdownStyles}
-
         ></Dropdown>
         {selectedIndex == options.length-1 && hasOtherValue ? <CustomTextField required={true} label={othertextInput} onChange={onChange} id={otherInputId} /> : false}
-
-      </div>
-    
+      </div>   
   );
 };
 // ,onclick:()=>console.log("i0i0")

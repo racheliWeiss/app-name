@@ -48,11 +48,16 @@
     .grid-container{
         margin-top: 0px;
         // min-height: 1800px;
-
+        grid-template-columns: 1fr 4fr ;
         grid-template-areas:
         "header header  header  header  header"
-      " side main main main main "
-       "side main main main main " ;
+      " side   main   main    main    main "
+       "side    main  main    main    main " 
+       " side   main   main   main    main "
+       "side   main    main   main    main " ;
+    //     "header header  header  header  header"
+    //   " side main main main main "
+    //    "side main main main main " ;
       }
 } 
 // .row {  

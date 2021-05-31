@@ -7,8 +7,6 @@ import {
     LOGIN_SUCCESS,
     LOGIN_FAIL,
     LOGOUT_SUCCESS,
-    REGISTER_SUCCESS,
-    REGISTER_FAIL
 } from '../actions/types'
 import { IAuthFunction, IConfigHeaders, IUser } from '../../Models/type/interface';
 import User from '../../Models/User';
