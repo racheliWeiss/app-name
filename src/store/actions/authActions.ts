@@ -10,6 +10,7 @@ import {
 } from '../actions/types'
 import { IAuthFunction, IConfigHeaders, IUser } from '../../Models/type/interface';
 import User from '../../Models/User';
+import { basicUrl } from '../../shared/config';
 //cheack token&load user
 // const api=
 export const loadUser = () => (dispatch: any, getState: any) => {
@@ -46,7 +47,7 @@ export const login = (loginUser :User) => (
     const body = JSON.stringify(user);
   
     axios
-      .post(process.env.API+'/login', body, config)
+      .post(basicUrl+'/login', body, config)
       .then(res =>
         dispatch({
           type: LOGIN_SUCCESS,

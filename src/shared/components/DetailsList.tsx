@@ -6,6 +6,7 @@ import { MarqueeSelection } from '@fluentui/react/lib/MarqueeSelection';
 import { mergeStyles, mergeStyleSets } from '@fluentui/react/lib/Styling';
 import { Text } from '@fluentui/react/lib/Text';
 import { PrimaryButton } from '@fluentui/react';
+import { useState } from 'react';
 
 const exampleChildClass = mergeStyles({
     display: 'block',
@@ -21,10 +22,10 @@ export interface IDetailsListItem {
 }
 
 export interface IDetailsListState {
-    items: IDetailsListItem[];
     selectionDetails?: string;
     columns: [] | IColumn[];
-    allItems?: IDetailsListItem[];
+    allItems: IDetailsListItem[];
+    styleHeader?:string
 
 }
 
@@ -51,17 +52,25 @@ const classes = mergeStyleSets({
         margin: '0 5px',
     },
 });
+
+
 export const DetailsListBasicExample: React.FunctionComponent<IDetailsListState> = (props) => {
-    const { items, columns } = props
+    const { allItems=[], columns,styleHeader} = props
 
-    const numOfIcons = items.length;
+    const numOfIcons = allItems.length;
     const numOfPages = parseInt((numOfIcons / 100).toString(), 10) + (numOfIcons % 100 > 0 ? 1 : 0);
-
-
-    const [page, setPage] = React.useState(1);
+    
+    const [items,setItems]=useState(allItems)
+    const [page, setPage] = useState(1);
     const nextPage = () => setPage(page + 1);
     const prevPage = () => setPage(page - 1);
 
+
+    const _onFilter = (ev: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>, text: string): void => {
+        setItems({
+            item:text ? allItems.filter((i: { name: string; }) => i.name.toLowerCase().indexOf(text) > -1) :allItems,
+         });
+       };
 
 
     return (
@@ -101,6 +110,7 @@ export const DetailsListBasicExample: React.FunctionComponent<IDetailsListState>
         </div>
     );
 }
+
 
 
 
