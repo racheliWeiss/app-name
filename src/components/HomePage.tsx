@@ -10,11 +10,11 @@ export interface IDetailsListItem {
 const Documents =()=>{
     
     const columns = [
-        { key: 'column1', name: 'Name', fieldName: 'name', minWidth: 100, maxWidth: 200, isResizable: true },
-        { key: 'column2', name: 'Value', fieldName: 'value', minWidth: 100, maxWidth: 200, isResizable: true },
+        { key: 'column1', name: 'Name', fieldName: 'name', minWidth: 100, maxWidth: 200, isResizable: true , isModalSelection: false},
+        { key: 'column2', name: 'Value', fieldName: 'value', minWidth: 100, maxWidth: 200, isResizable: true ,isModalSelection: false},
       ];
      const item:IDetailsListItem[]=[
-         {key: 1,value:2 ,name:"good"},
+         {key: 1,value:2 ,name:"good",},
          {key:2,value:3,name:"good"},
          {key: 3,value:2 ,name:"good"},
          {key:4,value:3,name:"good"}

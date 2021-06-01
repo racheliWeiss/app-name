@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Announced } from '@fluentui/react/lib/Announced';
 import { TextField, ITextFieldStyles } from '@fluentui/react/lib/TextField';
-import { DetailsList, DetailsListLayoutMode, Selection, IColumn } from '@fluentui/react/lib/DetailsList';
+import { DetailsList, DetailsListLayoutMode, Selection, IColumn, SelectionMode } from '@fluentui/react/lib/DetailsList';
 import { MarqueeSelection } from '@fluentui/react/lib/MarqueeSelection';
 import { mergeStyles, mergeStyleSets } from '@fluentui/react/lib/Styling';
 import { Text } from '@fluentui/react/lib/Text';
@@ -75,6 +75,8 @@ export const DetailsListBasicExample: React.FunctionComponent<IDetailsListState>
             <DetailsList
                 items={items}
                 columns={columns}
+                
+                selectionMode={SelectionMode.none}
                 setKey="set"
             />
             <div>
