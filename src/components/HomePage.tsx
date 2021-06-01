@@ -23,18 +23,19 @@ const Documents =()=>{
     const columns = [       
         { styles:headerStyle ,key: 'column1', name: 'Name', fieldName: 'name', minWidth: 100, maxWidth: 200, isResizable: true , isModalSelection: false,styleHeader:'dataListHeader'},
         {styles: headerStyle, key: 'column2', name: 'Value', fieldName: 'value', minWidth: 100, maxWidth: 200, isResizable: true ,isModalSelection: false,styleHeader:'dataListHeader'},
+        {styles: headerStyle, key: 'column2', name: 'Value', fieldName: 'value', minWidth: 100, maxWidth: 200, isResizable: true ,isModalSelection: false,styleHeader:'dataListHeader'},
       ];
      const item:IDetailsListItem[]=[
-         {key: 1,value:2 ,name:"good",},
-         {key:2,value:3,name:"good"},
-         {key: 3,value:2 ,name:"good"},
-         {key:4,value:3,name:"good"}
+         {key: 1, name:"good",value:1},
+         {key:2, name:"good",value:12},
+         {key: 3, name:"goo",value:12},
+         {key:4, name:"good",value:12}
         ]
     return(
         <>
         <h1>Documents</h1>
 
-          <DetailsListBasicExample columns={columns} items={item} />
+          <DetailsListBasicExample columns={columns} allItems={item} />
         </>
 
     );
