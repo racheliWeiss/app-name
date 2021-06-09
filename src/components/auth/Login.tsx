@@ -1,11 +1,11 @@
 import { useState } from 'react';
-import '../scss/login.scss';
+import './login.scss';
 import { connect } from 'react-redux';
 import { TextField } from '@fluentui/react/lib/TextField';
 import { initializeIcons, PrimaryButton } from '@fluentui/react';
 import { useTranslation } from 'react-i18next';
-import { login } from '../store/actions/authActions';
-import { IAuthReduxProps, ILoginModal } from '../Models/type/interface';
+import { login } from '../../store/actions/authActions';
+import { IAuthReduxProps, ILoginModal } from '../../modelsType/type/interface';
 // import { clearErrors } from '../store/actions/errorActions';
 
 initializeIcons();

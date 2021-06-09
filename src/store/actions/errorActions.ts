@@ -1,4 +1,4 @@
-import { IMsg } from '../../Models/type/interface';
+import { IMsg } from '../../modelsType/type/interface';
 import {GET_ERRORS, CLEAR_ERRORS} from './types';
 
 export const returnErrors = (msg:IMsg, status:string, id:any=null)=>{

@@ -1,7 +1,7 @@
 import React from 'react';
 
 
-import '../../scss/sidebar.scss'
+import '../../scssPages/sidebar.scss'
 import ContentSideCustomers from './ContentSideCustomers';
 import SideCustomers from './SideSubCustomers';
 import { SideMain } from './SideMain';

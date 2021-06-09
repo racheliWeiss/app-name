@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { Dropdown, IDropdown } from '@fluentui/react/lib/Dropdown';
-import ComponenetProps from '../../Models/type/interface'
+import ComponenetProps from '../../modelsType/type/interface'
 import { useState } from 'react';
-import "../../scss/form.scss"
+import "../../scssPages/form.scss"
 import { CustomTextField } from './TextField';
 import { useTranslation } from 'react-i18next';
 

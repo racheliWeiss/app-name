@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Stack, IStackTokens, IStackStyles, TextField } from '@fluentui/react';
-import ComponenetProps from '../../Models/type/interface';
-import "../../scss/form.scss"
+import ComponenetProps from '../../modelsType/type/interface';
+import "../../scssPages/form.scss"
 
 interface MyProps extends ComponenetProps {
     

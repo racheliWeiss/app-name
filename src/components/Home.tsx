@@ -1,7 +1,7 @@
 import React from 'react';
-import Header from './Header';
+import Header from './header/Header';
 import Sidebar from './sidebar/Sidebar';
-import  '../scss/base.scss';
+import  '../scssPages/base.scss';
 
 const  Home=()=> {
     return( 
@@ -11,6 +11,7 @@ const  Home=()=> {
         <ContentSideCustomers/>
         <SideCustomers /> */}
         <Sidebar/>
+      
         {/* <Login/> */}
     </div>
     )

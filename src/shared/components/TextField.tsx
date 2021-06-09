@@ -1,8 +1,8 @@
 import { TextField } from '@fluentui/react';
 import React from 'react';
-import ComponenetProps from '../../Models/type/interface';
+import ComponenetProps from '../../modelsType/type/interface';
 import { useBoolean } from '@fluentui/react-hooks';
-import "../../scss/form.scss"
+import "../../scssPages/form.scss"
 import { IIconProps } from '@fluentui/react';
 
 
@@ -61,7 +61,6 @@ export const CustomTextFieldAddInput: React.FunctionComponent<AddInputProp> = (p
             required={required?true:undefined}
             label={label}
             onChange ={(e: any) => {
-            debugger;
                  onChange(id, e.currentTarget.value)
             }}
             iconProps={iconProps}

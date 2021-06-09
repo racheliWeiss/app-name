@@ -1,5 +1,4 @@
 import * as React from 'react';
-import '../scss/form.scss';
 const ConcentrationOfActions=()=>{
     return(
         <div className="form">

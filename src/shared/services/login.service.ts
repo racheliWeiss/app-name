@@ -1,5 +1,5 @@
 import axios from "axios";
-import { LoginUser } from "../../Models/type/LoginUser";
+import { LoginUser } from "../../modelsType/type/LoginUser";
 
 export async function login(user:LoginUser, tokenId: string) {
 

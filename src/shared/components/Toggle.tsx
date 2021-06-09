@@ -1,8 +1,8 @@
 import { Toggle } from "@fluentui/react";
 import React from "react";
 // import { useId, useBoolean } from '@fluentui/react-hooks';
-import ComponenetProps from "../../Models/type/interface";
-import "../../scss/form.scss"
+import ComponenetProps from "../../modelsType/type/interface";
+import "../../scssPages/form.scss"
 
 // const dialogStyles = { main: { maxWidth: 450 } };
 interface MyProps extends ComponenetProps {

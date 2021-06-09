@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { DetailsListBasicExample } from '../shared/components/DetailsList';
-import '../scss/form.scss';
+import '../scssPages/form.scss';
 import { IDetailsColumnStyles } from '@fluentui/react';
 
 
@@ -30,7 +30,7 @@ const Documents =()=>{
          {key:2, name:"good",value:12},
          {key: 3, name:"goo",value:12},
          {key:4, name:"good",value:12},
-         {key:4, name:"good",value:12}
+         {key:5, name:"good",value:12}
         ]
     return(
         <>

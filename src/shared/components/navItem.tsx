@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { nav } from '../../Models/NavItems';
+import { nav } from '../../modelsType/NavItems';
 
-import '../../scss/sidebar.scss';
+import '../../scssPages/sidebar.scss';
 
 
 

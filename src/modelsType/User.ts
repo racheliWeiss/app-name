@@ -1,5 +1,5 @@
 import react from 'react'
-class  User{
+export class  User{
     LoginEntityNumber:string;
     LoginPassword:string;
     LoginID:string;
@@ -12,4 +12,3 @@ class  User{
     }
 }
 
-export default User;

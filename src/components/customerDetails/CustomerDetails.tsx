@@ -1,14 +1,14 @@
-import React, { useEffect, useState } from "react";
-import '../scss/form.scss';
+import React, { useState } from "react";
 import { useTranslation } from 'react-i18next';
-import { CustomDropdown } from "../shared/components/Option";
-import { CustomTextField, CustomTextFieldAddInput } from "../shared/components/TextField";
-import { TextFeildNote } from "../shared/components/Note";
-import { CustomToggle } from "../shared/components/Toggle";
-import '../scss/form.scss';
-import { Icons } from "../Models/Icon";
-import SubHeader from "./SubHeader";
-import Subtitle from "../shared/components/Subtitle";
+import { CustomDropdown } from "../../shared/components/Option";
+import { CustomTextField, CustomTextFieldAddInput } from "../../shared/components/TextField";
+import { TextFeildNote } from "../../shared/components/Note";
+import { CustomToggle } from "../../shared/components/Toggle";
+import '../../scssPages/form.scss';
+import './customerDetails.scss'
+import { Icons } from "../../modelsType/Icon";
+import SubHeader from "../SubHeader";
+import Subtitle from "../../shared/components/Subtitle";
 
 //form's object
 class Customer {
@@ -74,9 +74,14 @@ class Customer {
 }
 const CustomerDetails = () => {
   const [t, i18n] = useTranslation();
+
   const genderArray = [{ key: 1, text: t('male') }, { key: 2, text: t('female') }, { key: 3, text: t('other') }];
   const statusCustomerArray = [{ key: 'admin', text: t('admin') }, { key: 'user', text: t('user') }];
 
+
+//  const text=true
+//   let tryText=text? t('yes'): t('no')
+//   console.log(tryText)
   ///object befor get details to componnent
   const [customer, setCustomer] = useState(new Customer(''));
 
@@ -90,7 +95,7 @@ const CustomerDetails = () => {
   return (
     <>
       <SubHeader/>
-      <div className="content-wrapper">
+      <div className="content-wrapper customerDetail-wrapper">
           <Subtitle title={t("customerDetails")} />
           <div></div>
           <p className="title-text">{t('personalDetails')}</p>
@@ -174,10 +179,6 @@ const CustomerDetails = () => {
      </>
   );
 }
-
-
-
-
 
 
 export default CustomerDetails;
