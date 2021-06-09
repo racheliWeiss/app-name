@@ -11,33 +11,30 @@ import {loadUser} from './store/actions/authActions'
 import store from './store/store';
 import Logout from './components/auth/Logout';
 import { IAppNavbar, IAuthReduxProps } from './Models/type/interface';
-import Login from './components/Login';
 
 
 function App() {
-
-  
-  // useEffect(() => {
-  //   store.dispatch(loadUser());
-  // }, []);
+  useEffect(() => {
+    store.dispatch(loadUser());
+  }, []);
   const handleOnclick = (e: React.ChangeEvent<any>) => {
     e.preventDefault();
     // setLanguage(e.target.value);
     i18n.changeLanguage(e.target.value);
   };
 
-
+  // const isLogin=useSelector(state=>state.auth.payload)
 
   return (
     <>
     <Provider store={store}> 
+        {/* <Login/> */}
           <AppNav/>
          {/* <Logout/> */}
-     
+      {/* <Home/>  */}
      </Provider>
     </>
   );
 }
 
-export default App;
-
+export default (App)
