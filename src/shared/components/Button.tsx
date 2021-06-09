@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Stack, IStackTokens, IStackStyles } from '@fluentui/react';
 import { DefaultButton, PrimaryButton } from '@fluentui/react/lib/Button';
-import ComponenetProps from '../../Models/type/interface';
+import ComponenetProps from '../../modelsType/type/interface';
 
 export interface MyProps extends ComponenetProps {
   // These are set based on the toggles shown above the examples (not needed in real code)

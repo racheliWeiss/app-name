@@ -1,5 +1,4 @@
-import {} from 'react';
-import User from '../User';
+import react from 'react';
 import { E_ERROR } from './enum';
 
 export default interface ComponenetProps {

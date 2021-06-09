@@ -1,0 +1,25 @@
+.contact-warper{
+   
+        display:flex;
+        flex-grow: 4;
+        grid-template-columns: 1fr;
+
+}
+
+.contact-text{
+    font-family: Calibri;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 30px;
+    line-height: 133.51%;
+    /* or 40px */
+    
+    display: flex;
+    align-items: center;
+    text-align: right;
+    
+    /* blue */
+    
+    color: #1A1F71;
+    
+}

@@ -1,9 +1,8 @@
 import * as React from 'react';
-
-const BankAccounts=()=>{
-    return(
-        <h1>BankAccounts</h1>
-    );
+const BankAccounts = () => {
+   return(
+     <h1>Bankeg</h1>
+   );
 }
 
 export default BankAccounts;

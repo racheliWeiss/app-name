@@ -1,5 +1,5 @@
 import * as React from 'react';
-import '../../scss/sub-header.scss';
+import '../../scssPages/sub-header.scss';
  
 interface Title{
     title:string

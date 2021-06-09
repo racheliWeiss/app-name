@@ -1,5 +1,5 @@
 // import React from 'react';
-// import '../../scss/sidebar.scss'
+// import '../../scssPages/sidebar.scss'
 // import LabelBar from '../../shared/components/navItem';
 // import { NavDemo } from './NavDemo';
 // import { NavOption } from './NavOption';

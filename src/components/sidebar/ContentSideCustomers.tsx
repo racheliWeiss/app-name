@@ -1,13 +1,13 @@
 import React from "react";
 import { Nav } from "@fluentui/react/lib/Nav";
-import "../../scss/sidebar.scss";
+import "../../scssPages/sidebar.scss";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {faUniversity } from '@fortawesome/free-solid-svg-icons';
 
 import { INavStyles, INavLinkGroup, INavLink } from "@fluentui/react/lib/Nav";
 import { initializeIcons } from "@fluentui/react/lib/Icons";
 import { withRouter } from "react-router-dom";
-import '../../scss/sidebar.scss'
+import '../../scssPages/sidebar.scss'
 import { useTranslation } from "react-i18next";
 import { registerIcons } from "@fluentui/react";
 import { faFilter } from '@fortawesome/free-solid-svg-icons';

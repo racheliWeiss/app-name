@@ -61,7 +61,14 @@
        "country":"מדינה",
        "countryPhone":"טלפון מדינה",
        "email":"דואר אלקטרוני:",
-       "emailAddress":"כתובת דוא'ל:"
+       "emailAddress":"כתובת דוא'ל:",
+      "search":"חיפוש",
+      "searchCustomer":"איתור לקוח",
+      "details":"פרטים",
+       "log":{
+        "yes":"כן",
+        "no":"לא"
+       }
 
      
 

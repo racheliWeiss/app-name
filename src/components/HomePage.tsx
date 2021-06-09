@@ -1,7 +1,8 @@
 import * as React from 'react';
-import { DetailsListBasicExample } from '../shared/components/DetailsList';
-import '../scss/form.scss';
+import '../scssPages/form.scss';
 import { IDetailsColumnStyles } from '@fluentui/react';
+import { DetailsListBasicExample } from '../shared/components/tabels/tableList';
+import SubHeader from './SubHeader';
 
 
 
@@ -21,22 +22,24 @@ const Documents =()=>{
  
 
     const columns = [       
-        { styles:headerStyle ,key: 'column1', name: 'Name', fieldName: 'name', minWidth: 100, maxWidth: 200, isResizable: true , isModalSelection: false,styleHeader:'dataListHeader'},
-        {styles: headerStyle, key: 'column2', name: 'Value', fieldName: 'value', minWidth: 100, maxWidth: 200, isResizable: true ,isModalSelection: false,styleHeader:'dataListHeader'},
-        {styles: headerStyle, key: 'column2', name: 'Value', fieldName: 'value', minWidth: 100, maxWidth: 200, isResizable: true ,isModalSelection: false,styleHeader:'dataListHeader'},
+        { key: 'column1', name: 'Name', fieldName: 'name', minWidth: 100, maxWidth: 200, isResizable: true , isModalSelection: false,styleHeader:'dataListHeader'},
+        { key: 'column2', name: 'Value', fieldName: 'value', minWidth: 100, maxWidth: 200, isResizable: true ,isModalSelection: false,styleHeader:'dataListHeader'},
+        {key: 'column2', name: 'Value', fieldName: 'value', minWidth: 100, maxWidth: 200, isResizable: true ,isModalSelection: false,styleHeader:'dataListHeader'},
       ];
      const item:IDetailsListItem[]=[
          {key: 1, name:"good",value:1},
          {key:2, name:"good",value:12},
          {key: 3, name:"goo",value:12},
          {key:4, name:"good",value:12},
-         {key:4, name:"good",value:12}
+         {key:5, name:"good",value:12}
         ]
     return(
         <>
+         <SubHeader/>
         <h1>Documents</h1>
-
+         <div>
           <DetailsListBasicExample columns={columns} allItems={item} />
+          </div>
         </>
 
     );

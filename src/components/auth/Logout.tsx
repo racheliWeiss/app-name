@@ -1,14 +1,14 @@
-import { IconButton, PrimaryButton } from '@fluentui/react';
-import React, { Fragment } from 'react';
+import { IconButton } from '@fluentui/react';
 import react from 'react';
 import { useTranslation } from 'react-i18next';
-import {connect} from 'react-redux';
-import { Link, NavLink } from 'react-router-dom';
-import { ILogoutProps } from '../../Models/type/interface';
+import { connect } from 'react-redux';
+import { ILogoutProps } from '../../modelsType/type/interface';
+
 import { logout }from '../../store/actions/authActions'
 
 
-export const Logout = ({ logout }:any) => {
+export const Logout = ({ logout}:any)=>{
+
   const [t, i18n] = useTranslation();
   // const  handleLogout = ()=>{
   //   <Link to="/logut"></Link>
@@ -33,7 +33,7 @@ export const Logout = ({ logout }:any) => {
                 },
               },
               rootHovered: { backgroundColor: '1A1F71' },
-              // rootPressed: {backgroundColor: 'blue'}
+              rootPressed: {backgroundColor:'1A1F71' }
             }}
           />
         {/* <PrimaryButton onClick={logout}

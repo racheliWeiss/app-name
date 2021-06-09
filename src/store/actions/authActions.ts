@@ -8,8 +8,8 @@ import {
     LOGIN_FAIL,
     LOGOUT_SUCCESS,
 } from '../actions/types'
-import { IAuthFunction, IConfigHeaders, IUser } from '../../Models/type/interface';
-import User from '../../Models/User';
+import { IAuthFunction, IConfigHeaders, IUser } from '../../modelsType/type/interface';
+import {User} from '../../modelsType/User';
 import { basicUrl } from '../../shared/config';
 //cheack token&load user
 // const api=
@@ -67,7 +67,7 @@ export const login = (loginUser :User) => (
   // Logout User
   export const logout = () => {
     return {
-      type: LOGOUT_SUCCESS
+        type: LOGOUT_SUCCESS
     };
   };
   

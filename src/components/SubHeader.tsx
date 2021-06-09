@@ -1,8 +1,8 @@
 import { DefaultButton, IconButton, PrimaryButton } from '@fluentui/react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Icons } from '../Models/Icon';
-import '../scss/sub-header.scss';
+import { Icons } from '../modelsType/Icon';
+import '../scssPages/sub-header.scss';
 import Title from '../shared/components/Title';
 
 

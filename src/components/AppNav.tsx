@@ -2,13 +2,12 @@ import React from 'react';
 import {  useSelector } from 'react-redux';
 // import { IAppNavbar, IAuthReduxProps } from '../Models/type/interface';
 import Home from './Home';
-import Login from './Login';
+import Login from './auth/Login';
 // import Login from './Login';
 
 
 const AppNav = ()=>{
     const isLogin = useSelector((state:any)=>{
-        console.log(state)
         return state.auth.isAuthenticted;
      })
     return(

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import '../../scss/form.scss';
+import '../../scssPages/form.scss';
  
 interface Title{
     title:string
