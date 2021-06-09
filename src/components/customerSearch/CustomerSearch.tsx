@@ -4,11 +4,12 @@ import React from "react";
 import { useState,useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import "./customerSearch.scss"
-import { DetailsListBasicExample } from "../../shared/components/DetailsList";
 import { IssuePagination } from "../../shared/components/Pagination/Pagination";
 import { CustomTextField } from "../../shared/components/TextField";
 import SearchBoxSmall from "../../shared/components/TextSearch";
 import { TableList } from "../table";
+import { DetailsListBasicExample } from "../../shared/components/tabels/tableList";
+import SubHeader from "../SubHeader";
 
 const CustomerSearch = () =>
 {
@@ -81,6 +82,7 @@ const CustomerSearch = () =>
       }
      return(
         <div>
+           <SubHeader/>
             <h1>BankAccounts</h1>
             {/* <IconButton/> */}
             <div className="content-search">
@@ -88,13 +90,14 @@ const CustomerSearch = () =>
              {/* <CustomTextField required={true} label={t('lastName')} onChange={onCustomerChanged} id={'LastName'}/> */}
            <PrimaryButton onClick={onLoadCustomerClicked} text={t("searchCustomer")}/>
            </div>
-            <DetailsListBasicExample columns={columns} allItems={[]} />
-            <IssuePagination
+            {/* <DetailsListBasicExample columns={columns} allItems={[]} /> */}
+          
+           <TableList/>
+           <IssuePagination
                 onPageChange={onPageChanged}
                 pageCount={27}
                 currentPage={1}
             />
-           <TableList/>
         </div>
        
     );

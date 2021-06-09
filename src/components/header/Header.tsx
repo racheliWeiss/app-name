@@ -6,6 +6,7 @@ import { Logout } from '../auth/Logout';
 import { useTranslation } from 'react-i18next';
 import { connect, useSelector } from 'react-redux';
 import { IAppNavbar, IAuthReduxProps } from '../../modelsType/type/interface';
+import SubHeader from '../SubHeader';
 
 const Header = ({ auth }: IAppNavbar) => {
   const [t, i18n] = useTranslation();
@@ -28,12 +29,12 @@ const Header = ({ auth }: IAppNavbar) => {
         <div className="name-company">
           <p >InSight Systems 2.0</p>
         </div>
-
-       
+        
+     
         {/* <FontIcon iconName="IncreaseIndentArrowMirrored" className="logoutIcon"/> */}
       </div>
       {/* למה זה לא מופיעה */}
-     
+    
     </>
   )
 }

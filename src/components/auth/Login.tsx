@@ -10,21 +10,6 @@ import { IAuthReduxProps, ILoginModal } from '../../modelsType/type/interface';
 
 initializeIcons();
 
-// const mapDispatchToProps = (dispatch: any) => {
-//     return {
-//       saveUser: () =>
-//         dispatch({
-//           type: "USER_DATA",
-//           login_user: { firstName: "s", lastName: "a" }
-//         })
-//     };
-//   };
-// const mapStateToProps = (state: any) => {
-//     return {
-//         firstName: state.login_user.firstName,
-//         lastName: state.login_user.lastName,
-//     }
-// }
 
 const Login = ({
     isAuthenticated,

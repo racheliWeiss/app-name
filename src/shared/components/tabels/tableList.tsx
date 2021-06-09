@@ -1,16 +1,23 @@
 import * as React from 'react';
 import { TextField, ITextFieldStyles } from '@fluentui/react/lib/TextField';
-import { DetailsList, DetailsListLayoutMode, Selection, IColumn, SelectionMode, DetailsRow, IDetailsFooterProps } from '@fluentui/react/lib/DetailsList';
+import { DetailsList, DetailsListLayoutMode, Selection, IColumn, SelectionMode, DetailsRow, IDetailsFooterProps, buildColumns } from '@fluentui/react/lib/DetailsList';
 import { MarqueeSelection } from '@fluentui/react/lib/MarqueeSelection';
 import { mergeStyles, mergeStyleSets } from '@fluentui/react/lib/Styling';
 import { IRenderFunction, PrimaryButton } from '@fluentui/react';
 import { useState } from 'react';
-import "../../scssPages/form.scss"
+import "./detaiList.scss"
 
-const exampleChildClass = mergeStyles({
-    display: 'block',
-    marginBottom: '10px',
-});
+// const exampleChildClass = mergeStyles({
+//     cellTitle: {
+//         color: "#1A1F71",
+//         background: '#F4F2FF',
+//       }
+// });
+const classNames = mergeStyleSets({
+    table: {
+      margin: 'auto',
+    }
+  });
 
 const textFieldStyles: Partial<ITextFieldStyles> = { root: { maxWidth: '300px' } };
 
@@ -46,6 +53,7 @@ export const DetailsListBasicExample: React.FunctionComponent<IDetailsListState>
     const prevPage = () => setPage(page - 1);
     const [state, setState] = React.useState({
         items: allItems,
+        columns: columns,
         // selectionDetails: _getSelectionDetails()
     });
 
@@ -85,31 +93,30 @@ export const DetailsListBasicExample: React.FunctionComponent<IDetailsListState>
 
     return (
         <div>
-            <div className={exampleChildClass}></div>
+            
             <TextField
-                className={exampleChildClass}
+                
                 label="Filter by name:"
                 onChange={(e, t) => _onFilter(e, t ?? "")}
                 styles={textFieldStyles}    
             />
+               <div data-is-scrollable={false}>
+             {/* <div className={`s-Grid-col ms-sm9 ms-xl9 ${classNames.table}`}> */}
             <DetailsList
                 items={state.items}
+               
+                // onColumnHeaderClick={onColumnClick}
                 columns={columns}
                 selectionMode={SelectionMode.none}
                 onRenderDetailsFooter={onRenderDetailsFooter}
                 setKey="set"
             />
-        
+          {/* </div> */}
+          </div>
         </div>
     );
+    
 }
 
 
-
-
-
-
-//   private _onItemInvoked = (item: IDetailsListleItem): void => {
-//     alert(`Item invoked: ${item.name}`);
-//   };
 

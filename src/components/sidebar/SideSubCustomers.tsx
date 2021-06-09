@@ -7,7 +7,7 @@ import {  Route, Switch,withRouter } from "react-router-dom";
 import { useTranslation } from 'react-i18next';
 import CustomerLocator from '../customerSearch/CustomerSearch';
 import CustomerDetails from '../customerDetails/CustomerDetails';
-import Contact from '../Contact';
+import Contact from '../Contact/Contact';
 import Representatives from '../Representatives';
 import Obligo from '../Obligo';
 import Security from '../Security';

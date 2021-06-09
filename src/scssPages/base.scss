@@ -31,9 +31,10 @@
 .grid-container{
     display: grid;
     margin-top: 0px;
-    grid-template-columns: 1fr 4fr ;
+    // grid-template-columns: 1fr 4fr ;
     grid-template-areas: 
       "header header  header  header  header"
+    
       " side   main   main    main    main "
        "side    main  main    main    main " 
        " side   main   main   main    main "
@@ -44,13 +45,16 @@
 
    
 }
-@media only screen and (min-width: 767px){
+@media only screen and (min-width: 6px){
     .grid-container{
         margin-top: 0px;
+        overflow: auto;
+        min-height: 100%;
         // min-height: 1800px;
         grid-template-columns: 1fr 4fr ;
         grid-template-areas:
         "header header  header  header  header"
+        
       " side   main   main    main    main "
        "side    main  main    main    main " 
        " side   main   main   main    main "
