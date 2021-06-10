@@ -65,6 +65,12 @@
       "search":"חיפוש",
       "searchCustomer":"איתור לקוח",
       "details":"פרטים",
+      "customerSearch":"איתור לקוח",
+        "addresses":"כתובות",
+        "phones":"טלפונים",
+        "addEmail":"הוסף מייל",
+        "addPhone":"הוסף טלפון",
+        "addAddress":"הוסף כתובת",
        "log":{
         "yes":"כן",
         "no":"לא"

@@ -1,16 +1,24 @@
-.ms-DetailsHeader-cell is-actionable root-138  {
-    background: '#F4F2FF' !important;
-    border: '8px' !important;
-    min-width: "100px"!important;
-    max-width: "200px"!important;
-}
+// .ms-DetailsHeader-cell is-actionable root-138  {
+//     background: '#F4F2FF' !important;
+//     border: '8px' !important;
+//     min-width: "100px"!important;
+//     max-width: "200px"!important;
+// }
 
 .ms-Grid {
     max-width: "1050px"!important ;
 }
-.ms-Viewport {
-    margin: 0 1.5%;
-  }
-  .ms-FocusZone {
-    padding: 0;
-  }
+
+//   .ms-FocusZone {
+//     padding: 0;
+//   }
+.continar{
+ 
+  // overflow-x: auto;
+  // overflow-y: auto;
+
+  padding-right: 4px;
+  padding-bottom: 20px;
+  padding-inline-end: 25px;
+  // position: relative;
+}

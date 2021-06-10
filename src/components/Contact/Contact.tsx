@@ -5,6 +5,11 @@ import { IDetailsColumnStyles } from '@fluentui/react';
 import { DetailsListBasicExample } from '../../shared/components/tabels/tableList';
 import { useTranslation } from 'react-i18next';
 import SubHeader from '../SubHeader';
+import custemTable from '../../shared/components/tabels/table';
+import CustemTable from '../../shared/components/tabels/table';
+import SubTitle from '../../shared/components/TitleText';
+import Title from '../../shared/components/Title';
+import Subtitle from '../../shared/components/Subtitle';
 
 
 
@@ -40,18 +45,25 @@ const Contact =()=>{
     return(
         <>
  <SubHeader/>
-        <div className="content-wrapper contact-warper">
-         <div className=" ms-Grid-row">
-           <p className=" contact-text">{t('adress')}</p>
-           <div className="ms-Grid-row">
-          <DetailsListBasicExample columns={columns} allItems={item} />
-          </div>
+        <div className="">
+          <Subtitle title={t('customerSearch')}/>
+
+           <p className=" contact-text">{t('addresses')}</p>
+          <CustemTable textButtun={t('addAddress')}/>
+          <p className=" contact-text">{t('email')}</p>
+
+          <CustemTable textButtun= {t('addEmail')}/>
+          <p className=" contact-text">{t('phones')}</p>
+
+          <CustemTable textButtun={t('addPhone')}/>
+          {/* <DetailsListBasicExample columns={columns} allItems={item} />
+         
           <p></p>
           <DetailsListBasicExample columns={columns} allItems={item} />
           <p></p>
           <DetailsListBasicExample columns={columns} allItems={item} />
-          </div>
-          </div>
+           */}
+           </div>
         </>
 
     );
