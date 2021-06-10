@@ -1,4 +1,7 @@
 
+
+
+
 import React, { useEffect }  from 'react';
 import { connect, Provider, useSelector } from 'react-redux'
 import { i18n } from "./translations/i18n";
@@ -10,8 +13,7 @@ import { createStore } from 'redux';
 import {loadUser} from './store/actions/authActions'
 import store from './store/store';
 import Logout from './components/auth/Logout';
-import { IAppNavbar, IAuthReduxProps } from './modelsType/type/interface';
-import Login from './components/auth/Login';
+
 
 
 function App() {
@@ -40,4 +42,5 @@ function App() {
 }
 
 export default App;
+
 
