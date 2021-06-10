@@ -10,6 +10,9 @@ import SearchBoxSmall from "../../shared/components/TextSearch";
 import { TableList } from "../table";
 import { DetailsListBasicExample } from "../../shared/components/tabels/tableList";
 import SubHeader from "../SubHeader";
+import Subtitle from "../../shared/components/Subtitle";
+import SubTitle from "../../shared/components/TitleText";
+import Title from "../../shared/components/Title";
 
 const CustomerSearch = () =>
 {
@@ -83,7 +86,7 @@ const CustomerSearch = () =>
      return(
         <div>
            <SubHeader/>
-            <h1>BankAccounts</h1>
+           <Subtitle title={t('customerSearch')}/>
             {/* <IconButton/> */}
             <div className="content-search">
               <SearchBoxSmall onChange={onCustomerChanged} label={t('search')} />

@@ -1,10 +1,30 @@
-.contact-warper{
    
-        display:flex;
-        flex-grow: 4;
-        grid-template-columns: 1fr;
+.contact-warper
+{
+  margin:30px;
+  display:flex;
+  flex-direction:row;
+  width:300px;
+  height:80px;
+  border:1px red solid;
+  padding-inline-end:  '10px'
 
+ /* this */
+
+//   .contact-warper{
+//   flex:1 1 auto;
+//   border:1px red solid;
+//   text-align:center;
+
+//   margin:5px;  /* and that, will result in a 10px gap */
+// }
 }
+
+//         display:flex;
+//         flex-grow: 4;
+//         grid-template-columns: 1fr;
+
+// }
 
 .contact-text{
     font-family: Calibri;
@@ -21,5 +41,12 @@
     /* blue */
     
     color: #1A1F71;
+    
+}
+
+.contact-warper.go /* multicol test */
+{flex-direction:column;
+ 
+  
     
 }
