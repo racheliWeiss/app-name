@@ -1,5 +1,4 @@
 import * as React from 'react';
-import '../../scssPages/form.scss';
 import "./contact.scss"
 import { IDetailsColumnStyles } from '@fluentui/react';
 import { DetailsListBasicExample } from '../../shared/components/tabels/tableList';
@@ -48,12 +47,12 @@ const Contact =()=>{
         <div className="">
           <Subtitle title={t('customerSearch')}/>
 
-           <p className=" contact-text">{t('addresses')}</p>
+           <label className="contact-text">{t('addresses')}</label>
           <CustemTable textButtun={t('addAddress')}/>
-          <p className=" contact-text">{t('email')}</p>
+          <label className=" contact-text">{t('email')}</label>
 
           <CustemTable textButtun= {t('addEmail')}/>
-          <p className=" contact-text">{t('phones')}</p>
+          <label className=" contact-text">{t('phones')}</label>
 
           <CustemTable textButtun={t('addPhone')}/>
           {/* <DetailsListBasicExample columns={columns} allItems={item} />

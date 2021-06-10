@@ -31,19 +31,20 @@
     font-style: normal;
     font-weight: normal;
     font-size: 30px;
-    line-height: 133.51%;
+    
     /* or 40px */
     
     display: flex;
     align-items: center;
-    text-align: right;
     
     /* blue */
     
     color: #1A1F71;
     
 }
-
+p{
+  margin-bottom: "0rem" !important;
+}
 .contact-warper.go /* multicol test */
 {flex-direction:column;
  
