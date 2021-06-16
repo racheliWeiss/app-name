@@ -1,4 +1,4 @@
-import {  buildColumns, DefaultButton, DetailsList, IColumn, Link } from "@fluentui/react";
+import {  buildColumns, DefaultButton, DetailsHeader, DetailsList, IColumn, Link, mergeStyleSets } from "@fluentui/react";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { Route } from "react-router-dom";
@@ -8,7 +8,7 @@ import { IDetailsListItem } from "./HomePage";
 
 
 export const TableList = () => {
- 
+   
        const allItems: IDetailsListItem[] = [
         { key: 1, name: "good", value: 1 },
         { key: 2, name: "good", value: 12 },
@@ -18,18 +18,19 @@ export const TableList = () => {
     ]
      
     const headerStyle = {
-        cellTitle: {
+        root: {
             color: "#1A1F71",
             background: '#F4F2FF',
             border: '8px'
         }
     }
+   
 
     const columns = [
-        { styles: headerStyle, key: 'column1', name: 'Name', fieldName: 'name', minWidth: 100, maxWidth: 200, isResizable: true, isModalSelection: false, styleHeader: 'dataListHeader' },
-        { styles: headerStyle, key: 'column2', name: 'Value', fieldName: 'value', minWidth: 100, maxWidth: 200, isResizable: true, isModalSelection: false, styleHeader: 'dataListHeader' },
-        { styles: headerStyle, key: 'custem', name: 'Value', fieldName: 'value', minWidth: 100, maxWidth: 200, isResizable: true, isModalSelection: false, styleHeader: 'dataListHeader' },
-        { styles: headerStyle, key: 'fail', name: 'fail', fieldName: 'fail', minWidth: 100, maxWidth: 200, isResizable: true, isModalSelection: false, styleHeader: 'dataListHeader' },
+        { styles: headerStyle, key: 'column1', name: 'Name', fieldName: 'name', isResizable: true, isModalSelection: false, styleHeader: 'dataListHeader' },
+        { styles: headerStyle, key: 'column2', name: 'kc', fieldName: 'value', isResizable: true, isModalSelection: false, styleHeader: 'dataListHeader' },
+        { styles: headerStyle, key: 'custem', name: 'Value', fieldName: 'value',  isResizable: true, isModalSelection: false, styleHeader: 'dataListHeader' },
+        { styles: headerStyle, key: 'fail', name: 'fail', fieldName: 'fail', isResizable: true, isModalSelection: false, styleHeader: 'dataListHeader' },
 
     ];
  
@@ -57,7 +58,6 @@ export const TableList = () => {
         }
     }
 
-  
 
     // const onColumnClick = (event: any, column: any )=> {
     //     const columns= state.columns;
@@ -97,8 +97,10 @@ export const TableList = () => {
                             items={allItems}
                         //    onColumnHeaderClick={onColumnClick}
                             columns={columns}
+                            // onRenderDetailsHeader={renderDetailsHeader}
                             setKey='set'
-                            onRenderItemColumn={renderItemColumn}
+
+                             onRenderItemColumn={renderItemColumn}
                         />
                     </div>
                 </div>

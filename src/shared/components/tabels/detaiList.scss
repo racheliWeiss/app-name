@@ -5,9 +5,9 @@
 //     max-width: "200px"!important;
 // }
 
-.ms-Grid {
-    max-width: "1050px"!important ;
-}
+// .ms-Grid {
+//     max-width: "1050px"!important ;
+// }
 
 //   .ms-FocusZone {
 //     padding: 0;
@@ -20,5 +20,41 @@
   padding-right: 4px;
   padding-bottom: 20px;
   padding-inline-end: 25px;
+  .ms-Viewport {
+    
+            .root-185 {
+              &:hover {
+                 background-color:#F4F2FF;
+               }
+               width: 200px !important;
+               max-width: 200px !important;
+               min-width: 100px !important;
+             }
+             
+       
+     
+   
+  }
+
   // position: relative;
 }
+
+.ms-DetailsHeader{
+  
+  background-color:#F4F2FF;
+  
+}
+
+.cellTitle-183{
+    color: #1A1F71 ;
+    background:#F4F2FF;
+    
+    // hover:#F4F2FF;
+   
+}
+.cellTitle {
+  color: #1A1F71;
+  background: #F4F2FF;
+  border: '8px';
+}
+

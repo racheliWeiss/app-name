@@ -39,13 +39,16 @@ const Login = ({
         (newUser as any)[key] = value;
         setUserLogin(newUser);
       }
+      let isClickLogin=false;
     //   const handleToggle = useCallback(() => {
     //     // Clear errors
     //     clearErrors();
     //     setModal(!modal);
     //   }, [clearErrors, modal]);
-    
+   
+
      function LoginTime(event: any) {
+        isClickLogin = true
         event.preventDefault();
         login(userLogin)
     }
@@ -83,7 +86,7 @@ const Login = ({
                         updateUserLogin('LoginPassword', e.currentTarget.value)
                    }}                  
                 />
-                <PrimaryButton className='button' checked={false} text={t('login.sigin')} type="submit" />
+                <PrimaryButton disabled={isClickLogin} className='button' checked={false} text={t('login.sigin')} type="submit" />
             </form>
             <div className="picture" >link to img </div>
         </div >

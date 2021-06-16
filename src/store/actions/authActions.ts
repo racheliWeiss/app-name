@@ -56,7 +56,7 @@ export const login = (loginUser :User) => (
       )
       .catch(err => {
         dispatch(
-          returnErrors(err.response.data, err.response.status, 'LOGIN_FAIL')
+          err.response ? returnErrors(err.response.data, err.response.status, 'LOGIN_FAIL') : returnErrors('the server is down pls try later','LOGIN_FAIL')
         );
         dispatch({
           type: LOGIN_FAIL
@@ -65,10 +65,18 @@ export const login = (loginUser :User) => (
   };
   
   // Logout User
-  export const logout = () => {
-    return {
+  export const logout = () => (
+    dispatch: Function
+  ) => {
+    dispatch({
         type: LOGOUT_SUCCESS
-    };
+    });
+  };
+
+  export const logout1 = (dispatch: any) => {
+    dispatch({
+        type: LOGOUT_SUCCESS
+    });
   };
   
   // Setup config/headers and token

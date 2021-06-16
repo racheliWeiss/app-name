@@ -1,23 +1,25 @@
 import { IconButton } from '@fluentui/react';
 import react from 'react';
 import { useTranslation } from 'react-i18next';
-import { connect } from 'react-redux';
+import { connect, useDispatch } from 'react-redux';
 import { ILogoutProps } from '../../modelsType/type/interface';
 
-import { logout }from '../../store/actions/authActions'
+import { logout, logout1 } from '../../store/actions/authActions'
 
 
-export const Logout = ({ logout}:any)=>{
-
+export const Logout = ({logout}:any)=>{
+const dispatch = useDispatch()
   const [t, i18n] = useTranslation();
-  // const  handleLogout = ()=>{
-  //   <Link to="/logut"></Link>
-  // }
+  const  handleLogout = () => {
+    console.log('handleLogout')
+    logout1(dispatch)
+    // logout && logout()
+  }
   return(
       <>
       <p className="logout">{t('logout')}</p>
           <IconButton
-            onClick={logout}
+            onClick={handleLogout}
             iconProps={{ iconName: 'NavigateBack' }}
             className="icon"
             styles={{
@@ -43,4 +45,4 @@ export const Logout = ({ logout}:any)=>{
     );
 };
 
-export default connect(null, { logout })(Logout);  
+export default connect(null, {logout })(Logout);  

@@ -14,6 +14,7 @@ const  Home=()=> {
         {/* <SideMain/>
         <ContentSideCustomers/>
         <SideCustomers /> */}
+        <SubHeader/>
         <Sidebar/>
         <Route path="/" exact component={CustomerDetails}/>
 

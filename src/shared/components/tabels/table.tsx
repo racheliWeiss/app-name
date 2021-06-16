@@ -1,18 +1,23 @@
-import { ConstrainMode,DetailsList, DetailsRow, IColumn, IDetailsFooterProps, IRenderFunction, PrimaryButton } from "@fluentui/react";
+import { ConstrainMode,DetailsHeader,DetailsList, DetailsRow, IColumn, IDetailsFooterProps, IRenderFunction, PrimaryButton } from "@fluentui/react";
 import { SelectionMode } from "office-ui-fabric-react";
-import React from "react";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { IDetailsListItem } from "./tableList";
 import './detaiList.scss'
 import { CustomTextField } from "../TextField";
-import { ItemScheduledSignal } from "@uifabric/experiments";
-import TitleText from "../TitleText";
-import {useBoolean}from "@fluentui/react-hooks"
+import React from "react";
+import { GoIcon } from "@fluentui/react-icons-mdl2";
 
 interface Iprop {
     textButtun: string
 }
+
+// const exampleChildClass = mergeStyles({
+//     cellTitle: {
+//         color: "#1A1F71",
+//         background: '#F4F2FF',
+//       }
+// })
 const CustemTable = (props: Iprop) => {
     const { textButtun } = props
 
@@ -31,26 +36,60 @@ const CustemTable = (props: Iprop) => {
             border: '8px'
         }
     }
-
-    const columns = [
-        { styles: headerStyle, key: 'column1', name: 'Name', fieldName: 'name', minWidth: 100, maxWidth: 200, isResizable: true, isModalSelection: false, styleHeader: 'dataListHeader' },
-        { styles: headerStyle, key: 'column2', name: 'Value', fieldName: 'value', minWidth: 100, maxWidth: 200, isResizable: true, isModalSelection: false, styleHeader: 'dataListHeader' },
-        { styles: headerStyle, key: 'custem', name: 'Value', fieldName: 'value', minWidth: 100, maxWidth: 200, isResizable: true, isModalSelection: false, styleHeader: 'dataListHeader' },
-        { styles: headerStyle, key: 'fail', name: 'fail', fieldName: 'fail', minWidth: 100, maxWidth: 200, isResizable: true, isModalSelection: false, styleHeader: 'dataListHeader' },
+   const  onColumnClick = (_ev: React.MouseEvent<HTMLElement>, column: any) => {
+        const { columns, items } = table;
+        const newColumns = columns.slice();
+        const currColumn:any = newColumns.filter(currCol => column.key === currCol.key)[0];
+        newColumns.forEach((newCol: any) => {
+          if (newCol === currColumn) {
+            currColumn.isSortedDescending = !currColumn.isSortedDescending;
+            currColumn.isSorted = true;
+            //  setAnnouncedMessage(
+            //   announcedMessage: `${currColumn.name} is sorted ${
+            //     currColumn.isSortedDescending ? 'descending' : 'ascending'
+            //   }`,
+            // );
+          } else {
+            newCol.isSorted = false;
+            newCol.isSortedDescending = true;
+          }
+        });
+        const newItems = _copyAndSort(items, currColumn.fieldName!, currColumn.isSortedDescending);
+        setTable({
+          columns: newColumns,
+          items: newItems,
+        });
+        return newColumns;
+      };
+    // }
+    const columns:IColumn[]= [
+        { styles:headerStyle, key: 'column1', name: 'Name', fieldName: 'name', isResizable: true,onColumnClick: onColumnClick  },
+        { key: 'column2', name: 'Value', fieldName: 'value',  isResizable: true},
+        { key: 'custem', name: 'Value', fieldName: 'value',  isResizable: true,  },
+        { key: 'fail', name: 'fail', fieldName: 'fail',  isResizable: true},
 
     ];
 
     const [t, i18n] = useTranslation();
+    const [announcedMessage,setAnnouncedMessage]=useState(undefined)
     const [table, setTable] = useState({
         items: allItems,
         columns: columns,
+    
+
 
         // selectionDetails: _getSelectionDetails()
     });
 
     const [isNewItem,setIsNewItem]=useState('')
-
-
+//     let conti:string;
+//  conti="continar";
+//     const renderDetailsHeader = ()
+//     {
+//         <DetailsHeader
+//          columns={columns}
+//         />
+//     }
 
     const footerStyle = {
         root: {
@@ -85,20 +124,20 @@ const CustemTable = (props: Iprop) => {
     }
     
 
-    const onRenderDetailsFooter: IRenderFunction<IDetailsFooterProps> = (props, defaultRender) => {
+    const onRenderDetailsFooter: IRenderFunction<IDetailsFooterProps> = (detailsFooterProps?: IDetailsFooterProps) => {
         if (!props) {
             return null;
         }
         return (
             <DetailsRow
-                columns={[]}
-                item={{ key: "1", name: "xjcb" }}
-                styles={footerStyle}
-                itemIndex={-1}
-                selection={props.selection}
-                selectionMode={(props.selection && props.selection.mode) || SelectionMode.none}
-                rowWidth={1200}
-
+            {...detailsFooterProps}
+            columns={detailsFooterProps?.columns}
+            item={{}}
+            itemIndex={-1}
+            groupNestingDepth={detailsFooterProps?.groupNestingDepth}
+            selectionMode={SelectionMode.single}
+            selection={detailsFooterProps?.selection}
+            styles={footerStyle}
             />
         );
     };
@@ -107,6 +146,13 @@ const CustemTable = (props: Iprop) => {
 
 
         <div className="continar">
+               
+            {/* <TextField
+                
+                label="Filter by name:"
+                onChange={(e, t) => _onFilter(e, t ?? "")}
+                  
+            /> */}
             <PrimaryButton text={textButtun} onClick={addItem}  />
             
             {columns.map((col:any) => (
@@ -120,7 +166,7 @@ const CustemTable = (props: Iprop) => {
                 columns={columns}
                 constrainMode={ConstrainMode.horizontalConstrained}
                 onRenderDetailsFooter={onRenderDetailsFooter}
-                selectionMode={SelectionMode.none}
+                selectionMode={SelectionMode.single}
             // setKey='set'
 
             />
@@ -129,6 +175,86 @@ const CustemTable = (props: Iprop) => {
 
 
     );
+
+    // 
+//    const _onColumnClick = (event: React.MouseEvent<HTMLElement>, column: IColumn): void => {
+//     const { columns } = table.columns;
+//     let { sortedItems } = table.items;
+//     let isSortedDescending = column.isSortedDescending;
+
+//     // If we've sorted this column, flip it.
+//     if (column.isSorted) {
+//       isSortedDescending = !isSortedDescending;
+//     }
+
+//     // Sort the items.
+//     sortedItems = _copyAndSort(sortedItems, column.fieldName!, isSortedDescending);
+
+//     // Reset the items and columns to match the state.
+//     setTable({
+//       items: sortedItems,
+//       columns: columns.map((col:IColumn) => {
+//         col.isSorted = col.key === column.key;
+
+//         if (col.isSorted) {
+//           col.isSortedDescending = isSortedDescending;
+//         }
+
+//         return col;
+//       }),
+//     });
+//   };
+
+    // const  onColumnClick = (_ev: React.MouseEvent<HTMLElement>, column: any) => {
+    //     const { columns, items } = table;
+    //     const newColumns = columns.slice();
+    //     const currColumn:any = newColumns.filter(currCol => column.key === currCol.key)[0];
+    //     newColumns.forEach((newCol: any) => {
+    //       if (newCol === currColumn) {
+    //         currColumn.isSortedDescending = !currColumn.isSortedDescending;
+    //         currColumn.isSorted = true;
+    //         //  setAnnouncedMessage(
+    //         //   announcedMessage: `${currColumn.name} is sorted ${
+    //         //     currColumn.isSortedDescending ? 'descending' : 'ascending'
+    //         //   }`,
+    //         // );
+    //       } else {
+    //         newCol.isSorted = false;
+    //         newCol.isSortedDescending = true;
+    //       }
+    //     });
+    //     const newItems = _copyAndSort(items, currColumn.fieldName!, currColumn.isSortedDescending);
+    //     setTable({
+    //       columns: newColumns,
+    //       items: newItems,
+    //     });
+    //     return newColumns;
+    //   };
+    // // }
+    function _copyAndSort<T>(items: T[], columnKey: string, isSortedDescending?: boolean): T[] {
+        const key = columnKey as keyof T;
+        return items.slice(0).sort((a: T, b: T) => ((isSortedDescending ? a[key] < b[key] : a[key] > b[key]) ? 1 : -1));
+      }
+      
 }
 
 export default CustemTable;
+
+
+
+
+// const _onFilter = (
+    //     ev: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>,
+    //     text: string
+    // ): void => {
+    //     console.log(text);
+    //     setState((prev) => {
+    //         return {
+    //             ...prev,
+    //             items: text
+    //                 ? allItems.filter((i) => i.name.toLowerCase().indexOf(text) > -1)
+    //                 : allItems
+    //         };
+    //     });
+    // };
+    

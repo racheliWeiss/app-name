@@ -94,7 +94,7 @@ const CustomerDetails = () => {
 
   return (
     <>
-      <SubHeader/>
+      
       <div className="content-wrapper customerDetail-wrapper">
           <Subtitle title={t("customerDetails")} />
           <div></div>

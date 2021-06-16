@@ -5,14 +5,13 @@ import { useState,useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import "./customerSearch.scss"
 import { IssuePagination } from "../../shared/components/Pagination/Pagination";
-import { CustomTextField } from "../../shared/components/TextField";
 import SearchBoxSmall from "../../shared/components/TextSearch";
 import { TableList } from "../table";
-import { DetailsListBasicExample } from "../../shared/components/tabels/tableList";
 import SubHeader from "../SubHeader";
 import Subtitle from "../../shared/components/Subtitle";
 import SubTitle from "../../shared/components/TitleText";
 import Title from "../../shared/components/Title";
+import CustemTable from "../../shared/components/tabels/tableList";
 
 const CustomerSearch = () =>
 {
@@ -25,19 +24,19 @@ const CustomerSearch = () =>
     const[searchDetail,setSearchDetail]=useState('')
     const [t, i18n] = useTranslation();
     let result:number;
-   
-    const headerStyle = {
-        cellTitle: {
-          color: "#1A1F71",
-          background: '#F4F2FF',
-          border: '8px'
-        }
-    }  
-    const columns = [
-        { styles: headerStyle, key: 'column1', name: 'Name', fieldName: 'name', minWidth: 100, maxWidth: 200, isResizable: true, isModalSelection: false, styleHeader: 'dataListHeader' },
-        { styles: headerStyle, key: 'column2', name: 'Value', fieldName: 'value', minWidth: 100, maxWidth: 200, isResizable: true, isModalSelection: false, styleHeader: 'dataListHeader' },
-        { styles: headerStyle, key: 'column2', name: 'Value', fieldName: 'value', minWidth: 100, maxWidth: 200, isResizable: true, isModalSelection: false, styleHeader: 'dataListHeader' },
-      ];
+
+    const columns = [       
+      {key: 'column1', name: 'Name', fieldName: 'name', minWidth: 100, maxWidth: 200},
+      {key: 'column2', name: 'Value', fieldName: 'value',minWidth: 100, maxWidth: 200 },
+      {key: 'column3', name: 'Value', fieldName: 'value',minWidth: 100, maxWidth: 200},
+      {key: 'link', name: 'link', fieldName: 'link',minWidth: 100, maxWidth: 200},
+    ]; 
+    
+    const item=[
+      {key: 1, name:"good",value:1},
+      {key:2, name:"good",value:12},
+      
+     ]
       const paginationData = {
         lines: 5,
         numVisiblePages: 5,
@@ -85,7 +84,7 @@ const CustomerSearch = () =>
       }
      return(
         <div>
-           <SubHeader/>
+        
            <Subtitle title={t('customerSearch')}/>
             {/* <IconButton/> */}
             <div className="content-search">
@@ -95,12 +94,12 @@ const CustomerSearch = () =>
            </div>
             {/* <DetailsListBasicExample columns={columns} allItems={[]} /> */}
           
-           <TableList/>
-           <IssuePagination
+             <CustemTable columns={columns} allItems={item} rederRow={"link"} isFooter={false}/>
+             <IssuePagination
                 onPageChange={onPageChanged}
                 pageCount={27}
                 currentPage={1}
-            />
+              />
         </div>
        
     );

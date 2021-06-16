@@ -1,1 +1,1 @@
-export const basicUrl='http://82.166.177.79/FinApi'
+export const basicUrl='https://localhost:44337'

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import "./contact.scss"
 import { IDetailsColumnStyles } from '@fluentui/react';
-import { DetailsListBasicExample } from '../../shared/components/tabels/tableList';
+import {  } from '../../shared/components/tabels/tableList';
 import { useTranslation } from 'react-i18next';
 import SubHeader from '../SubHeader';
 import custemTable from '../../shared/components/tabels/table';
@@ -43,7 +43,7 @@ const Contact =()=>{
         ]
     return(
         <>
- <SubHeader/>
+
         <div className="">
           <Subtitle title={t('customerSearch')}/>
 

@@ -1,122 +1,143 @@
 import * as React from 'react';
-import { TextField, ITextFieldStyles } from '@fluentui/react/lib/TextField';
-import { DetailsList, DetailsListLayoutMode, Selection, IColumn, SelectionMode, DetailsRow, IDetailsFooterProps, buildColumns } from '@fluentui/react/lib/DetailsList';
-import { MarqueeSelection } from '@fluentui/react/lib/MarqueeSelection';
-import { mergeStyles, mergeStyleSets } from '@fluentui/react/lib/Styling';
-import { IRenderFunction, PrimaryButton } from '@fluentui/react';
-import { useState } from 'react';
+import { TextField, } from '@fluentui/react/lib/TextField';
+import { DetailsList, Selection, IColumn, SelectionMode, DetailsRow, IDetailsFooterProps } from '@fluentui/react/lib/DetailsList';
+import { DefaultButton, Dialog, DialogFooter, IRenderFunction, PrimaryButton } from '@fluentui/react';
+import { useEffect, useState } from 'react';
 import "./detaiList.scss"
+import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+import { useBoolean } from '@fluentui/react-hooks';
 
-// const exampleChildClass = mergeStyles({
-//     cellTitle: {
-//         color: "#1A1F71",
-//         background: '#F4F2FF',
-//       }
-// });
-const classNames = mergeStyleSets({
-    table: {
-      margin: 'auto',
-    }
-  });
 
-const textFieldStyles: Partial<ITextFieldStyles> = { root: { maxWidth: '300px' } };
+
 
 export interface IDetailsListItem {
-    key: number;
-    name: string;
-    value: number;
+  key: number;
+  name: string;
+  value: number;
 }
 
 export interface IDetailsListState {
-    selectionDetails?: string;
-    columns: [] | IColumn[];
-    allItems: IDetailsListItem[];
-    styleHeader?: string
+  selectionDetails?: string;
+  columns: [] | IColumn[];
+  allItems:any[];
+  styleHeader?: string
+  isSelcted?:boolean;
+  isFooter?:boolean;
+  rederRow?:string;
+  search?:boolean;
+  addCustem?:boolean;
 
 }
 
-
-const headerStyle = {
-    root: {
+const footerStyle = {
+  root: {
       background: '#F4F2FF',
-      border: '8px'
+  }
+}
+
+const CustemTable: React.FunctionComponent<IDetailsListState> = (props) => {
+  const { allItems = [], columns, isSelcted = false, isFooter=true, rederRow="",search=false, addCustem=false} = props
+  let isSelection=SelectionMode.none
+  if(isSelcted === true){
+     isSelection=SelectionMode.single
+     
+  }
+  const renderRow=rederRow;
+   
+  const [state, setState] = React.useState({
+    items: allItems,
+    columns: columns,
+  });
+  // if(search===true)  {
+  // columns.map(col:IColumn)=>
+  //     {
+  //       col.push([onColumnClickk]=)
+  //     }
+  //   );
+  // }
+  const [t, i18n] = useTranslation();
+  const [hideDialog, { toggle: toggleHideDialog }] = useBoolean(true);
+  const [selectedItem, setSelectedItem] = useState<Object | undefined>(undefined)
+  const selection = new Selection({
+    onSelectionChanged: () => {
+
+      console.log(selection.getSelection());
+      setSelectedItem(selection.getSelection())
+    }
+  })
+  useEffect(() => {
+    // Do something with the selected item
+    console.log(selectedItem)
+  }, [selectedItem])
+
+
+  const renderItemColumn = (item: any, index: any, column: any) => {
+
+    let fieldContent = item[column.fieldName];
+    switch (column.key) {
+        case renderRow:
+            return <DefaultButton> <Link to={{
+                pathname: '/customer-details',
+                state: [{id: 1, name: 'Ford', color: 'red'}]
+              }}> {t('details')} </Link> </DefaultButton>
+
+        default:
+            return <span >{fieldContent}</span>;
     }
 }
-export const DetailsListBasicExample: React.FunctionComponent<IDetailsListState> = (props) => {
-    const { allItems = [], columns } = props
 
-    const numOfIcons = allItems.length;
 
-    const [items, setItems] = useState(allItems)
-    const [page, setPage] = useState(1);
-    const nextPage = () => setPage(page + 1);
-    const prevPage = () => setPage(page - 1);
-    const [state, setState] = React.useState({
-        items: allItems,
-        columns: columns,
-        // selectionDetails: _getSelectionDetails()
-    });
-
-    const _onFilter = (
-        ev: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>,
-        text: string
-    ): void => {
-        console.log(text);
-        setState((prev) => {
-            return {
-                ...prev,
-                items: text
-                    ? allItems.filter((i) => i.name.toLowerCase().indexOf(text) > -1)
-                    : allItems
-            };
-        });
-    };
-    
-
-    const onRenderDetailsFooter: IRenderFunction<IDetailsFooterProps> = (props, defaultRender) => {
-        if (!props) {
-          return null;
-        }
-        return (
-              <DetailsRow
-                columns={[]}
-                item={{key:"1", name:"xjcb"}}
-                styles={headerStyle}
-                itemIndex={-1}
-                selection={props.selection}
-                selectionMode={(props.selection && props.selection.mode) || SelectionMode.none}
-                rowWidth={1500}
-            
-              />
-        );
-      };
-
+  let onRenderDetailsFooter: IRenderFunction<IDetailsFooterProps> = (detailsFooterProps?: IDetailsFooterProps) => {
+    if (!props) {
+      return null;
+    }
+    if(isFooter===false){
+      return null;
+    }
     return (
-        <div>
-            
-            <TextField
-                
-                label="Filter by name:"
-                onChange={(e, t) => _onFilter(e, t ?? "")}
-                styles={textFieldStyles}    
-            />
-               <div data-is-scrollable={false}>
-             {/* <div className={`s-Grid-col ms-sm9 ms-xl9 ${classNames.table}`}> */}
-            <DetailsList
-                items={state.items}
-               
-                // onColumnHeaderClick={onColumnClick}
-                columns={columns}
-                selectionMode={SelectionMode.none}
-                onRenderDetailsFooter={onRenderDetailsFooter}
-                setKey="set"
-            />
-          {/* </div> */}
-          </div>
-        </div>
-    );
+      <DetailsRow
+        {...detailsFooterProps}
+        columns={detailsFooterProps?.columns}
+        item={{}}
+        itemIndex={-1}
+        // groupNestingDepth={detailsFooterProps?.groupNestingDepth}
+        styles={footerStyle}
     
+      />
+    );
+  };
+
+  return (
+    <>
+      {addCustem?uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu<DefaultButton secondaryText="Opens the Sample Dialog" onClick={toggleHideDialog} text="Open Dialog" />
+      <Dialog hidden={hideDialog} onDismiss={toggleHideDialog} >
+       
+        <DialogFooter>
+            <TextField/>
+            <TextField/>
+            <TextField/>
+            <TextField/>
+          <PrimaryButton onClick={toggleHideDialog} text="Save" />
+          <DefaultButton onClick={toggleHideDialog} text="Cancel" />
+        </DialogFooter>
+      </Dialog>}
+   
+      <div className="continar">
+        <DetailsList
+          items={state.items}
+          columns={columns}
+          selection={selection}
+          selectionMode={isSelection}
+          // selectionPreservedOnEmptyClick={true}
+          onRenderDetailsFooter={onRenderDetailsFooter}
+          onRenderItemColumn={renderItemColumn}
+        />
+      </div>
+   </>
+  );
+
 }
 
 
-
+export default CustemTable;

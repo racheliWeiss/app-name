@@ -45,10 +45,8 @@ export const SubHeader: React.FunctionComponent = () => {
         }}
         className="button"
       />
-       
+       <hr className="hr"></hr>
     </div>
-    <hr className="hr"></hr>
-
     </>
   )
 }

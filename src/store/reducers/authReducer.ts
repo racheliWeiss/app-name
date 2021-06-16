@@ -46,7 +46,7 @@ USERֹֹ_LOADING,
                     ...state,
                     token:null,
                     user:null,  
-                    isAuthenticted :false,
+                    isAuthenticted:false,
                     isLoading:false
                 }    
             default: return state;
