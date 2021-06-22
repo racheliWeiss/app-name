@@ -7,7 +7,6 @@ import { CustomToggle } from "../../shared/components/Toggle";
 import '../../scssPages/form.scss';
 import './customerDetails.scss'
 import { Icons } from "../../modelsType/Icon";
-import SubHeader from "../SubHeader";
 import Subtitle from "../../shared/components/Subtitle";
 
 //form's object
@@ -72,7 +71,10 @@ class Customer {
     this.Email = email
   }
 }
+
 const CustomerDetails = () => {
+
+
   const [t, i18n] = useTranslation();
 
   const genderArray = [{ key: 1, text: t('male') }, { key: 2, text: t('female') }, { key: 3, text: t('other') }];
@@ -132,7 +134,7 @@ const CustomerDetails = () => {
           <hr className="hr text-width"></hr>
           <div>
 
-            <CustomTextField required={true} label={t('identityNumber')} onChange={updateUser} id={'customerNumber'} />
+            <CustomTextField  required={true} label={t('identityNumber')} onChange={updateUser} id={'customerNumber'} />
             <CustomDropdown otherInputId={'typeIdentityNumberOther'} hasOtherValue={true} options={genderArray} label={t('typeIdentityNumber')} onChange={updateUser} selectedKey={customer.TypeIdentityNumber} id={'TypeIdentityNumberOther'} othertextInput={t('typeIdentityNumberOther')} />
             <CustomDropdown otherInputId={''} hasOtherValue={false} options={[]} label={t('countryIdentityNumber')} onChange={updateUser} selectedKey={customer.CountryIdentityNumber} id={'CountryIdentityNumber'} othertextInput={t('')} />
             <p className="title-text">{t('contactInformation')}</p>

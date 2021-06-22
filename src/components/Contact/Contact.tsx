@@ -1,11 +1,10 @@
 import * as React from 'react';
-import "./contact.scss"
+import "./contact.scss";
+import "../../scssPages/form.scss";
 import { IDetailsColumnStyles } from '@fluentui/react';
-import {  } from '../../shared/components/tabels/tableList';
+import CustemTable, {  } from '../../shared/components/tabels/TableList';
 import { useTranslation } from 'react-i18next';
 import SubHeader from '../SubHeader';
-import custemTable from '../../shared/components/tabels/table';
-import CustemTable from '../../shared/components/tabels/table';
 import SubTitle from '../../shared/components/TitleText';
 import Title from '../../shared/components/Title';
 import Subtitle from '../../shared/components/Subtitle';
@@ -30,11 +29,11 @@ const Contact =()=>{
     }
   }
     const columns = [       
-        { styles:headerStyle ,key: 'column1', name: 'Name', fieldName: 'name', minWidth: 100, maxWidth: 200, isResizable: true , isModalSelection: false,styleHeader:'dataListHeader'},
-        {styles: headerStyle, key: 'column2', name: 'Value', fieldName: 'value', minWidth: 100, maxWidth: 200, isResizable: true ,isModalSelection: false,styleHeader:'dataListHeader'},
-        {styles: headerStyle, key: 'column2', name: 'Value', fieldName: 'value', minWidth: 100, maxWidth: 200, isResizable: true ,isModalSelection: false,styleHeader:'dataListHeader'},
+        {key: 'column1', name: 'Name', fieldName: 'name', minWidth: 100, maxWidth: 200},
+        { key: 'column2', name: 'Value', fieldName: 'value', minWidth: 100, maxWidth: 200},
+        { key: 'column2', name: 'Value', fieldName: 'value', minWidth: 100, maxWidth: 200},
       ];
-     const item:IDetailsListItem[]=[
+     const items=[
          {key: 1, name:"good",value:1},
          {key:2, name:"good",value:12},
          {key: 3, name:"goo",value:12},
@@ -44,17 +43,18 @@ const Contact =()=>{
     return(
         <>
 
-        <div className="">
+        <div className="content-wrapper">
           <Subtitle title={t('customerSearch')}/>
-
-           <label className="contact-text">{t('addresses')}</label>
-          <CustemTable textButtun={t('addAddress')}/>
+    
+           <label className="">{t('addresses')}</label>
+            <CustemTable columns={columns} allItems={items} textBottun={'addAddress'} addCustem={true} />
+        
           <label className=" contact-text">{t('email')}</label>
+          <CustemTable columns={columns} allItems={items} textBottun={t('addEmail')} addCustem={true} />
 
-          <CustemTable textButtun= {t('addEmail')}/>
           <label className=" contact-text">{t('phones')}</label>
+          <CustemTable columns={columns} allItems={items} textBottun={t('addPhone')} addCustem={true} />
 
-          <CustemTable textButtun={t('addPhone')}/>
           {/* <DetailsListBasicExample columns={columns} allItems={item} />
          
           <p></p>

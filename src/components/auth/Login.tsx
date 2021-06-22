@@ -32,6 +32,7 @@ const Login = ({
     const [t, i18n] = useTranslation();
     const [msg, setMsg] = useState(null);
     const [modal, setModal] = useState(false);
+    const [isClickLogin ,setIsClickLogin]=useState(false)
     const [userLogin, setUserLogin] = useState(new User('') );
 
     const updateUserLogin = (key: string, value:any ) => {
@@ -39,7 +40,7 @@ const Login = ({
         (newUser as any)[key] = value;
         setUserLogin(newUser);
       }
-      let isClickLogin=false;
+    
     //   const handleToggle = useCallback(() => {
     //     // Clear errors
     //     clearErrors();
@@ -48,9 +49,9 @@ const Login = ({
    
 
      function LoginTime(event: any) {
-        isClickLogin = true
-        event.preventDefault();
+        setIsClickLogin(true);
         login(userLogin)
+        event.preventDefault();
     }
     return (
         <div className="grid-container-login">
@@ -88,7 +89,7 @@ const Login = ({
                 />
                 <PrimaryButton disabled={isClickLogin} className='button' checked={false} text={t('login.sigin')} type="submit" />
             </form>
-            <div className="picture" >link to img </div>
+            
         </div >
     );    
 };

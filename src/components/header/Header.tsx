@@ -23,12 +23,14 @@ const Header = ({ auth }: IAppNavbar) => {
       <div className="header">
         <div className="user">
           <p className="user-name">{isLogin}</p>
-        </div>
-        <Logout />
-        <div className='divider'></div>
-        <div className="name-company">
+      
+         <Logout />
+         </div>
+         <div className='divider'></div>
+         <div className="name-company">
           <p >InSight Systems 2.0</p>
-        </div>
+        
+      </div>
         
      
         {/* <FontIcon iconName="IncreaseIndentArrowMirrored" className="logoutIcon"/> */}

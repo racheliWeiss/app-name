@@ -11,7 +11,7 @@ import SubHeader from "../SubHeader";
 import Subtitle from "../../shared/components/Subtitle";
 import SubTitle from "../../shared/components/TitleText";
 import Title from "../../shared/components/Title";
-import CustemTable from "../../shared/components/tabels/tableList";
+import CustemTable from "../../shared/components/tabels/TableList";
 
 const CustomerSearch = () =>
 {
@@ -26,8 +26,8 @@ const CustomerSearch = () =>
     let result:number;
 
     const columns = [       
-      {key: 'column1', name: 'Name', fieldName: 'name', minWidth: 100, maxWidth: 200},
-      {key: 'column2', name: 'Value', fieldName: 'value',minWidth: 100, maxWidth: 200 },
+      {key: 'column1', name: 'Name', fieldName: 'name',minWidth: 100, maxWidth: 200},
+      {key: 'column2', name: 'Value', fieldName: 'value' ,minWidth: 100, maxWidth: 200},
       {key: 'column3', name: 'Value', fieldName: 'value',minWidth: 100, maxWidth: 200},
       {key: 'link', name: 'link', fieldName: 'link',minWidth: 100, maxWidth: 200},
     ]; 
@@ -89,8 +89,8 @@ const CustomerSearch = () =>
             {/* <IconButton/> */}
             <div className="content-search">
               <SearchBoxSmall onChange={onCustomerChanged} label={t('search')} />
-             {/* <CustomTextField required={true} label={t('lastName')} onChange={onCustomerChanged} id={'LastName'}/> */}
-           <PrimaryButton onClick={onLoadCustomerClicked} text={t("searchCustomer")}/>
+
+             <PrimaryButton className="bottun" onClick={onLoadCustomerClicked} text={t("searchCustomer")}/>
            </div>
             {/* <DetailsListBasicExample columns={columns} allItems={[]} /> */}
           

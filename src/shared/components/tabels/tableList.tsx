@@ -7,6 +7,8 @@ import "./detaiList.scss"
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useBoolean } from '@fluentui/react-hooks';
+import { CustomTextField } from '../TextField';
+import { CustemDialogAddress, CustemDialogEmail, CustemDialogPhone } from '../dialog/Dialog';
 
 
 
@@ -27,6 +29,7 @@ export interface IDetailsListState {
   rederRow?:string;
   search?:boolean;
   addCustem?:boolean;
+  textBottun?:string
 
 }
 
@@ -37,7 +40,7 @@ const footerStyle = {
 }
 
 const CustemTable: React.FunctionComponent<IDetailsListState> = (props) => {
-  const { allItems = [], columns, isSelcted = false, isFooter=true, rederRow="",search=false, addCustem=false} = props
+  const { allItems = [], columns, isSelcted = false, isFooter=true, rederRow="",search=false, addCustem=false ,textBottun=""} = props
   let isSelection=SelectionMode.none
   if(isSelcted === true){
      isSelection=SelectionMode.single
@@ -71,6 +74,9 @@ const CustemTable: React.FunctionComponent<IDetailsListState> = (props) => {
     console.log(selectedItem)
   }, [selectedItem])
 
+  const onChange = (ke: string, val: any) => {
+    console.log("col" + ke + "0" + val); 
+   }
 
   const renderItemColumn = (item: any, index: any, column: any) => {
 
@@ -86,7 +92,7 @@ const CustemTable: React.FunctionComponent<IDetailsListState> = (props) => {
             return <span >{fieldContent}</span>;
     }
 }
-
+ 
 
   let onRenderDetailsFooter: IRenderFunction<IDetailsFooterProps> = (detailsFooterProps?: IDetailsFooterProps) => {
     if (!props) {
@@ -109,19 +115,12 @@ const CustemTable: React.FunctionComponent<IDetailsListState> = (props) => {
   };
 
   return (
-    <>
-      {addCustem?uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu<DefaultButton secondaryText="Opens the Sample Dialog" onClick={toggleHideDialog} text="Open Dialog" />
-      <Dialog hidden={hideDialog} onDismiss={toggleHideDialog} >
-       
-        <DialogFooter>
-            <TextField/>
-            <TextField/>
-            <TextField/>
-            <TextField/>
-          <PrimaryButton onClick={toggleHideDialog} text="Save" />
-          <DefaultButton onClick={toggleHideDialog} text="Cancel" />
-        </DialogFooter>
-      </Dialog>}
+
+    <div>
+      {textBottun==="addAddress" ?<CustemDialogAddress textButton={t(textBottun)}/>:null}
+      {textBottun==="addPhone" ? <CustemDialogPhone textButton={t(textBottun)}/> :null}
+      {textBottun==="addemail" ? <CustemDialogEmail textButton={t(textBottun)}/> :null}
+
    
       <div className="continar">
         <DetailsList
@@ -134,7 +133,7 @@ const CustemTable: React.FunctionComponent<IDetailsListState> = (props) => {
           onRenderItemColumn={renderItemColumn}
         />
       </div>
-   </>
+   </div>
   );
 
 }

@@ -21,40 +21,66 @@
   padding-bottom: 20px;
   padding-inline-end: 25px;
   .ms-Viewport {
-    
-            .root-185 {
-              &:hover {
-                 background-color:#F4F2FF;
-               }
-               width: 200px !important;
-               max-width: 200px !important;
-               min-width: 100px !important;
-             }
-             
-       
-     
-   
+    .ms-DetailsList{
+    .ms-DetailsList-headerWrapper{
+      
+        div[class^='root'], div[class*='root']{
+          color: #1A1F71;
+          width: 200px !important;
+          background-color:#F4F2FF;
+          &:hover {
+                   background-color:#F4F2FF;
+                 }
+        }
+      }
+    // .ms-DetailsList-contentWrapper{
+    //    div[class^='cell'], div[class*='cell']{
+    //     width: 200px !important;
+    //    }
+    //   .ms-DetailsRow .div[class^='root'], div[class*='root']{
+    //      min-width: 1050px !important;
+    //    }
+    //    div[class^='checkCell'], div[class*='checkCell']{
+    //     max-width:40px
+    //    }
+    //   }
+    }
+          //   .root-197 {
+          //     &:hover {
+          //        background-color:blue;
+          //      }
+          //      width: 200px !important;
+          //      max-width: 200px !important;
+          //      min-width: 100px !important;
+          //    }
+          //    .cell-214 {
+          //     width: 200px !important;
+          //    }
+          //    .root-258{
+          //      min-width: 200px;
+          //      max-width: 1000px;
+          //    }
+          //    .cell-223{
+          //      min-width: 200px !important;
+          //    }
+          //   .root-211{
+          //     min-height: 38px;
+          //     word-break: break-word;
+          //   } @at-root &
+          //   .root[class*='root-']
+          //   {
+          //     &:hover {
+          //       background-color:blue;
+          //     }
+          //   }
+          //   div[class^='root'], div[class*='root']{
+                
+          // }
+            
   }
 
-  // position: relative;
 }
+// .dialog-buttom{
+//   max-width: 200px;
 
-.ms-DetailsHeader{
-  
-  background-color:#F4F2FF;
-  
-}
-
-.cellTitle-183{
-    color: #1A1F71 ;
-    background:#F4F2FF;
-    
-    // hover:#F4F2FF;
-   
-}
-.cellTitle {
-  color: #1A1F71;
-  background: #F4F2FF;
-  border: '8px';
-}
-
+// }

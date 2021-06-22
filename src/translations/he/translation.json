@@ -71,7 +71,20 @@
         "addEmail":"הוסף מייל",
         "addPhone":"הוסף טלפון",
         "addAddress":"הוסף כתובת",
-       "log":{
+        "logout":"יציאה",
+        "mailAddress":"כתובת מייל" ,
+        "cancel":"ביטול",
+        "update":"עדכון",
+        "TypePhone":"סוג טלפון",
+        "AreaCodeCountry":"קידומת מדינה",
+        "PhoneDefault":"טלפון ברירת מחדל",
+        "addressDefault":"כתובת ברירת מחדל",
+        "streetAndNumber":"רחוב ומספר",
+        "postalCode":"מיקוד",
+        "updateAddress":"עדכון כתובת",
+        "updateEmail":"עדכון מייל",
+        "updatePhone":"עדכון טלפון",
+        "log":{
         "yes":"כן",
         "no":"לא"
        }

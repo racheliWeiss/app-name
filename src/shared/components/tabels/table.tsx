@@ -2,7 +2,7 @@ import { ConstrainMode,DetailsHeader,DetailsList, DetailsRow, IColumn, IDetailsF
 import { SelectionMode } from "office-ui-fabric-react";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { IDetailsListItem } from "./tableList";
+import { IDetailsListItem } from "./TableList";
 import './detaiList.scss'
 import { CustomTextField } from "../TextField";
 import React from "react";

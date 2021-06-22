@@ -1,7 +1,7 @@
 import * as React from 'react';
 import '../scssPages/form.scss';
 import { IDetailsColumnStyles } from '@fluentui/react';
-import CustemTable, {  } from '../shared/components/tabels/tableList';
+import CustemTable, {  } from '../shared/components/tabels/TableList';
 import SubHeader from './SubHeader';
 
 
