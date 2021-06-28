@@ -39,6 +39,7 @@ export const login = (loginUser :User) => (
       }
     };
     const user={
+      login_request_method: "login",
       login_entity_number:loginUser.LoginEntityNumber,
       login_ID:loginUser.LoginID,
       login_password:loginUser.LoginPassword

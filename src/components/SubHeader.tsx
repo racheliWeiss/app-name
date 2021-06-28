@@ -5,10 +5,13 @@ import { Icons } from '../modelsType/Icon';
 import '../scssPages/sub-header.scss';
 import Title from '../shared/components/Title';
 import '../scssPages/form.scss'
+import { Customer } from './customerDetails/CustomerDetails';
 
 
 
 export const SubHeader: React.FunctionComponent = () => {
+
+
   //translate hooks
   const [t, i18n] = useTranslation();
 

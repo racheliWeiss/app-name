@@ -119,7 +119,7 @@ const CustemTable: React.FunctionComponent<IDetailsListState> = (props) => {
     <div>
       {textBottun==="addAddress" ?<CustemDialogAddress textButton={t(textBottun)}/>:null}
       {textBottun==="addPhone" ? <CustemDialogPhone textButton={t(textBottun)}/> :null}
-      {textBottun==="addemail" ? <CustemDialogEmail textButton={t(textBottun)}/> :null}
+      {textBottun==="addEmail" ? <CustemDialogEmail textButton={t(textBottun)}/> :null}
 
    
       <div className="continar">

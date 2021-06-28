@@ -35,7 +35,6 @@ export const CustomDropdown: React.FunctionComponent<MyProps> = (props) => {
           label={label}
           selectedKey={selectedKey}
           onChange={(e, selectedOption) => {
-            debugger;
             console.log(e + "" + selectedOption);
             setSelected(selectedOption?.text);
             onChange(id, selectedOption?.key);

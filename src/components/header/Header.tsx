@@ -15,7 +15,9 @@ const Header = ({ auth }: IAppNavbar) => {
   // }
   
   const isLogin = useSelector((state:any)=>{
-       return state.auth.user.login_ID
+      let obj = JSON.parse(state.auth.user)
+      let name = obj.data.user.first_name +" "+obj.data.user.last_name;
+       return name;  
   });
     
   return (
