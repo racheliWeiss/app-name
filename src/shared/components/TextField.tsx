@@ -75,7 +75,7 @@ export const CustomTextFieldAddInput: React.FunctionComponent<AddInputProp> = (p
            
         // onChange={(e: any) => setLogin_entity_number(e.target.value)}
         />
-        {muted  ? <CustomTextField required={true} label={othertextItnput} onChange={onChange} id={otherInputId} /> : false}
+        {muted  ? <CustomTextField  label={othertextItnput} onChange={onChange} id={otherInputId} /> : false}
         </>
 
     );

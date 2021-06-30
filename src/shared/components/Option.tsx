@@ -46,7 +46,7 @@ export const CustomDropdown: React.FunctionComponent<MyProps> = (props) => {
           className=" text-field"
           // styles={dropdownStyles}
         ></Dropdown>
-        {selectedIndex == options.length-1 && hasOtherValue ? <CustomTextField required={true} label={othertextInput} onChange={onChange} id={otherInputId} /> : false}
+        {selectedIndex == options.length-1 && hasOtherValue ? <CustomTextField  label={othertextInput} onChange={onChange} id={otherInputId} /> : false}
       </div>   
   );
 };

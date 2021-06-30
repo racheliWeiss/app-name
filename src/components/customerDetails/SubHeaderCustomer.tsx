@@ -49,74 +49,69 @@ export const SubHeader:React.FunctionComponent <IProp>= (props) => {
         'Content-Type': 'application/json'
       }
     };
-    
     const createCustomer = {
-        id_initiator:ListId[0].value,
-        
-        id_client:ListId[1].value,
-        
-        id_branch: ListId[2].value[0],
-        
-        entity_request_method: "create",
-        
-        ID_country_code: customer.CountryIdentityNumber,
-        
-        ID_number: customer.IdentityNumber,
-        
-        ID_type_id: customer.TypeIdentityNumber,
-        
-        status_id: customer.CustomerStatus,
-        
-        class_id: 1,
-        
-        entity_type_id: "customer",
-        
-        entity_sub_type_id: customer.CustomerType,
-        
-        first_name: customer.FirstName,
-        
-        last_name: customer.LastName,
-        
-        entity_name:(customer.LastName+" "+customer.FirstName),
-        
-        first_name_en: "Amit",
-        
-        last_name_en: "Keresanty",
-        
-        entity_name_en: "Amit Keresanty",
-        
-        date_birth: customer.DateOfBirth,
-        
-        gender_id: customer.Gender,
-        
-        id_identifier: 1,
-        
-        is_identified: true,
-        
-        is_loaded_documentation: false,
-        
-        is_locked: customer.CustomerLock,
-        
-        note: customer.Note,
-        
-        permission_group_id: customer.CustomerCondition,
-        
-        return_entity: true,
-        
-        user_language: "HE",
-        
-        user_time_zone: "Israel Standard Time"
-        
+      "id_initiator": 1,
+
+      "id_client": 2,
+      
+      "id_branch": 3,
+      
+      "entity_request_method": "create",
+      
+      "ID_country_code": "IL",
+      
+      "ID_number": "23245412",
+      
+      "ID_type_id": 1,
+      
+      "status_id": 1,
+      
+      "class_id": 1,
+      
+      "entity_type_id": "customer",
+      
+      "entity_sub_type_id": 1,
+      
+      "first_name": "עמית",
+      
+      "last_name": "קרסנטי",
+      
+      "entity_name": "עמית קרסנטי",
+      
+      "first_name_en": "Amit",
+      
+      "last_name_en": "Keresanty",
+      
+      "entity_name_en": "Amit Keresanty",
+      
+      "date_birth": "2001-10-10",
+      
+      "gender_id": 1,
+      
+      "id_identifier": 1,
+      
+      "is_identified": true,
+      
+      "is_loaded_documentation": false,
+      
+      "is_locked": true,
+      
+      "note": "Note for Amit User",
+      
+      "permission_group_id": 1,
+      
+      "return_entity": true
         }
         const body = JSON.stringify(createCustomer);
         console.log(body);
-        let res =await axios.post(basicUrl +'/uspEntity' ,body,config)
+        let res =await axios.post(basicUrl +'/uspEntity' ,createCustomer,config)
         try {
+
           if (res.status === 200) {
               CreateAddress(customer);
               CreatePhone(customer);
 
-              console.log(res)
+              console.log("get data from create detail",res)
               console.log("h8"+res.data)
               // const myUser = respons.data.user;
               // saveUser(myUser);
@@ -195,7 +190,7 @@ const CreateAddress = async (customer:Customer) =>{
       attribute_request_method: "create",
       entity_request_method:"create",
       
-      attribute: "addrerss",
+      attribute: "address",
       
       address_type_id: 2,
       
@@ -302,7 +297,7 @@ const CreateEmail = async (customer:Customer)=>{
 
     let res =await axios.post(basicUrl +'/uspEntity' ,body,config)
 
-    console.log("address"+res)
+    console.log("email"+res)
 }
 
 

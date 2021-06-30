@@ -35,7 +35,7 @@ export interface IDetailsListState {
 
 const footerStyle = {
   root: {
-      background: '#F4F2FF',
+      background: '#E1E1E1',
   }
 }
 

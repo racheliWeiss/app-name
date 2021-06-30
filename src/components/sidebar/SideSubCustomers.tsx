@@ -1,10 +1,7 @@
 import * as React from 'react';
-import { Nav, INavStyles, INavLinkGroup, INavLink } from '@fluentui/react/lib/Nav';
-import {initializeIcons} from '@fluentui/react/lib/Icons';
 import {  Route, Switch,withRouter } from "react-router-dom";
 //import{navItems,nav} from '../../Models/NavItems';
 //import { styled } from '@fluentui/react/lib/Utilities';
-import { useTranslation } from 'react-i18next';
 import CustomerLocator from '../customerSearch/CustomerSearch';
 import CustomerDetails from '../customerDetails/CustomerDetails';
 import Contact from '../Contact/Contact';
@@ -18,7 +15,6 @@ import Documents from '../Documents';
 import MoneyLaundering from '../MoneyLaundering';
 import ConcentrationOfActions from '../ConcentrationOfActions';
 import LogChanges from '../LogChanges';
-import Home from '../Home';
 import HomePage from '../HomePage';
 
 

@@ -8,13 +8,10 @@ import './customerDetails.scss'
 import { Icons } from "../../modelsType/Icon";
 import Subtitle from "../../shared/components/Subtitle";
 import '../../scssPages/sub-header.scss';
-import { DefaultButton, IconButton, PrimaryButton } from "@fluentui/react";
-import { IAuthReduxProps } from "../../modelsType/type/interface";
-import { connect, useSelector } from "react-redux";
-import { basicUrl } from "../../shared/config";
-import axios from "axios";
-import { SubHeader } from "./SubHeaderCustomer";
+import { DefaultButton, IconButton, List, PrimaryButton } from "@fluentui/react";
+import {  useSelector } from "react-redux";
 import Title from "../../shared/components/Title";
+import { CreateCustomer } from "./CreateCustomer.service";
 
 
 //form's object
@@ -85,124 +82,172 @@ export class Customer {
 
 const CustomerDetails = () => {
 
-
   const [t, i18n] = useTranslation();
+
+  const objgenders = useSelector((state: any) => {
+    let objDate = state.dataReducer.data.genders
+    let objGender: { key: any; text: any; }[]=[]
+    objDate.map((obj: any)=>{
+      objGender.push({key:obj.enum_id,text:obj.enum_value})
+    })
+    return objGender;
+  });
+  const objTypeIdentityNumbers = useSelector((state: any) => {
+    let objDate = state.dataReducer.data.typeIdentityNumber
+    let objtypeIdentityNumbers: { key: any; text: any; }[]=[]
+    objDate.map((obj: any)=>{
+      objtypeIdentityNumbers.push({key:obj.enum_id,text:obj.enum_value})
+    })
+    return objtypeIdentityNumbers;
+  });
+  const objCustomerStatus = useSelector((state: any) => {
+    let objDate = state.dataReducer.data.customerStatus
+    let objcustomerStatus: { key: any; text: any; }[]=[]
+    objDate.map((obj: any)=>{
+      objcustomerStatus.push({key:obj.enum_id,text:obj.enum_value})
+    })
+    return objcustomerStatus;
+  });
+
+  const objCustomerConditions = useSelector((state: any) => {
+    let objDate = state.dataReducer.data.customerCondition
+    let objcustomerConditions: { key: any; text: any; }[]=[]
+    objDate.map((obj: any)=>{
+      objcustomerConditions.push({key:obj.enum_id,text:obj.enum_value})
+    })
+    return objcustomerConditions;
+  });
+
+  const objCustomerTypes = useSelector((state: any) => {
+    let objDate = state.dataReducer.data.customerType
+    let objcustomerTypes: { key: any; text: any; }[]=[]
+    objDate.map((obj: any)=>{
+      objcustomerTypes.push({key:obj.enum_id,text:obj.enum_value})
+    })
+    return objcustomerTypes;
+  });
+  
+  
+   
+
+  // Object.keys(objDate).map(function(key, index) {
+  //      switch (index){
+  //        case 1:
+
+  //      }
+  //      console.log ("key object is name",objDate.key,objDate[key]); 
+  // });
+  // let genders = [{ key: "1", text: "יחיד-- תושב ישראל" }, { "enum_id": "2", "enum_value": "יחיד תושב חוץ" }, { "enum_id": "3", "enum_value": "תאגיד רשום בישראל" }, { "enum_id": "4", "enum_value": "תאגיד רשום במדינה זרה" }, { "enum_id": "5", "enum_value": "אחר" }, { "enum_id": "6", "enum_value": "תושב אזור" }];
+  // console.log(objgenders)
+  // objDate.map((obj: any)=>{
+  //   switch(obj.key){
+  //     // case "genders":
+  //     //   genders =objValue
+  //     //   console.log(genders)
+  //     default:
+  //       console.log(obj.key)
+  //       console.log(obj)
+
+  //   }     
+  // })
+  const genders=objgenders
+  const customerTypes =objCustomerTypes;
+  //customer condition is'nt display on page
+  const customerConditions = objCustomerConditions;
+  const customerStatus=objCustomerStatus;
+  const typeIdentityNumbers = objTypeIdentityNumbers
 
   const genderArray = [{ key: 1, text: t('male') }, { key: 2, text: t('female') }, { key: 3, text: t('other') }];
   const statusCustomerArray = [{ key: 1, text: t('admin') }];
   const cuntry = [{ key: "IL", text: t('male') }];
-  
-  
-  const[listId,setListId]=useState([{}]);
-  
+  // const[listId,setListId]=useState([{}]);
+
   // const ListId = useSelector((state: any) => {
   //   let obj = JSON.parse(state.auth.user)
-  //   setListId ([{ key: "idInitiator", value: obj.data.id_entity },
+  //   let listId = [{ key: "idInitiator", value: obj.data.id_entity },
   //   { key: " idClient", value: obj.data.client.id_entity },
-  //   { key: "id_branch", value: obj.data.branch.id_entity }])
+  //   { key: "id_branch", value: obj.data.branch.id_entity }]
   //   return listId;
   // });
-  
-  const [customer, setCustomer] = useState(new Customer(''));
 
+  const [customer, setCustomer] = useState(new Customer(''));
+  const [createCustomer,setCreateCustomer]=useState("")
   //set state from custem component
   const updateUser = (key: string, value: any) => {
     let newCus = { ...customer };
     (newCus as any)[key] = value;
     setCustomer(newCus);
   }
-  const handleSubmit = () => {
-    ///cheack this
-    CreateCustomer(customer,[{value:1},{value:2},{value:2}])
-    //e.preventDefault();
+  let isCreate
+  const handleSubmit = async (e:any) => {
+    e.preventDefault();
+    console.log("customer detail",customer)
+   
+   isCreate = await CreateCustomer(customer, [{ value: 1 }, { value: 2 }, { value: 2 }])
+   console.log(isCreate)
+   setCreateCustomer(isCreate)
+   
   }
 
   return (
-    <form onSubmit={() => handleSubmit()}>
-
-     <div className="sub-header">
-      <Title
-        title={t("customers")} />
-      <div className="divider"></div>
-      <PrimaryButton className='button'  type="submit" checked={false} text={t('createCustomer')}iconProps={Icons.addFriend} />
-      <DefaultButton className='button' checked={false} text={t('editing')} id={'Editing'}  iconProps={Icons.editContact} />
-      <DefaultButton className='button' checked={false} iconProps={Icons.userRemove} text={t('deletion')} id={'Deletion'}  />
-      <DefaultButton className='button' checked={false} text={t('save')} id={'Save'}  iconProps={Icons.cloudUpload} />
-      <IconButton
-        iconProps={Icons.pdf}
-        styles={{
-          icon: { color: 'red', fontSize: 36 }
-        }}
-        className="button"
-      />
-      <IconButton
-        iconProps={Icons.print}
-        styles={{
-          icon: { color: 'black', fontSize: 36 }
-
-        }}
-        className="button"
-      />
-      <IconButton
-        iconProps={Icons.print}
-        styles={{
-          icon: { color: 'black', fontSize: 36 }
-
-        }}
-        className="button"
-      />
-       <hr className="hr"></hr>
-    </div>
-        {/* <SubHeader customer={customer}/> */}
+    <form onSubmit={(e) => handleSubmit(e)}>
+      <div className="sub-header">
+        <Title
+          title={t("customers")} />
+        <div className="divider"></div>
+        <PrimaryButton className='button' type="submit" checked={false} text={t('createCustomer')} iconProps={Icons.addFriend} />
+        <DefaultButton className='button' checked={false} text={t('editing')} id={'Editing'} iconProps={Icons.editContact} />
+        <DefaultButton className='button' checked={false} iconProps={Icons.userRemove} text={t('deletion')} id={'Deletion'} />
+        <DefaultButton className='button' checked={false} text={t('save')} id={'Save'} iconProps={Icons.cloudUpload} />
+        <IconButton
+          iconProps={Icons.pdf}
+          styles={{
+            icon: { color: 'red', fontSize: 36 }
+          }}
+          className="button"
+        />
+        <IconButton
+          iconProps={Icons.print}
+          styles={{
+            icon: { color: 'black', fontSize: 36 }
+          }}
+          className="button"
+        />
+        <IconButton
+          iconProps={Icons.print}
+          styles={{
+            icon: { color: 'black', fontSize: 36 }
+          }}
+          className="button"
+        />
+      </div>
+      <hr className="hr"></hr>
       <div className="content-wrapper customerDetail-wrapper">
         <Subtitle title={t("customerDetails")} />
-        <div></div>
+        <p className="title-text">{createCustomer}</p>
         <p className="title-text">{t('personalDetails')}</p>
         <CustomToggle onText={t('customerLock')} onChange={updateUser} id={'CustomerLock'} defaultChecked={false} offText={t('customerLock')} />
         <hr className="hr"></hr>
         <hr className="hr text-width"></hr>
         <div>
-          <CustomDropdown otherInputId={'othercustomerCondition'} hasOtherValue={true} options={statusCustomerArray} label={t('customerCondition')} onChange={updateUser} selectedKey={customer.CustomerCondition} id={'CustomerCondition'} othertextInput={t('othercustomerCondition')} />
+          <CustomDropdown otherInputId={''} hasOtherValue={false} options={customerTypes} label={t('customerType')} onChange={updateUser} selectedKey={customer.CustomerType} id={'CustomerType'} othertextInput={t('')} />
         </div>
-        <div>
-          <CustomDropdown otherInputId={''} hasOtherValue={false} options={statusCustomerArray} label={t('customerStatus')} onChange={updateUser} selectedKey={customer.CustomerStatus} id={'CustomerStatus'} othertextInput={t('')} />
-          <CustomDropdown otherInputId={''} hasOtherValue={false} options={statusCustomerArray} label={t('customerType')} onChange={updateUser} selectedKey={customer.CustomerType} id={'CustomerType'} othertextInput={t('')} />
-        </div>
-        <hr ></hr>
-        <hr className="text-width"></hr>
+        <div></div>
         <div>
           <CustomTextFieldAddInput required={true} label={t('firstName')} onChange={updateUser} id={'FirstName'} iconProps={Icons.add} otherInputId={'MiddleName'} othertextItnput={t("middleName")} />
           <CustomTextField required={true} label={t('lastName')} onChange={updateUser} id={'LastName'} />
-          <CustomTextField required={true} label={t('dateOfBirth')} onChange={updateUser} id={'DateOfBirth'} iconProps={Icons.calendar} />
-
-          <CustomDropdown otherInputId={'OtherGender'} hasOtherValue={true} options={genderArray} label={t('gander')} onChange={updateUser} selectedKey={customer.Gender} id={'Gender'} othertextInput={t('other')} />
-          <p className="title-text">{t("identityDetails")}</p>
-        </div>
-        <div>
-          <CustomDropdown otherInputId={''} hasOtherValue={false} options={genderArray} label={t('areaOfPracticeOrIndustry')} onChange={updateUser} selectedKey={customer.AreaOfPracticeIndustry} id={'AreaOfPracticeOrIndustry'} othertextInput={t('')} />
-
-          <CustomDropdown otherInputId={''} hasOtherValue={false} options={genderArray} label={t('creditGroup')} onChange={updateUser} selectedKey={customer.CreditGroup} id={'CreditGroup'} othertextInput={t('')} />
-          <CustomDropdown otherInputId={''} hasOtherValue={false} options={genderArray} label={t('agent')} onChange={updateUser} selectedKey={customer.Agent} id={'Agent'} othertextInput={t('')} />
-
-        </div>
-
-
-        <hr className="hr"></hr>
-        <hr className="hr text-width"></hr>
-        <div>
-
-          <CustomTextField required={true} label={t('identityNumber')} onChange={updateUser} id={'IdentityNumber'} />
-          <CustomDropdown otherInputId={'typeIdentityNumberOther'} hasOtherValue={true} options={genderArray} label={t('typeIdentityNumber')} onChange={updateUser} selectedKey={customer.TypeIdentityNumber} id={'TypeIdentityNumber'} othertextInput={t('typeIdentityNumberOther')} />
-          <CustomDropdown otherInputId={''} hasOtherValue={false} options={cuntry} label={t('countryIdentityNumber')} onChange={updateUser} selectedKey={customer.CountryIdentityNumber} id={'CountryIdentityNumber'} othertextInput={t('')} />
+          <CustomTextField required={true} label={t('dateOfBirth')} onChange={updateUser} id={'DateOfBirth'} iconProps={Icons.calendar} type="date"/>
+          <CustomDropdown otherInputId={'OtherGender'} hasOtherValue={true} options={genders} label={t('gander')} onChange={updateUser} selectedKey={customer.Gender} id={'Gender'} othertextInput={t('other')} />
           <p className="title-text">{t('contactInformation')}</p>
-
         </div>
         <div>
-          <CustomDropdown otherInputId={''} hasOtherValue={false} options={statusCustomerArray} label={t('nameIDEmployee')} onChange={updateUser} selectedKey={customer.NameIDEmployee} id={'NameIDEmployee'} othertextInput={t('')} />
-          <CustomTextField required={true} label={t('customerNumber')} onChange={updateUser} id={'customerNumber'} />
+          <CustomTextField required={true} label={t('identityNumber')} onChange={updateUser} id={'IdentityNumber'} />
+          <CustomDropdown otherInputId={''} hasOtherValue={false} options={cuntry} label={t('countryIdentityNumber')} onChange={updateUser} selectedKey={customer.CountryIdentityNumber} id={'CountryIdentityNumber'} othertextInput={t('')} />
+          <CustomDropdown otherInputId={'typeIdentityNumberOther'} hasOtherValue={true} options={typeIdentityNumbers} label={t('typeIdentityNumber')} onChange={updateUser} selectedKey={customer.TypeIdentityNumber} id={'TypeIdentityNumber'} othertextInput={t('typeIdentityNumberOther')} />
         </div>
         <hr className="hr"></hr>
         <hr className="hr text-width"></hr>
+
         <div>
           <p className="title-text">{t('address')}</p>
           <hr className="hr text-width"></hr>
@@ -211,6 +256,7 @@ const CustomerDetails = () => {
           <CustomDropdown otherInputId={''} hasOtherValue={false} options={[]} label={t('city')} onChange={updateUser} selectedKey={customer.AddressCity} id={'AddressCity'} othertextInput={t('')} />
           <CustomDropdown otherInputId={''} hasOtherValue={false} options={[]} label={t('country')} onChange={updateUser} selectedKey={customer.IDCountryCode} id={'IDCountryCode'} othertextInput={t('')} />
 
+          <p className="title-text">{t('moreDetails')}</p>
         </div>
         <div>
           <p className="title-text">{t('phone')}</p>
@@ -220,6 +266,22 @@ const CustomerDetails = () => {
           <p className="title-text">{t('email')}</p>
           <hr className="hr text-width"></hr>
           <CustomTextField required={true} label={t('emailAddress')} onChange={updateUser} id={'Email'} type='email' />
+
+        </div>
+
+        <hr className="hr"></hr>
+        <hr className="hr text-width"></hr>
+        <div>
+          <CustomDropdown otherInputId={''} hasOtherValue={false} options={customerStatus} label={t('customerStatus')} onChange={updateUser} selectedKey={customer.CustomerStatus} id={'CustomerStatus'} othertextInput={t('')} />
+          <CustomTextField required={true} label={t('customerNumber')} onChange={updateUser} id={'customerNumber'} />
+          <CustomDropdown otherInputId={''} hasOtherValue={false} options={customerStatus} label={t('nameIDEmployee')} onChange={updateUser} selectedKey={customer.NameIDEmployee} id={'NameIDEmployee'} othertextInput={t('')} />
+        </div>
+
+        <div>
+          <CustomDropdown otherInputId={''} hasOtherValue={false} options={genders} label={t('areaOfPracticeOrIndustry')} onChange={updateUser} selectedKey={customer.AreaOfPracticeIndustry} id={'AreaOfPracticeOrIndustry'} othertextInput={t('')} />
+          <CustomDropdown otherInputId={''} hasOtherValue={false} options={genders} label={t('creditGroup')} onChange={updateUser} selectedKey={customer.CreditGroup} id={'CreditGroup'} othertextInput={t('')} />
+          <CustomDropdown otherInputId={''} hasOtherValue={false} options={genders} label={t('agent')} onChange={updateUser} selectedKey={customer.Agent} id={'Agent'} othertextInput={t('')} />
+
         </div>
         <p className="title-text">{t('note')}</p>
         <div>
@@ -234,104 +296,14 @@ const CustomerDetails = () => {
   );
 }
 
-const mapStateToProps = (state: IAuthReduxProps) => ({
-  auth: state.auth
-});
 
-export default connect(mapStateToProps, null)(CustomerDetails);
- 
+export default CustomerDetails;
+
 
 
 
 
 //send to detail customer to save
-const CreateCustomer = async (customer:Customer,ListId:any) => {
-  // Headers
-  const config = {
-    headers: {
-      'Content-Type': 'application/json'
-    }
-  };
-
-  const createCustomer = {
-    id_initiator: ListId[0].value,
-
-    id_client: ListId[1].value,
-
-    id_branch: ListId[2].value[0],
-
-    entity_request_method: "create",
-
-    ID_country_code: customer.CountryIdentityNumber,
-
-    ID_number: customer.IdentityNumber,
-
-    ID_type_id: customer.TypeIdentityNumber,
-
-    status_id: customer.CustomerStatus,
-
-    class_id: 1,
-
-    entity_type_id: "user",
-
-    entity_sub_type_id: customer.CustomerType,
-
-    first_name: customer.FirstName,
-
-    last_name: customer.LastName,
-
-    entity_name: (customer.LastName + " " + customer.FirstName),
-
-    first_name_en: "Amit",
-
-    last_name_en: "Keresanty",
-
-    entity_name_en: "Amit Keresanty",
-
-    date_birth: customer.DateOfBirth,
-
-    gender_id: customer.Gender,
-
-    id_identifier: 1,
-
-    is_identified: true,
-
-    is_loaded_documentation: false,
-
-    is_locked: customer.CustomerLock,
-
-    note: customer.Note,
-
-    permission_group_id: customer.CustomerCondition,
-
-    return_entity: true,
-
-    user_language: "HE",
-
-    user_time_zone: "Israel Standard Time"
-
-  }
-  const body = JSON.stringify(createCustomer);
-  console.log(body);
-  let res = await axios.post(basicUrl + '/uspEntity', body, config)
-  try {
-    if (res.status === 200) {
-      console.log(res)
-      console.log("h8" + res.data)
-      // const myUser = respons.data.user;
-      // saveUser(myUser);
-      console.log("gd")
-    }
-  }
-  catch (err) {
-    console.log(res.status)
-    console.warn('error in login component', err)
-    alert("login failed")
-  }
-
-} 
-
-
 
 
 

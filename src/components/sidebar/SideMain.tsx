@@ -1,5 +1,4 @@
 import * as react from 'react';
-import { } from '@fluentui/react/lib/Button';
 import { Nav, INavLinkGroup } from '@fluentui/react/lib/Nav';
 import '../../scssPages/sidebar.scss';
 

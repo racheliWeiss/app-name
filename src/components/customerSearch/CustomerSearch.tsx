@@ -1,17 +1,13 @@
 import { PrimaryButton } from "@fluentui/react";
 import axios from "axios";
-import React from "react";
 import { useState,useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import "./customerSearch.scss"
 import { IssuePagination } from "../../shared/components/Pagination/Pagination";
 import SearchBoxSmall from "../../shared/components/TextSearch";
-import { TableList } from "../table";
-import SubHeader from "../SubHeader";
 import Subtitle from "../../shared/components/Subtitle";
-import SubTitle from "../../shared/components/TitleText";
-import Title from "../../shared/components/Title";
 import CustemTable from "../../shared/components/tabels/TableList";
+import { basicUrl } from "../../shared/config";
 
 const CustomerSearch = () =>
 {
@@ -53,7 +49,7 @@ const CustomerSearch = () =>
     const getData = async() => {
         //api call
         // const res = axios.get(baseUrl+'/table')
-        const res = await axios.get(`https://jsonplaceholder.typicode.com/photos`)
+        const res = await axios.get(basicUrl+"/search")
         const data = res.data;         
                   setData(data)
                 //   result=data.lengh,number

@@ -1,12 +1,8 @@
 import * as React from 'react';
 import "./contact.scss";
 import "../../scssPages/form.scss";
-import { IDetailsColumnStyles } from '@fluentui/react';
 import CustemTable, {  } from '../../shared/components/tabels/TableList';
 import { useTranslation } from 'react-i18next';
-import SubHeader from '../SubHeader';
-import SubTitle from '../../shared/components/TitleText';
-import Title from '../../shared/components/Title';
 import Subtitle from '../../shared/components/Subtitle';
 
 

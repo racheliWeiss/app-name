@@ -19,6 +19,7 @@ const Header = ({ auth }: IAppNavbar) => {
       let name = obj.data.user.first_name +" "+obj.data.user.last_name;
        return name;  
   });
+  // const isLogin = useSelector((state) => state.auth)
     
   return (
     <>
@@ -43,8 +44,10 @@ const Header = ({ auth }: IAppNavbar) => {
   )
 }
 
-const mapStateToProps = (state: IAuthReduxProps) => ({
-  auth: state.auth
+const mapStateToProps = (state: any) => ({
+  auth: state.auth,
+
+ 
 });
 
 export default connect(mapStateToProps, null)(Header);

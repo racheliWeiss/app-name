@@ -1,6 +1,4 @@
 import React from 'react';
-
-
 import '../../scssPages/sidebar.scss'
 import ContentSideCustomers from './ContentSideCustomers';
 import SideCustomers from './SideSubCustomers';
