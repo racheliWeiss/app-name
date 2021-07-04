@@ -40,7 +40,7 @@ const footerStyle = {
 }
 
 const CustemTable: React.FunctionComponent<IDetailsListState> = (props) => {
-  const { allItems = [], columns, isSelcted = false, isFooter=true, rederRow="",search=false, addCustem=false ,textBottun=""} = props
+  const { allItems , columns, isSelcted = false, isFooter=true, rederRow="",search=false, addCustem=false ,textBottun=""} = props
   let isSelection=SelectionMode.none
   if(isSelcted === true){
      isSelection=SelectionMode.single
@@ -81,7 +81,7 @@ const CustemTable: React.FunctionComponent<IDetailsListState> = (props) => {
   const renderItemColumn = (item: any, index: any, column: any) => {
 
     let fieldContent = item[column.fieldName];
-    switch (column.key) {
+    switch (column.fieldName) {
         case renderRow:
             return <DefaultButton> <Link to={{
                 pathname: '/customer-details',

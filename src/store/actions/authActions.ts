@@ -75,11 +75,14 @@ export const login = (loginUser: User) => (
   }
   // Request body
   const body = JSON.stringify(user);
+  console.log(user);
 
   axios
     .post(basicUrl + '/login',user , config)
     .then(res =>{
       try{
+        
+        console.log("USERLOGIN",user);
         if(res.data=="dont login")
         {
           console.log("dont login",res.data)
