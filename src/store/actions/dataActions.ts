@@ -48,7 +48,7 @@ export const loadUser = () => (dispatch: Function, getState:Function ) => {
     // dispatch({ type:FETCH_PROTECTED_DATA_REQUEST  });
     dispatch({ type:SET_IS_FETCHING , isFeting:true});
     console.log(getState)
-    axios.post(basicUrl + "/uspEnum", body, tokenConfig(getState))
+    axios.post(basicUrl + "/uspEnum", entity, tokenConfig(getState))
         .then(checkHttpStatus)
       .then((res) => {
         try {

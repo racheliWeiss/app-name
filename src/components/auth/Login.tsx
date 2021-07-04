@@ -87,7 +87,8 @@ const Login = ({
                         updateUserLogin('LoginPassword', e.currentTarget.value)
                    }}                  
                 />
-                <PrimaryButton disabled={isClickLogin} className='button' checked={false} text={t('login.sigin')} type="submit" />
+                {/* disabled={isClickLogin}  */}
+                <PrimaryButton    className='button' checked={false} text={t('login.sigin')} type="submit" />
             </form>
             
         </div >

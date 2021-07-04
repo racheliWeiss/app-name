@@ -77,14 +77,30 @@ export const login = (loginUser: User) => (
   const body = JSON.stringify(user);
 
   axios
-    .post(basicUrl + '/login', body, config)
-    .then(res =>
-      dispatch({
-        type: LOGIN_SUCCESS,
-        payload: res.data
-      })
-    )
+    .post(basicUrl + '/login',user , config)
+    .then(res =>{
+      try{
+        if(res.data=="dont login")
+        {
+          console.log("dont login",res.data)
+          dispatch({
+            type:LOGIN_FAIL ,
+            isAuthentitcated:false
+          })
+        }
+        else{
+          dispatch({
+            type: LOGIN_SUCCESS,
+            payload: res.data
+          })
+        }
+      }
+      catch{
+        dispatch({ type:AUTH_ERROR , isAuthentitcated:false});
+      }
+    })
     .catch(err => {
+      console.log("login gui",err)
       dispatch(
         err.response ? returnErrors(err.response.data, err.response.status, 'LOGIN_FAIL') : returnErrors('the server is down pls try later', 'LOGIN_FAIL')
       );

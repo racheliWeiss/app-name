@@ -2,7 +2,7 @@ import axios from "axios";
 import { basicUrl } from "../../shared/config";
 import { Customer } from "./CustomerDetails";
 
-export const CreateCustomer = async (customer:Customer,  ListId:any)=>{
+export const CreateCustomer = async (customer:Customer,  ListId:any ,requestMethod:string)=>{
     // Headers
   const config = {
     headers: {
@@ -10,7 +10,7 @@ export const CreateCustomer = async (customer:Customer,  ListId:any)=>{
     }
   };
   console.log("intiator and client",ListId[0].value, ListId[2].value[0])
-  let isCreate = ""
+  let isCreate = false;
   const createCustomer = {
       id_initiator:ListId[0].value,
       
@@ -73,17 +73,14 @@ export const CreateCustomer = async (customer:Customer,  ListId:any)=>{
       console.log(body);
       let res =await axios.post(basicUrl +'/uspEntity' ,body,config)
       try {
-        if (res.status === 200) {
+        if (res.status == 200) {
+            console.log("data from create customer cool",res.data)
             CreateAddress(customer);
             CreatePhone(customer);
-           let  isCreate=CreateEmail(customer)
-             return isCreate
-            console.log(res)
-            console.log("h8"+res.data)
-            // const myUser = respons.data.user;
-            // saveUser(myUser);
-            console.log("gd")
+            let isCreate=CreateEmail(customer)
+            return isCreate;
         }
+        console.log("res sucsees",res)
     }
     catch (err) {
         console.log(res.status)
@@ -220,7 +217,7 @@ export const CreateCustomer = async (customer:Customer,  ListId:any)=>{
         if (res.status === 200) {
             if(res.data["err_code"]===0)
             {
-              return "Customer created successfully"
+              return true
 
             }
         }
@@ -232,6 +229,58 @@ export const CreateCustomer = async (customer:Customer,  ListId:any)=>{
         alert("login failed")
         throw("the Customer dont created  ")
     }
-    return "";
+    return false;
   }
+
+
+  const UpdateCustomer= async (customer:Customer)=>{
+    const updateCustomer = {
+
+      "id_initiator": 1,
+      
+      "id_client": 1,
+      
+      "id_entity": 3,
+      
+      "entity_type_id": "customer",
+      
+      "entity_request_method": "update",
+      
+      "status_id": 2,
+      
+      "first_name": "שם פרטי",
+      
+      "gender_id": 2,
+      
+      "return_entity": false,
+      
+      "last_name_en": "Hooooome"
+      
+      }
+      const body = JSON.stringify(updateCustomer);
+      console.log("create email ",updateCustomer)
+      const config = {
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      };
+  
+      let res =await axios.post(basicUrl +'/uspEntity' ,body,config)
+      try {
+        if (res.status === 200) {
+            if(res.data["err_code"]===0)
+            {
+              return true
+
+            }
+        }
+    }
+    catch (err) {
+        console.log(res.status)
+        console.warn('error in login component', err)
+        throw("the Customer dont created  ")
+    }
+    return false;
+  }
+  
   

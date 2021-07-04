@@ -156,7 +156,6 @@ const CustomerDetails = () => {
   const customerConditions = objCustomerConditions;
   const customerStatus=objCustomerStatus;
   const typeIdentityNumbers = objTypeIdentityNumbers
-
   const genderArray = [{ key: 1, text: t('male') }, { key: 2, text: t('female') }, { key: 3, text: t('other') }];
   const statusCustomerArray = [{ key: 1, text: t('admin') }];
   const cuntry = [{ key: "IL", text: t('male') }];
@@ -171,6 +170,7 @@ const CustomerDetails = () => {
   // });
 
   const [customer, setCustomer] = useState(new Customer(''));
+  const [update,setUpdate] = useState(true)
   const [createCustomer,setCreateCustomer]=useState("")
   //set state from custem component
   const updateUser = (key: string, value: any) => {
@@ -178,14 +178,25 @@ const CustomerDetails = () => {
     (newCus as any)[key] = value;
     setCustomer(newCus);
   }
-  let isCreate
+  let isCreate 
   const handleSubmit = async (e:any) => {
+    const { name, value } = e.target;
+    let requestMethod = name;
+    console.log("type mathod of form",requestMethod,name)
     e.preventDefault();
     console.log("customer detail",customer)
-   
-   isCreate = await CreateCustomer(customer, [{ value: 1 }, { value: 2 }, { value: 2 }])
+ 
+   isCreate = await CreateCustomer(customer, [{ value: 1 }, { value: 2 }, { value: 2 }],requestMethod)
    console.log(isCreate)
-   setCreateCustomer(isCreate)
+   if(isCreate==true){
+    setCreateCustomer("Customer created successfully")
+    setUpdate(!isCreate)
+   }
+   else{
+    setCreateCustomer("Customer dont created ")
+   }
+  
+
    
   }
 
@@ -195,10 +206,10 @@ const CustomerDetails = () => {
         <Title
           title={t("customers")} />
         <div className="divider"></div>
-        <PrimaryButton className='button' type="submit" checked={false} text={t('createCustomer')} iconProps={Icons.addFriend} />
-        <DefaultButton className='button' checked={false} text={t('editing')} id={'Editing'} iconProps={Icons.editContact} />
-        <DefaultButton className='button' checked={false} iconProps={Icons.userRemove} text={t('deletion')} id={'Deletion'} />
-        <DefaultButton className='button' checked={false} text={t('save')} id={'Save'} iconProps={Icons.cloudUpload} />
+        <PrimaryButton className='button' type="submit" checked={false} text={t('createCustomer')} iconProps={Icons.addFriend} name="create"/>
+        <DefaultButton className='button' checked={false} text={t('editing')} id={'Editing'} iconProps={Icons.editContact} disabled={update} name="update"  type="submit" />
+        <DefaultButton className='button' checked={false} iconProps={Icons.userRemove} text={t('deletion')} id={'Deletion'} name="delete" />
+        <DefaultButton className='button' checked={false} text={t('save')} id={'Save'} iconProps={Icons.cloudUpload}/>
         <IconButton
           iconProps={Icons.pdf}
           styles={{
@@ -251,7 +262,7 @@ const CustomerDetails = () => {
         <div>
           <p className="title-text">{t('address')}</p>
           <hr className="hr text-width"></hr>
-          <CustomTextField required={true} label={t('address')} onChange={updateUser} id={'Adress'} />
+          <CustomTextField required={true} label={t('address')} onChange={updateUser} id={'Adress'}  />
           <CustomTextField label={t('houseNumber')} onChange={updateUser} id={'HouseNumber'} />
           <CustomDropdown otherInputId={''} hasOtherValue={false} options={[]} label={t('city')} onChange={updateUser} selectedKey={customer.AddressCity} id={'AddressCity'} othertextInput={t('')} />
           <CustomDropdown otherInputId={''} hasOtherValue={false} options={[]} label={t('country')} onChange={updateUser} selectedKey={customer.IDCountryCode} id={'IDCountryCode'} othertextInput={t('')} />

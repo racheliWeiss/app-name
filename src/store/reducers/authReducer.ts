@@ -24,7 +24,7 @@ import{USERֹֹ_LOADED,
         case USERֹֹ_LOADED:
             return{
                 ...state,
-                isAuthenticted:true,  
+                // isAuthenticted:true,  
                 isLoading:false,
                 user:action.payload
             };
@@ -34,7 +34,7 @@ import{USERֹֹ_LOADED,
             return{
                 ...state,
                 ...action.payload,
-                isAuthenticted:true,  
+                isAuthentitcated:true,  
                 isLoading:false, 
             };
             case AUTH_ERROR:
@@ -46,7 +46,7 @@ import{USERֹֹ_LOADED,
                     ...state,
                     token:null,
                     user:null,  
-                    isAuthenticted:false,
+                    isAuthentitcated:false,
                     isLoading:false
                 }    
             default: return state;
