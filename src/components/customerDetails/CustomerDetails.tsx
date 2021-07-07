@@ -1,4 +1,4 @@
-import  { useState } from "react";
+import  { useEffect, useState } from "react";
 import { useTranslation } from 'react-i18next';
 import { CustomDropdown } from "../../shared/components/Option";
 import { CustomTextField, CustomTextFieldAddInput } from "../../shared/components/TextField";
@@ -12,12 +12,13 @@ import { DefaultButton, IconButton, List, PrimaryButton } from "@fluentui/react"
 import {  useDispatch, useSelector } from "react-redux";
 import Title from "../../shared/components/Title";
 import {createCustomer} from "../../store/actions/customerActioin"
-import { stat } from "fs";
+import { useBoolean } from '@fluentui/react-hooks';
+import { loadOptions } from "../../store/actions/dataActions";
 
 
 
 //form's object
-export class Customer {
+export interface ICustomer {
   [x: string]: any;
   Gender: Number;
   OtherGender: String;
@@ -27,7 +28,7 @@ export class Customer {
   LastName: string;
   CustomerLock: boolean;
   Note: string;
-  DateBirth: Date;
+  DateBirth: string;
   MiddleName: string;
   CustomerCondition: Number;
   CustomerType: Number;
@@ -48,118 +49,190 @@ export class Customer {
   TelephoneCountryCode: Number;
   Email: string;
   CustomerNumber:string;
-  constructor(firstName:string = '', gender: Number = 0, customerStatus: Number = 0, note = '',
-    lastName = '', customerLock = false, dateBirth = new Date("2021-2-19"),
-    otherGender = '', middleName = '', otherCustomerStatus = '', customerCondition = 0, customerType = 0, viewNoteWhenPerformingAction: boolean = false, areaOfPracticeIndustry: Number = 0, creditGroup = 0, agent = 0,
-    typeIdentityNumber = "", typeIdentityNumberOther = '', identityNumber = "", countryIdentityNumber = '', nameIDEmployee = 0, address = '', houseNumber = "", addressCity = '', iDCountryCode = '', telephone = '', telephoneCountryCode = 0, email = '',customerNumber="") {
-    this.Gender = gender;
-    this.CustomerStatus = customerStatus;
-    this.FirstName = firstName;
-    this.Note = note;
-    this.LastName = lastName;
-    this.CustomerLock = customerLock;
-    this.DateBirth = dateBirth;
-    this.OtherGender = otherGender;
-    this.MiddleName = middleName;
-    this.OtherCustomerStatus = otherCustomerStatus;
-    this.CustomerCondition = customerCondition;
-    this.CustomerType = customerType;
-    this.ViewNoteWhenPerformingAction = viewNoteWhenPerformingAction;
-    this.AreaOfPracticeIndustry = areaOfPracticeIndustry;
-    this.CreditGroup = creditGroup;
-    this.Agent = agent;
-    this.TypeIdentityNumber = typeIdentityNumber;
-    this.IdentityNumber = identityNumber;
-    this.TypeIdentityNumberOther = typeIdentityNumberOther
-    this.CountryIdentityNumber = countryIdentityNumber
-    this.NameIDEmployee = nameIDEmployee;
-    this.Address = address;
-    this.HouseNumber = houseNumber;
-    this.AddressCity = addressCity;
-    this.IDCountryCode = iDCountryCode;
-    this.Telephone = telephone
-    this.TelephoneCountryCode = telephoneCountryCode;
-    this.Email = email;
-    this.CustomerNumber = customerNumber
-  }
 }
+
+
+
+
+const blankCustomer ={
+  Gender: 1,
+  CustomerStatus : 1,
+  FirstName : "",
+  Note : "",
+  LastName : "",
+  CustomerLock : false,
+  DateBirth : "",
+  OtherGender : "",
+  MiddleName : "",
+  OtherCustomerStatus :"",
+  CustomerCondition : 1,
+  CustomerType : 1,
+  ViewNoteWhenPerformingAction : false,
+  AreaOfPracticeIndustry : 0,
+  CreditGroup : 0,
+  Agent : 0,
+  TypeIdentityNumber : "",
+  IdentityNumber : "",
+  TypeIdentityNumberOther : "",
+  CountryIdentityNumber : "",
+  NameIDEmployee : 0,
+  Address : "",
+  HouseNumber : "",
+  AddressCity : "",
+  IDCountryCode : "",
+  Telephone : "",
+  TelephoneCountryCode : 0,
+  Email : "",
+  CustomerNumber : "",
+}
+
 
 const CustomerDetails = () => {
   
-
+  
   const [t, i18n] = useTranslation();
   const dispatch = useDispatch()
+  // const [customer, setCustomer] = useState(Customer);
+  // const [update,setUpdate] = useState(true)
 
+  
+  // const [readOnly,setReadOnly] = useState(false)
 //Get the data in option
-  const objgenders = useSelector((state: any) => {
-    let objDate = state.dataReducer.data.genders
-    let objGender: { key: any; text: any; }[]=[]
-    objDate.map((obj: any)=>{
-      objGender.push({key:obj.enum_id,text:obj.enum_value})
-    })
-    return objGender;
-  });
-  const objTypeIdentityNumbers = useSelector((state: any) => {
-    let objDate = state.dataReducer.data.typeIdentityNumber
-    let objtypeIdentityNumbers: { key: any; text: any; }[]=[]
-    objDate.map((obj: any)=>{
-      objtypeIdentityNumbers.push({key:obj.enum_id,text:obj.enum_value})
-    })
-    return objtypeIdentityNumbers;
-  });
-  const objCustomerStatus = useSelector((state: any) => {
-    let objDate = state.dataReducer.data.customerStatus
-    let objcustomerStatus: { key: any; text: any; }[]=[]
-    objDate.map((obj: any)=>{
-      objcustomerStatus.push({key:obj.enum_id,text:obj.enum_value})
-    })
-    return objcustomerStatus;
-  });
+  // const objgenders = useSelector((state: any) => {
+  //   let objDate = state.dataReducer.data.genders
+  //   let objGender: { key: any; text: any; }[]=[]
+  //   objDate.map((obj: any)=>{
+  //     objGender.push({key:obj.enum_id,text:obj.enum_value})
+  //   })
+  //   return objGender;
+  // });
+  // const objTypeIdentityNumbers = useSelector((state: any) => {
+  //   let objDate = state.dataReducer.data.typeIdentityNumber
+  //   let objtypeIdentityNumbers: { key: any; text: any; }[]=[]
+  //   objDate.map((obj: any)=>{
+  //     objtypeIdentityNumbers.push({key:obj.enum_id,text:obj.enum_value})
+  //   })
+  //   return objtypeIdentityNumbers;
+  // });
+  // const objCustomerStatus = useSelector((state: any) => {
+  //   let objDate = state.dataReducer.data.customerStatus
+  //   let objcustomerStatus: { key: any; text: any; }[]=[]
+  //   objDate.map((obj: any)=>{
+  //     objcustomerStatus.push({key:obj.enum_id,text:obj.enum_value})
+  //   })
+  //   return objcustomerStatus;
+  // });
 
-  const objCustomerConditions = useSelector((state: any) => {
-    let objDate = state.dataReducer.data.customerCondition
-    let objcustomerConditions: { key: any; text: any; }[]=[]
-    objDate.map((obj: any)=>{
-      objcustomerConditions.push({key:obj.enum_id,text:obj.enum_value})
-    })
-    return objcustomerConditions;
-  });
+  // const objCustomerConditions = useSelector((state: any) => {
+  //   let objDate = state.dataReducer.data.customerCondition
+  //   let objcustomerConditions: { key: any; text: any; }[]=[]
+  //   objDate.map((obj: any)=>{
+  //     objcustomerConditions.push({key:obj.enum_id,text:obj.enum_value})
+  //   })
+  //   return objcustomerConditions;
+  // });
 
-  const objCustomerTypes = useSelector((state: any) => {
-    let objDate = state.dataReducer.data.customerType
-    let objcustomerTypes: { key: any; text: any; }[]=[]
-    objDate.map((obj: any)=>{
-      objcustomerTypes.push({key:obj.enum_id,text:obj.enum_value})
-    })
-    return objcustomerTypes;
-  });
+  // const objCustomerTypes = useSelector((state: any) => {
+  //   let objDate = state.dataReducer.data.customerType
+  //   let objcustomerTypes: { key: any; text: any; }[]=[]
+  //   objDate.map((obj: any)=>{
+  //     objcustomerTypes.push({key:obj.enum_id,text:obj.enum_value})
+  //   })
+  //   return objcustomerTypes;
+  // });
+  // const genders=objgenders
+  // const customerTypes =objCustomerTypes;
+  //customer condition is'nt display on page
+  // const customerConditions = objCustomerConditions;
+  // const customerStatus=objCustomerStatus;
+  // const typeIdentityNumbers = objTypeIdentityNumbers
+  // const genderArray = [{ key: 1, text: t('male') }, { key: 2, text: t('female') }, { key: 3, text: t('other') }];
+  // const statusCustomerArray = [{ key: 1, text: t('admin') }];
+  // const cuntry = [{ key: "IL", text: t('male') }];
+
+  
   
 //get data after create object
-  
-  const value = useSelector((state:any)=>{
-    const cus = state.customerReducer.dataCustomer
-    return cus
+  // const value = useSelector((state:any)=>{
+  //   const objDate = state.customerReducer.dataCustomer
+  //   return objDate
      
-  });
-   console.log(value)
-  //  customer.CustomerCondition = objDate.data.class.class_name
-  //  customer.DateOfBirth = objDate.data.properties.date_birth
-  //  customer.FirstName = objDate.data.properties.first_name
-  //  customer.LastName  = objDate.data.properties.last_name
-  //  customer.CustomerLock = objDate.data.properties.is_locked
-  //  customer.CustomerStatus = objDate.data.status.class_name
-  //  customer.Gander = objDate.data.gander.gender_name
-  const genders=objgenders
-  const customerTypes =objCustomerTypes;
-  //customer condition is'nt display on page
-  const customerConditions = objCustomerConditions;
-  const customerStatus=objCustomerStatus;
-  const typeIdentityNumbers = objTypeIdentityNumbers
-  const genderArray = [{ key: 1, text: t('male') }, { key: 2, text: t('female') }, { key: 3, text: t('other') }];
-  const statusCustomerArray = [{ key: 1, text: t('admin') }];
-  const cuntry = [{ key: "IL", text: t('male') }];
-  // const[listId,setListId]=useState([{}]);
+  // });
 
+    const [customer, setCustomer] = useState(blankCustomer)
+    const [fieldsOptionsMap,setFieldsOptionsMap]=useState(null)
+    const {dataCustomer}  = useSelector(({customerReducer}: any)=> customerReducer)
+    const fieldsOptionsMapFromReducer = useSelector(({dataReducer}: any))
+
+
+    const callLoadOptions = async ()=> {
+      try {
+        await dispatch(loadOptions())
+    
+      } catch (error) {
+        
+      }
+    }
+
+    useEffect(()=> {
+
+    }, [fieldsOptionsMapFromReducer])
+
+    useEffect(()=> console.log('CustomerDetails created!'), [])
+    useEffect(()=>{
+      console.log('dataCustomer: ', dataCustomer)
+      if(!dataCustomer?.data) return
+
+      setCustomer({
+        ...customer,
+        CustomerCondition : dataCustomer.class.class_name,
+         DateBirth : dataCustomer.properties.date_birth,
+          FirstName : dataCustomer.properties.first_name,
+          CustomerLock : dataCustomer.properties.is_locked,
+           Gender : dataCustomer.gander.gender_name,
+      })
+    },[dataCustomer])
+
+    
+
+
+    const handleSubmit= (e:React.FormEvent<HTMLFormElement>) => {
+      e.preventDefault()
+      //TODO: fill the entire function
+    }
+  
+     const updateCustomer = (key: string, value: any) => {
+    setCustomer({
+      ...customer,
+      [key]: value
+    });
+  }
+
+  
+    
+    const objectValue = [{key:1,text:"gyefeq"},{key:2,text:"fvh"}]
+      
+    
+  // const getValue = () =>{
+  //   if(value){
+  //     setReadOnly(true);
+  //     customer.CustomerCondition = value.class.class_name
+  //     customer.DateOfBirth = value.properties.date_birth
+  //     customer.FirstName = value.properties.first_name
+  //     customer.LastName  = value.properties.last_name
+  //     customer.CustomerLock = value.properties.is_locked
+  //     customer.CustomerStatus = value.status.class_name
+  //     customer.Gander = value.gander.gender_name
+  //   }
+   
+  //  }
+
+  // if(value){
+  //   getValue();
+  // }
+
+
+  // const[listId,setListId]=useState([{}]);
   // const ListId = useSelector((state: any) => {
   //   let obj = JSON.parse(state.auth.user)
   //   let listId = [{ key: "idInitiator", value: obj.data.id_entity },
@@ -168,39 +241,38 @@ const CustomerDetails = () => {
   //   return listId;
   // });
 
-  const [customer, setCustomer] = useState(new Customer(''));
-  const [update,setUpdate] = useState(true)
-  const [isCreateCustomer,setIsCreateCustomer]=useState("")
+ 
+  
   //update state customer  from custem component
-  const updateUser = (key: string, value: any) => {
-    console.log(value)
-    let newCus = { ...customer };
-    (newCus as any)[key] = value;
-    setCustomer(newCus);
-    console.log(customer.DateBirth)
-  }
-  let isCreate 
-  const handleSubmit = async (e:any) => {
-    const { name, value } = e.target;
-    let requestMethod = name;
-    console.log("type mathod of form",requestMethod,name)
-    e.preventDefault();
-    console.log("customer detail",customer)
-    isCreate = createCustomer(dispatch ,customer,[{ value: 1 }, { value: 2 }, { value: 2 }] )
+  // const updateUser = (key: string, value: any) => {
+  //   console.log(value)
+  //   let newCus = { ...customer };
+  //   (newCus as any)[key] = value;
+  //   setCustomer(newCus);
+  //   console.log("customer.DateBirth",(customer.DateBirth))
+  // }
+  // let isCreate 
+  // const handleSubmit = async (e:any) => {
+  //   const { name, value } = e.target;
+  //   let requestMethod = name;
+  //   console.log("type mathod of form",requestMethod,name)
+  //   e.preventDefault();
+  //   console.log("customer detail",customer)
+  //   isCreate = createCustomer(dispatch ,customer,[{ value: 1 }, { value: 2 }, { value: 2 }] )
     
-  // isCreate = await CreateCustomer(customer, [{ value: 1 }, { value: 2 }, { value: 2 }],requestMethod)
-   console.log(isCreate)
-   if(await isCreate==true){
-    setIsCreateCustomer("Customer created successfully")
-    setUpdate(!isCreate)
-   }
-   else{
-    setIsCreateCustomer("Customer dont created ")
-   }
+  // // isCreate = await CreateCustomer(customer, [{ value: 1 }, { value: 2 }, { value: 2 }],requestMethod)
+  //  console.log(isCreate)
+  //  if(await isCreate==true){
+   
+  //   setUpdate(!isCreate)
+  //  }
+  //  else{
+    
+  //  }
   
 
    
-  }
+  // }
 
   return (
     <form onSubmit={(e) => handleSubmit(e)}>
@@ -209,9 +281,9 @@ const CustomerDetails = () => {
           title={t("customers")} />
         <div className="divider"></div>
         <PrimaryButton className='button' type="submit" checked={false} text={t('createCustomer')} iconProps={Icons.addFriend} name="create"/>
-        <DefaultButton className='button' checked={false} text={t('editing')} id={'Editing'} iconProps={Icons.editContact} disabled={update} name="update"  type="submit" />
-        <DefaultButton className='button' checked={false} iconProps={Icons.userRemove} text={t('deletion')} id={'Deletion'} name="delete" />
-        <DefaultButton className='button' checked={false} text={t('save')} id={'Save'} iconProps={Icons.cloudUpload}/>
+        <DefaultButton className='button edit-button' checked={false} text={t('editing')}  iconProps={Icons.editContact} disabled={false} name="update"  type="submit" />
+        <DefaultButton className='button delete-button' checked={false} iconProps={Icons.userRemove} text={t('deletion')} id={'Deletion'} name="delete" />
+        <DefaultButton className='button save-upload' checked={false} text={t('save')} iconProps={Icons.cloudUpload}/>
         <IconButton
           iconProps={Icons.pdf}
           styles={{
@@ -237,26 +309,26 @@ const CustomerDetails = () => {
       <hr className="hr"></hr>
       <div className="content-wrapper customerDetail-wrapper">
         <Subtitle title={t("customerDetails")} />
-        <p className="title-text">{createCustomer}</p>
+        <p className="title-text"></p>
         <p className="title-text">{t('personalDetails')}</p>
-        <CustomToggle onText={t('customerLock')} onChange={updateUser} id={'CustomerLock'} defaultChecked={false} offText={t('customerLock')} />
+        <CustomToggle onText={t('customerLock')} onChange={updateCustomer} id={'CustomerLock'} defaultChecked={customer.CustomerLock} offText={t('customerLock')} />
         <hr className="hr"></hr>
         <hr className="hr text-width"></hr>
         <div>
-          <CustomDropdown otherInputId={''} hasOtherValue={false} options={customerTypes} label={t('customerType')} onChange={updateUser} selectedKey={customer.CustomerType} id={'CustomerType'} othertextInput={t('')} />
+          <CustomDropdown otherInputId={''} hasOtherValue={false} options={objectValue} label={t('customerType')} onChange={updateCustomer} selectedKey={customer.CustomerType} id={'CustomerType'} othertextInput={t('')} />
         </div>
         <div></div>
         <div>
-          <CustomTextFieldAddInput value={customer.FirstName}required={true} label={t('firstName')} onChange={updateUser} id={'FirstName'} iconProps={Icons.add} otherInputId={'MiddleName'} othertextItnput={t("middleName")} />
-          <CustomTextField value={customer.LastName} required={true} label={t('lastName')} onChange={updateUser} id={'LastName'} />
-          <CustomTextField type="date" required={true} label={t('dateOfBirth')} onChange={updateUser} id={'DateBirth'} iconProps={Icons.calendar} />
-          <CustomDropdown otherInputId={'OtherGender'} hasOtherValue={true} options={genders} label={t('gander')} onChange={updateUser} selectedKey={customer.Gender} id={'Gender'} othertextInput={t('other')} />
+          <CustomTextFieldAddInput value={customer.FirstName} required={true} label={t('firstName')} onChange={updateCustomer} id={'FirstName'} iconProps={Icons.add} otherInputId={'MiddleName'} othertextItnput={t("middleName")} />
+          <CustomTextField value={customer.LastName} required={true} label={t('lastName')} onChange={updateCustomer} id={'LastName'} />
+          <CustomTextField value={customer.DateBirth} type="date" required={true} label={t('dateOfBirth')} onChange={updateCustomer} id={'DateBirth'} iconProps={Icons.calendar} />
+          <CustomDropdown otherInputId={'OtherGender'} hasOtherValue={true} options={[]} label={t('gander')} onChange={updateCustomer} selectedKey={customer.Gender} id={'Gender'} othertextInput={t('other')} />
           <p className="title-text">{t('contactInformation')}</p>
         </div>
         <div>
-          <CustomTextField value={customer.IdentityNumber} required={true} label={t('identityNumber')} onChange={updateUser} id={'IdentityNumber'} />
-          <CustomDropdown otherInputId={''} hasOtherValue={false} options={cuntry} label={t('countryIdentityNumber')} onChange={updateUser} selectedKey={customer.CountryIdentityNumber} id={'CountryIdentityNumber'} othertextInput={t('')} />
-          <CustomDropdown otherInputId={'typeIdentityNumberOther'} hasOtherValue={true} options={typeIdentityNumbers} label={t('typeIdentityNumber')} onChange={updateUser} selectedKey={customer.TypeIdentityNumber} id={'TypeIdentityNumber'} othertextInput={t('typeIdentityNumberOther')} />
+          <CustomTextField value={customer.IdentityNumber} required={true} label={t('identityNumber')} onChange={updateCustomer} id={'IdentityNumber'} />
+          <CustomDropdown otherInputId={''} hasOtherValue={false} options={[]} label={t('countryIdentityNumber')} onChange={updateCustomer} selectedKey={customer.CountryIdentityNumber} id={'CountryIdentityNumber'} othertextInput={t('')} />
+          <CustomDropdown otherInputId={'typeIdentityNumberOther'} hasOtherValue={true} options={[]} label={t('typeIdentityNumber')} onChange={updateCustomer} selectedKey={customer.TypeIdentityNumber} id={'TypeIdentityNumber'} othertextInput={t('typeIdentityNumberOther')} />
         </div>
         <hr className="hr"></hr>
         <hr className="hr text-width"></hr>
@@ -264,47 +336,47 @@ const CustomerDetails = () => {
         <div>
           <p className="title-text">{t('address')}</p>
           <hr className="hr text-width"></hr>
-          <CustomTextField value={customer.Address} required={true} label={t('address')} onChange={updateUser} id={'Address'}  />
-          <CustomTextField value={customer.HouseNumber} label={t('houseNumber')} onChange={updateUser} id={'HouseNumber'} />
-          <CustomDropdown otherInputId={''} hasOtherValue={false} options={[]} label={t('city')} onChange={updateUser} selectedKey={customer.AddressCity} id={'AddressCity'} othertextInput={t('')} />
-          <CustomDropdown otherInputId={''} hasOtherValue={false} options={[]} label={t('country')} onChange={updateUser} selectedKey={customer.IDCountryCode} id={'IDCountryCode'} othertextInput={t('')} />
+          <CustomTextField value={customer.Address} required={true} label={t('address')} onChange={updateCustomer} id={'Address'}  />
+          <CustomTextField value={customer.HouseNumber} label={t('houseNumber')} onChange={updateCustomer} id={'HouseNumber'} />
+          <CustomDropdown otherInputId={''} hasOtherValue={false} options={[]} label={t('city')} onChange={updateCustomer} selectedKey={customer.AddressCity} id={'AddressCity'} othertextInput={t('')} />
+          <CustomDropdown otherInputId={''} hasOtherValue={false} options={[]} label={t('country')} onChange={updateCustomer} selectedKey={customer.IDCountryCode} id={'IDCountryCode'} othertextInput={t('')} />
 
           <p className="title-text">{t('moreDetails')}</p>
         </div>
         <div>
           <p className="title-text">{t('phone')}</p>
           <hr className="hr text-width"></hr>
-          <CustomTextField value={customer.Telephone} required={true} label={t('phone')} onChange={updateUser} id={'Telephone'} />
-          <CustomDropdown otherInputId={''} hasOtherValue={false} options={[]} label={t('countryPhone')} onChange={updateUser} selectedKey={customer.TelephoneCountryCode} id={'TelephoneCountryCode'} othertextInput={t('')} />
+          <CustomTextField value={customer.Telephone} required={true} label={t('phone')} onChange={updateCustomer} id={'Telephone'} />
+          <CustomDropdown otherInputId={''} hasOtherValue={false} options={[]} label={t('countryPhone')} onChange={updateCustomer} selectedKey={customer.TelephoneCountryCode} id={'TelephoneCountryCode'} othertextInput={t('')} />
           <p className="title-text">{t('email')}</p>
           <hr className="hr text-width"></hr>
-          <CustomTextField value={customer.Email} required={true} label={t('emailAddress')} onChange={updateUser} id={'Email'} type='email' />
+          <CustomTextField value={customer.Email} required={true} label={t('emailAddress')} onChange={updateCustomer} id={'Email'} type='email' />
 
         </div>
 
         <hr className="hr"></hr>
         <hr className="hr text-width"></hr>
         <div>
-          <CustomDropdown otherInputId={''} hasOtherValue={false} options={customerStatus} label={t('customerStatus')} onChange={updateUser} selectedKey={customer.CustomerStatus} id={'CustomerStatus'} othertextInput={t('')} />
-          <CustomTextField value={customer.CustomerNumber} required={true} label={t('customerNumber')} onChange={updateUser} id={'CustomerNumber'} />
-          <CustomDropdown otherInputId={''} hasOtherValue={false} options={customerStatus} label={t('nameIDEmployee')} onChange={updateUser} selectedKey={customer.NameIDEmployee} id={'NameIDEmployee'} othertextInput={t('')} />
+          <CustomDropdown otherInputId={''} hasOtherValue={false} options={[]} label={t('customerStatus')} onChange={updateCustomer} selectedKey={customer.CustomerStatus} id={'CustomerStatus'} othertextInput={t('')} />
+          <CustomTextField value={customer.CustomerNumber} required={true} label={t('customerNumber')} onChange={updateCustomer} id={'CustomerNumber'} />
+          <CustomDropdown otherInputId={''} hasOtherValue={false} options={[]} label={t('nameIDEmployee')} onChange={updateCustomer} selectedKey={customer.NameIDEmployee} id={'NameIDEmployee'} othertextInput={t('')} />
         </div>
 
         <div>
-          <CustomDropdown otherInputId={''} hasOtherValue={false} options={genders} label={t('areaOfPracticeOrIndustry')} onChange={updateUser} selectedKey={customer.AreaOfPracticeIndustry} id={'AreaOfPracticeOrIndustry'} othertextInput={t('')} />
-          <CustomDropdown otherInputId={''} hasOtherValue={false} options={genders} label={t('creditGroup')} onChange={updateUser} selectedKey={customer.CreditGroup} id={'CreditGroup'} othertextInput={t('')} />
-          <CustomDropdown otherInputId={''} hasOtherValue={false} options={genders} label={t('agent')} onChange={updateUser} selectedKey={customer.Agent} id={'Agent'} othertextInput={t('')} />
+          <CustomDropdown otherInputId={''} hasOtherValue={false} options={[]} label={t('areaOfPracticeOrIndustry')} onChange={updateCustomer} selectedKey={customer.AreaOfPracticeIndustry} id={'AreaOfPracticeOrIndustry'} othertextInput={t('')} />
+          <CustomDropdown otherInputId={''} hasOtherValue={false} options={[]} label={t('creditGroup')} onChange={updateCustomer} selectedKey={customer.CreditGroup} id={'CreditGroup'} othertextInput={t('')} />
+          <CustomDropdown otherInputId={''} hasOtherValue={false} options={[]} label={t('agent')} onChange={updateCustomer} selectedKey={customer.Agent} id={'Agent'} othertextInput={t('')} />
 
         </div>
         <p className="title-text">{t('note')}</p>
         <div>
           <p></p>
-          <CustomToggle onText={t('viewNoteWhenPerformingAction')} onChange={updateUser} id={'ViewNoteWhenPerformingAnAction'} defaultChecked={true} offText={t('viewNoteWhenPerformingAction')} />
+          <CustomToggle onText={t('viewNoteWhenPerformingAction')} onChange={updateCustomer} id={'ViewNoteWhenPerformingAnAction'} defaultChecked={true} offText={t('viewNoteWhenPerformingAction')} />
         </div>
         <hr className="hr"></hr>
         <hr className="hr text-width"></hr>
       </div>
-      <TextFeildNote label={t('')} onChange={updateUser} id={'Note'} />
+      <TextFeildNote label={t('')} onChange={updateCustomer} id={'Note'} />
     </form>
   );
 }

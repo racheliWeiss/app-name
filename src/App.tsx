@@ -10,18 +10,16 @@ import AppNav from './components/AppNav';
 import { useState } from 'react';
 import Home from './components/Home';
 import { createStore } from 'redux';
-import {loadUser} from './store/actions/dataActions'
 import store from './store/store';
 import Logout from './components/auth/Logout';
+import { loadOptions } from './store/actions/dataActions';
 
 
 
 function App() {
-  useEffect(() => {
-    store.dispatch(loadUser());
-    console.log("deffe")
-    console.log(store.getState()) 
-  }, []);
+  // useEffect(() => {
+  //   store.dispatch(loadOptions()); 
+  // }, []);
   const handleOnclick = (e: React.ChangeEvent<any>) => {
     e.preventDefault();
     // setLanguage(e.target.value);

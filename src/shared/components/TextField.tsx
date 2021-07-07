@@ -14,6 +14,7 @@ interface MyProps extends ComponenetProps {
     type?:string,
     nameOfClassStyle?:string
     value?:any
+    readOnly?:boolean
 
 
     // ?:IIconProps
@@ -22,7 +23,7 @@ interface MyProps extends ComponenetProps {
 
 export const CustomTextField: React.FunctionComponent<MyProps> = (props) => {
     // const [muted, { toggle: setMuted }] = useBoolean(false); 
-    const { value = "", onChange, label, id,required, iconProps ,type ,nameOfClassStyle="text-field"} = props;
+    const { readOnly=false , value = "", onChange, label, id,required, iconProps ,type ,nameOfClassStyle="text-field"} = props;
     // if(nameOfClassStyle===undefined){
     //       const nameOfClassStyle="text-field"
     // }
@@ -38,6 +39,7 @@ export const CustomTextField: React.FunctionComponent<MyProps> = (props) => {
             className={nameOfClassStyle}
             type={type}
             value={value}
+            readOnly ={readOnly}
            
            
         />

@@ -5,7 +5,7 @@ import { Icons } from '../modelsType/Icon';
 import '../scssPages/sub-header.scss';
 import Title from '../shared/components/Title';
 import '../scssPages/form.scss'
-import { Customer } from './customerDetails/CustomerDetails';
+import { ICustomer } from './customerDetails/CustomerDetails';
 
 
 

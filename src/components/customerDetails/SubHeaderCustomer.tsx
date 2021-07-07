@@ -7,13 +7,13 @@ import '../../scssPages/sub-header.scss';
 import Title from '../../shared/components/Title';
 import { basicUrl } from '../../shared/config';
 import '../../scssPages/form.scss'
-import { Customer } from './CustomerDetails';
 import { connect, useDispatch, useSelector } from 'react-redux';
 import { IAuthReduxProps } from '../../modelsType/type/interface';
+import { ICustomer } from './CustomerDetails';
 
 
 interface IProp {
-    customer:Customer
+    customer:ICustomer
   }
 
 export const SubHeader:React.FunctionComponent <IProp>= (props) => {
@@ -177,7 +177,7 @@ function _alertClicked(): void {
   alert('Clicked');
 }
 
-const CreateAddress = async (customer:Customer) =>{
+const CreateAddress = async (customer:ICustomer) =>{
   const address={
       id_initiator: 1,
       
@@ -223,7 +223,7 @@ const CreateAddress = async (customer:Customer) =>{
    
   }
 
-  const CreatePhone = async (customer:Customer)=>{
+  const CreatePhone = async (customer:ICustomer)=>{
     
 
      const phone = {"id_initiator": 1,
@@ -263,7 +263,7 @@ const CreateAddress = async (customer:Customer) =>{
 
 }
 
-const CreateEmail = async (customer:Customer)=>{
+const CreateEmail = async (customer:ICustomer)=>{
   const email={
     "id_initiator": 1,
     

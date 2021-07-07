@@ -1,19 +1,21 @@
 import axios from "axios";
 import { Dispatch } from "react";
-import { Customer } from "../../components/customerDetails/CustomerDetails";
+import {  ICustomer } from "../../components/customerDetails/CustomerDetails";
 import { basicUrl } from "../../shared/config";
 import { checkHttpStatus } from "../../utils";
 import { CREATE_CUSTOMER, LOGIN_FAIL } from '../actions/types';
 import { returnErrors } from "./errorActions";
 
-export const createCustomer = async (dispatch:any,customer: Customer, ListId: any) => {
+export const createCustomer = async (dispatch:any,customer: ICustomer, ListId: any) => {
   // Headers
+  console.log("cusromer dirth type day in action",typeof customer.DateBirth)
   const config = {
     headers: {
       'Content-Type': 'application/json'
     }
   };
   console.log("intiator and client", ListId[0].value, ListId[2].value[0])
+
   let isCreate = false;
   const createCustomer = {
     id_initiator: ListId[0].value,
@@ -50,7 +52,7 @@ export const createCustomer = async (dispatch:any,customer: Customer, ListId: an
 
     entity_name_en: "Amit Keresanty",
 
-    date_birth:new Date(customer.dateOfBirth + "Z"),
+    date_birth:new Date(customer.DateBirth + "Z"),
 
     gender_id: customer.Gender,
 
@@ -74,7 +76,8 @@ export const createCustomer = async (dispatch:any,customer: Customer, ListId: an
 
   }
   const body = JSON.stringify(createCustomer);
-  console.log(body);
+  console.log("body has json",body)
+
   let res = await axios.post(basicUrl + '/uspEntity', body, config)
     .then(checkHttpStatus)
     .then((res) => {
@@ -109,7 +112,7 @@ export const createCustomer = async (dispatch:any,customer: Customer, ListId: an
   return true;
 }
 
-const CreateAddress = async (customer: Customer) => {
+const CreateAddress = async (customer: ICustomer) => {
   const address = {
     id_initiator: 1,
 
@@ -157,7 +160,7 @@ const CreateAddress = async (customer: Customer) => {
 
 }
 
-const CreatePhone = async (customer: Customer) => {
+const CreatePhone = async (customer: ICustomer) => {
 
 
   const phone = {
@@ -199,7 +202,7 @@ const CreatePhone = async (customer: Customer) => {
 
 }
 
-const CreateEmail = async (customer: Customer) => {
+const CreateEmail = async (customer: ICustomer) => {
   const email = {
     "id_initiator": 1,
 
@@ -252,7 +255,7 @@ const CreateEmail = async (customer: Customer) => {
 }
 
 
-const UpdateCustomer = async (customer: Customer) => {
+const UpdateCustomer = async (customer: ICustomer) => {
   const updateCustomer = {
 
     "id_initiator": 1,
