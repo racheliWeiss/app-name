@@ -1,4 +1,4 @@
-import * as React from 'react';
+
 import '../../scssPages/sub-header.scss';
  
 interface Title{

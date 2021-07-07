@@ -194,7 +194,7 @@ const CreateAddress = async (customer:Customer) =>{
       
       address_type_id: 2,
       
-      address_name:  customer.Adress,
+      address_name:  customer.Address,
 
       address_number:customer.HouseNumber,
       

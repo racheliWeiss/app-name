@@ -1,9 +1,5 @@
 import { IIconProps, ISearchBoxStyles, SearchBox } from '@fluentui/react';
-import React from 'react';
-import react, { ChangeEvent } from 'react';
-import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import ComponenetProps from '../../modelsType/type/interface';
 
 
 interface MyProps  {

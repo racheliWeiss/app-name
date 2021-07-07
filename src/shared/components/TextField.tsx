@@ -13,7 +13,8 @@ interface MyProps extends ComponenetProps {
     iconProps ?: IIconProps
     type?:string,
     nameOfClassStyle?:string
- 
+    value?:any
+
 
     // ?:IIconProps
 }
@@ -21,7 +22,7 @@ interface MyProps extends ComponenetProps {
 
 export const CustomTextField: React.FunctionComponent<MyProps> = (props) => {
     // const [muted, { toggle: setMuted }] = useBoolean(false); 
-    const { onChange, label, id,required, iconProps ,type ,nameOfClassStyle="text-field"} = props;
+    const { value = "", onChange, label, id,required, iconProps ,type ,nameOfClassStyle="text-field"} = props;
     // if(nameOfClassStyle===undefined){
     //       const nameOfClassStyle="text-field"
     // }
@@ -31,11 +32,15 @@ export const CustomTextField: React.FunctionComponent<MyProps> = (props) => {
             required={required?true:undefined}
             label={label}
             onChange ={(e: any) => {
-                 onChange(id, e.currentTarget.value)
+                 onChange(id, e.target.value)
             }}
             iconProps={iconProps}
             className={nameOfClassStyle}
             type={type}
+            value={value}
+           
+           
+        />
             // onClick={setMuted}
       
    // onChange={(e, selectedOption) => {
@@ -44,7 +49,7 @@ export const CustomTextField: React.FunctionComponent<MyProps> = (props) => {
             //   }}
            
         // onChange={(e: any) => setLogin_entity_number(e.target.value)}
-        />
+     
     );
 
 }
@@ -75,7 +80,7 @@ export const CustomTextFieldAddInput: React.FunctionComponent<AddInputProp> = (p
            
         // onChange={(e: any) => setLogin_entity_number(e.target.value)}
         />
-        {muted  ? <CustomTextField  label={othertextItnput} onChange={onChange} id={otherInputId} /> : false}
+        {muted  ? <CustomTextField label={othertextItnput} onChange={onChange} id={otherInputId} /> : false}
         </>
 
     );

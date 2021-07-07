@@ -1,13 +1,11 @@
 import * as React from 'react';
-import { TextField, } from '@fluentui/react/lib/TextField';
 import { DetailsList, Selection, IColumn, SelectionMode, DetailsRow, IDetailsFooterProps } from '@fluentui/react/lib/DetailsList';
-import { DefaultButton, Dialog, DialogFooter, IRenderFunction, PrimaryButton } from '@fluentui/react';
+import { DefaultButton, IRenderFunction } from '@fluentui/react';
 import { useEffect, useState } from 'react';
 import "./detaiList.scss"
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useBoolean } from '@fluentui/react-hooks';
-import { CustomTextField } from '../TextField';
 import { CustemDialogAddress, CustemDialogEmail, CustemDialogPhone } from '../dialog/Dialog';
 
 
@@ -124,7 +122,7 @@ const CustemTable: React.FunctionComponent<IDetailsListState> = (props) => {
    
       <div className="continar">
         <DetailsList
-          items={state.items}
+          items={allItems}
           columns={columns}
           selection={selection}
           selectionMode={isSelection}

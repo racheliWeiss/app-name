@@ -1,14 +1,12 @@
 import axios from 'axios'
 import { returnErrors } from './errorActions'
 import {
-  USERֹֹ_LOADED,
-  USERֹֹ_LOADING,
   AUTH_ERROR,
   LOGIN_SUCCESS,
   LOGIN_FAIL,
   LOGOUT_SUCCESS,
 } from '../actions/types'
-import { IAuthFunction, IConfigHeaders, IUser } from '../../modelsType/type/interface';
+import {IConfigHeaders} from '../../modelsType/type/interface';
 import { User } from '../../modelsType/User';
 import { basicUrl } from '../../shared/config';
 //cheack token&load user

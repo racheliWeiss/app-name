@@ -3,7 +3,7 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import "./customerSearch.scss"
-import { IssuePagination } from "../../shared/components/Pagination/Pagination";
+import { IssuePagination, OnPageChangeCallback } from "../../shared/components/Pagination/Pagination";
 import SearchBoxSmall from "../../shared/components/TextSearch";
 import Subtitle from "../../shared/components/Subtitle";
 import CustemTable from "../../shared/components/tabels/TableList";
@@ -30,13 +30,12 @@ const CustomerSearch = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [searchDetail, setSearchDetail] = useState('')
   const [t, i18n] = useTranslation();
-  const [item, setItem] = useState<any>([])
- 
+  const [item, setItem] = useState<any>()
 
 
-  useEffect(() => {
-    getData();
-  }, [])
+  // useEffect(() => {
+  //   getData();
+  // }, [])
 
   let result: number;
 
@@ -46,8 +45,8 @@ const CustomerSearch = () => {
     { key: '3', name: t('phone'), fieldName: "phone", minWidth: 100, maxWidth: 200 },
     { key: '4', name: '', fieldName: "link", minWidth: 100, maxWidth: 200 },
   ];
-
-  let object: { key: number; name: any; phone: any; address: string; }[] =[]
+console.log("columns",columns)
+  let objectItem:any[]=[];
 
   const paginationData = {
     lines: 5,
@@ -97,13 +96,14 @@ const CustomerSearch = () => {
 
         "search_value": customerSearch
       }
+      console.log("object search",search);
       const config = {
         headers: {
           'Content-Type': 'application/json'
         }
       };
       const res = await axios.post(basicUrl + "/search", search, config)
-      console.log("data",res)
+      console.log("data from ",res.data)
       const objactData = res.data.search_results;
       console.log("data",objactData)
       setPageCount(res.data.page_size);
@@ -114,22 +114,21 @@ const CustomerSearch = () => {
       objactData.map((obj: any, index: number) => {
         const phoneObject = obj.telephones
         const resultPhone = phoneObject.find(({ is_default }: any) => is_default === true);
-        const phoneNumber = resultPhone.telephone_number
+        const phoneNumber = resultPhone.telephone_number.substring(10)
+        
         let addressObject = obj.addresses
         let resultAddress = addressObject.find(({ is_default }: any) => is_default === true);
         let address = resultAddress.address_name
         let cityAddress = resultAddress.address_city
         const addressFull = address + " " + cityAddress;
-        // console.log("data obj",obj)
-        // console.log("index",index)
-      
-        object.push({ key: index, name: obj.entity_name, phone: phoneNumber, address: addressFull })
+        objectItem.push({ key: ++index, name: obj.entity_name, phone: phoneNumber, address: addressFull })
           // setItem([...item, { key: index, name: obj.entity_name, phone: phoneNumber, address: addressFull }])
           // console.log("items ",item)  
-          
+          console.log(objectItem)
     });
-    setItem(object);
-    console.log("items ",item)
+  
+      setItem(objectItem);
+      console.log("items ",item)
     }
    
       // const emailObject = obj.emails
@@ -148,11 +147,16 @@ const CustomerSearch = () => {
 
     useEffect(() => {
       getData();
+      console.log("useEffact cur",curentPage)
     }, [curentPage]);
 
-    const onPageChanged = (selected: any) => {
-      console.log("selected",selected)
-      setCurentPage(selected);
+    const onPageChanged  :OnPageChangeCallback= selectedItem => {
+      console.log("selected",selectedItem)
+      const newPage = ++selectedItem.selected;
+      console.log("current page NEW PAGW",newPage)
+      setCurentPage(newPage);
+      console.log("cureent page ",curentPage)
+
     }
     // const onLoadCustomerClicked =()=>{   
     //   // setSearchDetail(customer)
@@ -170,7 +174,7 @@ const CustomerSearch = () => {
           <SearchBoxSmall onChange={onCustomerChanged} label={t('search')} />
           <PrimaryButton className="bottun" onClick={getData} text={t("searchCustomer")} />
         </div>
-        <CustemTable columns={columns} allItems={item} rederRow={"link"} isFooter={false} />
+        {item?<CustemTable columns={columns} allItems={item} rederRow={"link"} isFooter={false} />:null}
         <IssuePagination
           onPageChange={onPageChanged}
           pageCount={pageCount}
@@ -181,3 +185,7 @@ const CustomerSearch = () => {
     );
   }
   export default CustomerSearch;
+
+
+
+  // [{"id_initiator":1,"date_modified":"2021-06-16 15:51:51.8612688","entity_sub_type_id":"1","entity_sub_type_name":"יחיד","entity_type_id":"customer","entity_type_name":"לקוח","is_deleted":0,"is_default":1}]

@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { basicUrl } from '../../shared/config';
 import {FETCH_PROTECTED_DATA_REQUEST,LOGIN_FAIL,RECEIVE_PROTECTED_DATA,SET_IS_FETCHING}from './types'
-import { checkHttpStatus, parseJSON } from '../../utils';
+import { checkHttpStatus} from '../../utils';
 import { tokenConfig } from './authActions';
 import { returnErrors } from './errorActions';
 
@@ -66,7 +66,7 @@ export const loadUser = () => (dispatch: Function, getState:Function ) => {
       })
       .catch(err => {
         console.log("dataerror",err)
-        err.response ? returnErrors(err.response.data, err.response.status, 'LOGIN_FAIL') : returnErrors('the server is down pls try later', 'LOGIN_FAIL')
+        err.response ? returnErrors(err.response.data, err.response.status, 'GET_ERRORS') : returnErrors('the server is down pls try later', 'LOGIN_FAIL')
         dispatch({
           type: LOGIN_FAIL
         })

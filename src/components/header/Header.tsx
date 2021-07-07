@@ -1,12 +1,10 @@
-import { IconButton, FontIcon, registerIcons } from '@fluentui/react';
-import React from 'react';
+
 import './header.scss';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Logout } from '../auth/Logout';
 import { useTranslation } from 'react-i18next';
 import { connect, useSelector } from 'react-redux';
-import { IAppNavbar, IAuthReduxProps } from '../../modelsType/type/interface';
-import SubHeader from '../SubHeader';
+import { IAppNavbar } from '../../modelsType/type/interface';
+
 
 const Header = ({ auth }: IAppNavbar) => {
   const [t, i18n] = useTranslation();
