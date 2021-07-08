@@ -13,11 +13,11 @@ const blankOptionsMap = {
   customerStatus: null
 }
 
-const objectData = [{"enumType":"class","category":"customer","name":"customerCondition"},
-{"enumType": "entity_sub_type" ,"category":"customer","name" :"customerType"},
+const objectData = [{"enumType":"class","category":"customer","name":"customersCondition"},
+{"enumType": "entity_sub_type" ,"category":"customer","name" :"customersType"},
 {"enumType":"gender" ,"category":"customer","name":"genders"},
-{"enumType": "type" ,"category":"customer","name" :"typeIdentityNumber"},
-{"enumType": "status" ,"category":"customer","name" :"customerStatus"},
+{"enumType": "type" ,"category":"customer","name" :"typeIdentityNumbers"},
+{"enumType": "status" ,"category":"customer","name" :"customersStatus"},
 ]
 
 export function receiveProtectedData(data:any) {
@@ -34,8 +34,8 @@ export function fetchProtectedDataRequest() {
     type: FETCH_PROTECTED_DATA_REQUEST
   }
 }
-export const loadOptions =   () => async (dispatch: any, getState:Function ) => {
-  const optionsPrm = objectData.map( currObj =>{
+export const loadOptions = () => async (dispatch: any, getState:Function ) => {
+  const optionsPrm = objectData.map( async currObj =>{
   const entity =
     {
       "id_client ": 45654784,
@@ -52,13 +52,22 @@ export const loadOptions =   () => async (dispatch: any, getState:Function ) => 
     }
 
   
-     return axios.post(basicUrl + "/uspEnum", entity, tokenConfig(getState))
+      
+    const res =await axios.post(basicUrl + "/uspEnum", entity, tokenConfig(getState))
         .then(checkHttpStatus)
-     
-
+        //if failed:
+        .catch(err => {
+          console.log("dataerror",err)
+          err.response ? returnErrors(err.response.data, err.response.status, 'GET_ERRORS') : returnErrors('the server is down pls try later', 'LOGIN_FAIL')
+          dispatch({
+            type: LOGIN_FAIL
+          })
+          dispatch({ type:SET_IS_FETCHING , isFetching:true});
+          // return "";
+        })
+        return res.data;
         
-      });
-
+    });
       const options = await Promise.all(optionsPrm)
       const optionsMap = {...blankOptionsMap}
       objectData.forEach(({name}, idx)=> {
@@ -71,12 +80,4 @@ export const loadOptions =   () => async (dispatch: any, getState:Function ) => 
     }
     
     
-    //if failed:
-    // .catch(err => {
-    //   console.log("dataerror",err)
-    //   err.response ? returnErrors(err.response.data, err.response.status, 'GET_ERRORS') : returnErrors('the server is down pls try later', 'LOGIN_FAIL')
-    //   dispatch({
-    //     type: LOGIN_FAIL
-    //   })
-    //   dispatch({ type:SET_IS_FETCHING , isFetching:true});
-    // })
+    

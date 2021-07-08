@@ -5,13 +5,13 @@ const initialState = {
         generalFormOptionsMap:{
             genders: null
             ,
-            typeIdentityNumber:null
+            typeIdentityNumbers:null
             ,
-            customerStatus:null,
+            customersStatus:null,
              
-            customerCondition:null,
+            customersCondition:null,
             
-            customerType:null,
+            customersType:null,
         }
     },
 };
@@ -23,7 +23,7 @@ export default function(state=initialState,action:any ){
             ...state,
             data: {
             ...state.data,
-            generalFormOptions: action.optionsMap
+            generalFormOptionsMap: action.optionsMap
             }
         }
         // case RECEIVE_PROTECTED_DATA:

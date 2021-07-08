@@ -55,35 +55,37 @@ export interface ICustomer {
 
 
 const blankCustomer ={
-  Gender: 1,
+  gender: 1,
   CustomerStatus : 1,
-  FirstName : "",
-  Note : "",
-  LastName : "",
-  CustomerLock : false,
-  DateBirth : "",
-  OtherGender : "",
-  MiddleName : "",
-  OtherCustomerStatus :"",
-  CustomerCondition : 1,
-  CustomerType : 1,
+  entityStatusId : 0,
+  firstName : "",
+  note : "",
+  lastName : "",
+  isLocked : false,
+  dateBirth : "",
+  genderOther : "",
+  middleName : "",
+  otherCustomerStatus :"",
+  classId : 1,
+  entitySubTypeId : 1,
   ViewNoteWhenPerformingAction : false,
-  AreaOfPracticeIndustry : 0,
+  industryId : 0,
   CreditGroup : 0,
-  Agent : 0,
-  TypeIdentityNumber : "",
-  IdentityNumber : "",
-  TypeIdentityNumberOther : "",
-  CountryIdentityNumber : "",
-  NameIDEmployee : 0,
-  Address : "",
+  idAffiliate : 0,
+  idTypeId : "",
+  idNumber : "",
+  idTypeOther : "",
+  addressCountryCode : "",
+  idIdentifier : 0,
+  address : "",
   HouseNumber : "",
-  AddressCity : "",
-  IDCountryCode : "",
-  Telephone : "",
-  TelephoneCountryCode : 0,
-  Email : "",
-  CustomerNumber : "",
+  addressCity : "",
+  iDCountryCode : "",
+  telephone : "",
+  telephoneCountryCode : 0,
+  email : "",
+  entityNumber : "",
+  
 }
 
 
@@ -162,34 +164,72 @@ const CustomerDetails = () => {
     const [customer, setCustomer] = useState(blankCustomer)
     const [fieldsOptionsMap,setFieldsOptionsMap]=useState(null)
     const {dataCustomer}  = useSelector(({customerReducer}: any)=> customerReducer)
-    const fieldsOptionsMapFromReducer = useSelector(({dataReducer}: any))
-
-
+    const fieldsOptionsMapFromReducer = useSelector(({dataReducer}:any)=>dataReducer)
+    const options = {
+     genders : [],
+    typeIdentityNumbers:[],
+    customersStatus : [],
+    customersCondition : [],
+    customersType : []
+   }
     const callLoadOptions = async ()=> {
       try {
         await dispatch(loadOptions())
+        console.log("good")
     
       } catch (error) {
         
       }
     }
 
+    const buildObjecOptions = (nameOption:any) =>{
+      fieldsOptionsMapFromReducer.dataCustomer.data.generalFormOptionsMap[nameOption].map((objOptin: { key: string | number; })=>
+        //@ts-ignore
+        options[nameOption][objOptin.key]  = {key:objOptin[enum_id], text:objOptin[enum_value]}
+      )
+      //@ts-ignore
+      // console.log("options[nameOption]",options[nameOption])
+    }
     useEffect(()=> {
-
+       if(!fieldsOptionsMapFromReducer?.data?.generalFormOptionsMap) return 
+       const data = JSON.stringify(fieldsOptionsMapFromReducer.data.generalFormOptionsMap);
+          const objOptions = JSON.parse(data);
+          console.log("data option",objOptions);
+          objOptions.map =((element: any)=>{
+              console.log("element option",element);
+          });
+      //  console.log("dataCustomer?.data?.generalFormOptionsMap",fieldsOptionsMapFromReducer.data.generalFormOptionsMap
+      //  Array.prototype.forEach.call(fieldsOptionsMapFromReducer.data.generalFormOptionsMap, objOption => {
+      //   console.log(objOption)
+      // }); 
+      //         const objOptions =fieldsOptionsMapFromReducer.data.generalFormOptionsMap
+      //  [...objOptions].forEeach(({key}:any)=>{
+      //     if(fieldsOptionsMapFromReducer.data.generalFormOptionsMap.key!==null)
+      //     console.log(key in options ,key)
+      //     buildObjecOptions(key) 
+      //  })
     }, [fieldsOptionsMapFromReducer])
+   
 
-    useEffect(()=> console.log('CustomerDetails created!'), [])
+    useEffect(()=>{
+      console.log('CustomerDetails created!')
+      callLoadOptions()
+    } , [])
+
     useEffect(()=>{
       console.log('dataCustomer: ', dataCustomer)
       if(!dataCustomer?.data) return
 
       setCustomer({
         ...customer,
-        CustomerCondition : dataCustomer.class.class_name,
-         DateBirth : dataCustomer.properties.date_birth,
-          FirstName : dataCustomer.properties.first_name,
-          CustomerLock : dataCustomer.properties.is_locked,
-           Gender : dataCustomer.gander.gender_name,
+        classId : dataCustomer.class.class_name,
+        dateBirth : dataCustomer.properties.date_birth,
+        firstName : dataCustomer.properties.first_name,
+        lastName :dataCustomer.properties.last_name,
+
+        isLocked : dataCustomer.properties.is_locked,
+        gender : dataCustomer.gander.gender_name,
+
       })
     },[dataCustomer])
 
@@ -202,9 +242,9 @@ const CustomerDetails = () => {
     }
   
      const updateCustomer = (key: string, value: any) => {
-    setCustomer({
-      ...customer,
-      [key]: value
+       setCustomer({
+         ...customer,
+         [key]: value
     });
   }
 
@@ -311,24 +351,24 @@ const CustomerDetails = () => {
         <Subtitle title={t("customerDetails")} />
         <p className="title-text"></p>
         <p className="title-text">{t('personalDetails')}</p>
-        <CustomToggle onText={t('customerLock')} onChange={updateCustomer} id={'CustomerLock'} defaultChecked={customer.CustomerLock} offText={t('customerLock')} />
+        <CustomToggle onText={t('customerLock')} onChange={updateCustomer} id={'isLocked'} defaultChecked={customer.isLocked} offText={t('customerLock')} />
         <hr className="hr"></hr>
         <hr className="hr text-width"></hr>
         <div>
-          <CustomDropdown otherInputId={''} hasOtherValue={false} options={objectValue} label={t('customerType')} onChange={updateCustomer} selectedKey={customer.CustomerType} id={'CustomerType'} othertextInput={t('')} />
+          <CustomDropdown otherInputId={''} hasOtherValue={false} options={objectValue} label={t('customerType')} onChange={updateCustomer} selectedKey={customer.entitySubTypeId} id={'entitySubTypeId'} othertextInput={t('')} />
         </div>
         <div></div>
         <div>
-          <CustomTextFieldAddInput value={customer.FirstName} required={true} label={t('firstName')} onChange={updateCustomer} id={'FirstName'} iconProps={Icons.add} otherInputId={'MiddleName'} othertextItnput={t("middleName")} />
-          <CustomTextField value={customer.LastName} required={true} label={t('lastName')} onChange={updateCustomer} id={'LastName'} />
-          <CustomTextField value={customer.DateBirth} type="date" required={true} label={t('dateOfBirth')} onChange={updateCustomer} id={'DateBirth'} iconProps={Icons.calendar} />
-          <CustomDropdown otherInputId={'OtherGender'} hasOtherValue={true} options={[]} label={t('gander')} onChange={updateCustomer} selectedKey={customer.Gender} id={'Gender'} othertextInput={t('other')} />
+          <CustomTextFieldAddInput value={customer.firstName} required={true} label={t('firstName')} onChange={updateCustomer} id={'firstName'} iconProps={Icons.add} otherInputId={'MiddleName'} othertextItnput={t("middleName")} />
+          <CustomTextField value={customer.lastName} required={true} label={t('lastName')} onChange={updateCustomer} id={'lastName'} />
+          <CustomTextField value={customer.dateBirth} type="date" required={true} label={t('dateOfBirth')} onChange={updateCustomer} id={'dateBirth'} iconProps={Icons.calendar} />
+          <CustomDropdown otherInputId={'OtherGender'} hasOtherValue={true} options={[]} label={t('gander')} onChange={updateCustomer} selectedKey={customer.gender} id={'gender'} othertextInput={t('other')} />
           <p className="title-text">{t('contactInformation')}</p>
         </div>
         <div>
-          <CustomTextField value={customer.IdentityNumber} required={true} label={t('identityNumber')} onChange={updateCustomer} id={'IdentityNumber'} />
-          <CustomDropdown otherInputId={''} hasOtherValue={false} options={[]} label={t('countryIdentityNumber')} onChange={updateCustomer} selectedKey={customer.CountryIdentityNumber} id={'CountryIdentityNumber'} othertextInput={t('')} />
-          <CustomDropdown otherInputId={'typeIdentityNumberOther'} hasOtherValue={true} options={[]} label={t('typeIdentityNumber')} onChange={updateCustomer} selectedKey={customer.TypeIdentityNumber} id={'TypeIdentityNumber'} othertextInput={t('typeIdentityNumberOther')} />
+          <CustomTextField value={customer.idNumber} required={true} label={t('identityNumber')} onChange={updateCustomer} id={'idNumber'} />
+          <CustomDropdown otherInputId={''} hasOtherValue={false} options={[]} label={t('countryIdentityNumber')} onChange={updateCustomer} selectedKey={customer.iDCountryCode} id={'iDCountryCode'} othertextInput={t('')} />
+          <CustomDropdown otherInputId={'typeIdentityNumberOther'} hasOtherValue={true} options={[]} label={t('typeIdentityNumber')} onChange={updateCustomer} selectedKey={customer.idTypeId} id={'TypeIdentityNumber'} othertextInput={t('typeIdentityNumberOther')} />
         </div>
         <hr className="hr"></hr>
         <hr className="hr text-width"></hr>
@@ -336,21 +376,21 @@ const CustomerDetails = () => {
         <div>
           <p className="title-text">{t('address')}</p>
           <hr className="hr text-width"></hr>
-          <CustomTextField value={customer.Address} required={true} label={t('address')} onChange={updateCustomer} id={'Address'}  />
+          <CustomTextField value={customer.address} required={true} label={t('address')} onChange={updateCustomer} id={'Address'}  />
           <CustomTextField value={customer.HouseNumber} label={t('houseNumber')} onChange={updateCustomer} id={'HouseNumber'} />
-          <CustomDropdown otherInputId={''} hasOtherValue={false} options={[]} label={t('city')} onChange={updateCustomer} selectedKey={customer.AddressCity} id={'AddressCity'} othertextInput={t('')} />
-          <CustomDropdown otherInputId={''} hasOtherValue={false} options={[]} label={t('country')} onChange={updateCustomer} selectedKey={customer.IDCountryCode} id={'IDCountryCode'} othertextInput={t('')} />
+          <CustomDropdown otherInputId={''} hasOtherValue={false} options={[]} label={t('city')} onChange={updateCustomer} selectedKey={customer.addressCity} id={'AddressCity'} othertextInput={t('')} />
+          <CustomDropdown otherInputId={''} hasOtherValue={false} options={[]} label={t('country')} onChange={updateCustomer} selectedKey={customer.addressCountryCode} id={'addressCountryCode'} othertextInput={t('')} />
 
           <p className="title-text">{t('moreDetails')}</p>
         </div>
         <div>
           <p className="title-text">{t('phone')}</p>
           <hr className="hr text-width"></hr>
-          <CustomTextField value={customer.Telephone} required={true} label={t('phone')} onChange={updateCustomer} id={'Telephone'} />
-          <CustomDropdown otherInputId={''} hasOtherValue={false} options={[]} label={t('countryPhone')} onChange={updateCustomer} selectedKey={customer.TelephoneCountryCode} id={'TelephoneCountryCode'} othertextInput={t('')} />
+          <CustomTextField value={customer.telephone} required={true} label={t('phone')} onChange={updateCustomer} id={'telephone'} />
+          <CustomDropdown otherInputId={''} hasOtherValue={false} options={[]} label={t('countryPhone')} onChange={updateCustomer} selectedKey={customer.telephoneCountryCode} id={'TelephoneCountryCode'} othertextInput={t('')} />
           <p className="title-text">{t('email')}</p>
           <hr className="hr text-width"></hr>
-          <CustomTextField value={customer.Email} required={true} label={t('emailAddress')} onChange={updateCustomer} id={'Email'} type='email' />
+          <CustomTextField value={customer.email} required={true} label={t('emailAddress')} onChange={updateCustomer} id={'email'} type='email' />
 
         </div>
 
@@ -358,14 +398,14 @@ const CustomerDetails = () => {
         <hr className="hr text-width"></hr>
         <div>
           <CustomDropdown otherInputId={''} hasOtherValue={false} options={[]} label={t('customerStatus')} onChange={updateCustomer} selectedKey={customer.CustomerStatus} id={'CustomerStatus'} othertextInput={t('')} />
-          <CustomTextField value={customer.CustomerNumber} required={true} label={t('customerNumber')} onChange={updateCustomer} id={'CustomerNumber'} />
-          <CustomDropdown otherInputId={''} hasOtherValue={false} options={[]} label={t('nameIDEmployee')} onChange={updateCustomer} selectedKey={customer.NameIDEmployee} id={'NameIDEmployee'} othertextInput={t('')} />
+          <CustomTextField value={customer.entityNumber} required={true} label={t('customerNumber')} onChange={updateCustomer} id={'entityNumber'} />
+          <CustomDropdown otherInputId={''} hasOtherValue={false} options={[]} label={t('nameIDEmployee')} onChange={updateCustomer} selectedKey={customer.idIdentifier} id={'idIdentifier'} othertextInput={t('')} />
         </div>
 
         <div>
-          <CustomDropdown otherInputId={''} hasOtherValue={false} options={[]} label={t('areaOfPracticeOrIndustry')} onChange={updateCustomer} selectedKey={customer.AreaOfPracticeIndustry} id={'AreaOfPracticeOrIndustry'} othertextInput={t('')} />
+          <CustomDropdown otherInputId={''} hasOtherValue={false} options={[]} label={t('areaOfPracticeOrIndustry')} onChange={updateCustomer} selectedKey={customer.industryId} id={'industryId'} othertextInput={t('')} />
           <CustomDropdown otherInputId={''} hasOtherValue={false} options={[]} label={t('creditGroup')} onChange={updateCustomer} selectedKey={customer.CreditGroup} id={'CreditGroup'} othertextInput={t('')} />
-          <CustomDropdown otherInputId={''} hasOtherValue={false} options={[]} label={t('agent')} onChange={updateCustomer} selectedKey={customer.Agent} id={'Agent'} othertextInput={t('')} />
+          <CustomDropdown otherInputId={''} hasOtherValue={false} options={[]} label={t('agent')} onChange={updateCustomer} selectedKey={customer.idAffiliate} id={'idAffiliate'} othertextInput={t('')} />
 
         </div>
         <p className="title-text">{t('note')}</p>
@@ -376,7 +416,7 @@ const CustomerDetails = () => {
         <hr className="hr"></hr>
         <hr className="hr text-width"></hr>
       </div>
-      <TextFeildNote label={t('')} onChange={updateCustomer} id={'Note'} />
+      <TextFeildNote label={t('')} onChange={updateCustomer} id={'note'} />
     </form>
   );
 }
