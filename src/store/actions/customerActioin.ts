@@ -6,9 +6,8 @@ import { checkHttpStatus } from "../../utils";
 import { CREATE_CUSTOMER, LOGIN_FAIL } from '../actions/types';
 import { returnErrors } from "./errorActions";
 
-export const createCustomer = async (dispatch:any,customer: ICustomer, ListId: any) => {
+export const createCustomer = (customer: ICustomer, ListId: any ) => async (dispatch: any,) => {
   // Headers
-  console.log("cusromer dirth type day in action",typeof customer.DateBirth)
   const config = {
     headers: {
       'Content-Type': 'application/json'
@@ -28,23 +27,23 @@ export const createCustomer = async (dispatch:any,customer: ICustomer, ListId: a
 
     ID_country_code: "IL",
 
-    ID_number: customer.IdentityNumber,
+    ID_number: customer.identityNumber,
 
-    ID_type_id: customer.TypeIdentityNumber,
+    ID_type_id: customer.idTypeId,
 
-    status_id: customer.CustomerStatus,
+    status_id: customer.classId,
 
     class_id: 1,
 
     entity_type_id: "customer",
 
-    entity_sub_type_id: customer.CustomerType,
+    entity_sub_type_id: customer.entitySubTypeId,
 
-    first_name: customer.FirstName,
+    first_name: customer.firstName,
 
-    last_name: customer.LastName,
+    last_name: customer.lastName,
 
-    entity_name: (customer.LastName + " " + customer.FirstName),
+    entity_name: (customer.lastName + " " + customer.firstName),
 
     first_name_en: "Amit",
 
@@ -52,9 +51,9 @@ export const createCustomer = async (dispatch:any,customer: ICustomer, ListId: a
 
     entity_name_en: "Amit Keresanty",
 
-    date_birth:new Date(customer.DateBirth + "Z"),
+    date_birth:new Date(customer.dateBirth + "Z"),
 
-    gender_id: customer.Gender,
+    gender_id: customer.gender,
 
     id_identifier: 1,
 
@@ -62,11 +61,11 @@ export const createCustomer = async (dispatch:any,customer: ICustomer, ListId: a
 
     is_loaded_documentation: false,
 
-    is_locked: customer.CustomerLock,
+    is_locked: customer.isLocked,
 
-    note: customer.Note,
+    note: customer.note,
 
-    permission_group_id: customer.CustomerCondition,
+    permission_group_id: 1,
 
     return_entity: true,
 
@@ -130,11 +129,11 @@ const CreateAddress = async (customer: ICustomer) => {
 
     address_type_id: 2,
 
-    address_name: customer.Address,
+    address_name: customer.address,
 
-    address_number: customer.HouseNumber,
+    address_number: customer.addressNumber,
 
-    address_city: customer.AddressCity,
+    address_city: customer.addressCity,
 
     address_country_code: "IL",
 
@@ -178,7 +177,7 @@ const CreatePhone = async (customer: ICustomer) => {
 
     "entity_type_id": "customer",
 
-    "telephone_number": customer.Telephone,
+    "telephone_number": customer.telephone,
 
     "telephone_country_code": "IL",
 
@@ -220,7 +219,7 @@ const CreateEmail = async (customer: ICustomer) => {
 
     "email_type_id": 1,
 
-    "email_address": customer.Email,
+    "email_address": customer.email,
 
     "is_deleted": 0,
 

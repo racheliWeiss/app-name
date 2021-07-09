@@ -6,11 +6,11 @@ import { tokenConfig } from './authActions';
 import { returnErrors } from './errorActions';
 
 const blankOptionsMap = {
-  customerCondition: null,
-  customerType:null,
+  customersCondition: null,
+  customersType:null,
   genders:null,
-  typeIdentityNumber:null,
-  customerStatus: null
+  typeIdentityNumbers:null,
+  customersStatus: null
 }
 
 const objectData = [{"enumType":"class","category":"customer","name":"customersCondition"},
@@ -34,7 +34,7 @@ export function fetchProtectedDataRequest() {
     type: FETCH_PROTECTED_DATA_REQUEST
   }
 }
-export const loadOptions = () => async (dispatch: any, getState:Function ) => {
+export const loadOptions = () => async (dispatch: Function, getState:Function ) => {
   const optionsPrm = objectData.map( async currObj =>{
   const entity =
     {

@@ -6,6 +6,10 @@ const Documents =()=>{
     return(
         <>
         <h1>Documents</h1>
+
+      
+    
+     
         <DetailsListAdvancedExample/>
         </>
     );

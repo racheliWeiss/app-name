@@ -13,6 +13,7 @@ interface MyProps extends ComponenetProps {
   othertextInput: string,
   hasOtherValue:boolean
   otherInputId:any
+  readOnly ?:Boolean
 }
 
 
@@ -25,7 +26,7 @@ export const CustomDropdown: React.FunctionComponent<MyProps> = (props) => {
   const dropdownRef = React.createRef<IDropdown>();
   const onSetFocus = () => dropdownRef.current!.focus(true);
 
-  const { onChange, options, label, selectedKey, id, othertextInput,hasOtherValue,otherInputId } = props;
+  const {readOnly=false, onChange, options, label, selectedKey, id, othertextInput,hasOtherValue,otherInputId } = props;
   const [selected, setSelected] = useState<String | undefined>("");
   const [selectedIndex, setSelectedIndex] = useState<number | undefined>(0);
   return (
@@ -44,6 +45,7 @@ export const CustomDropdown: React.FunctionComponent<MyProps> = (props) => {
           options={options}
           required
           className=" text-field"
+          aria-readonly ={false}
           // styles={dropdownStyles}
         ></Dropdown>
         {selectedIndex == options.length-1 && hasOtherValue ? <CustomTextField  label={othertextInput} onChange={onChange} id={otherInputId} /> : false}

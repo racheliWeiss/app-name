@@ -2,17 +2,19 @@ import {FETCH_PROTECTED_DATA_REQUEST,RECEIVE_PROTECTED_DATA,SET_IS_FETCHING} fro
 
 const initialState = {
     data :{
-        generalFormOptionsMap:{
-            genders: null
-            ,
-            typeIdentityNumbers:null
-            ,
-            customersStatus:null,
+        generalFormOptionsMap:null
+               // genders: null
+            // ,
+            // typeIdentityNumbers:null
+            // ,
+            // customersStatus:null,
              
-            customersCondition:null,
+            // customersCondition:null,
             
-            customersType:null,
-        }
+            // customersType:null,
+        
+        
+            
     },
 };
 

@@ -1,7 +1,7 @@
 import {CREATE_CUSTOMER} from '../actions/types';
 
 const initialState = {
-    dataCustomer: [],
+    dataCustomer: null,
     isCreate:false
 }
 
@@ -10,7 +10,9 @@ export default function(state=initialState,action:any){
         case CREATE_CUSTOMER:
             return{
                 ...state,
-                dataCustomer:action.value
+                dataCustomer:action.value,
+                
+
             }
          default: return state;   
           
