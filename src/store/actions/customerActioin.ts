@@ -1,27 +1,29 @@
 import axios from "axios";
 import { Dispatch } from "react";
-import {  ICustomer } from "../../components/customerDetails/CustomerDetails";
+import { ICustomer } from "../../components/customerDetails/CustomerDetails";
 import { basicUrl } from "../../shared/config";
 import { checkHttpStatus } from "../../utils";
-import { CREATE_CUSTOMER, LOGIN_FAIL } from '../actions/types';
+import { CREATE_CUSTOMER, LOGIN_FAIL, READ_CUSTOMER } from '../actions/types';
 import { returnErrors } from "./errorActions";
 
-export const createCustomer = (customer: ICustomer, ListId: any ) => async (dispatch: any,) => {
+let listIdEntity: any[] = []
+export const createCustomer = (customer: ICustomer, listIdEntity: any) => async (dispatch: any,) => {
+  listIdEntity = listIdEntity
   // Headers
   const config = {
     headers: {
       'Content-Type': 'application/json'
     }
   };
-  console.log("intiator and client", ListId[0].value, ListId[2].value[0])
+  console.log("intiator and client", listIdEntity[0].value, listIdEntity[2].value[0])
 
   let isCreate = false;
   const createCustomer = {
-    id_initiator: ListId[0].value,
+    id_initiator: listIdEntity[0].value,
 
-    id_client: ListId[1].value,
+    id_client: listIdEntity[1].value,
 
-    id_branch: ListId[2].value,
+    id_branch: listIdEntity[2].value,
 
     entity_request_method: "create",
 
@@ -51,7 +53,7 @@ export const createCustomer = (customer: ICustomer, ListId: any ) => async (disp
 
     entity_name_en: "Amit Keresanty",
 
-    date_birth:new Date(customer.dateBirth + "Z"),
+    date_birth: new Date(customer.dateBirth + "Z"),
 
     gender_id: customer.gender,
 
@@ -75,14 +77,14 @@ export const createCustomer = (customer: ICustomer, ListId: any ) => async (disp
 
   }
   const body = JSON.stringify(createCustomer);
-  console.log("body has json",body)
+  console.log("body has json", body)
 
   let res = await axios.post(basicUrl + '/uspEntity', body, config)
     .then(checkHttpStatus)
     .then((res) => {
       try {
         if (res.status == 200) {
-          console.log("THE DATA recive is cool",res.data)
+          console.log("THE DATA recive is cool", res.data)
           dispatch({
             type: CREATE_CUSTOMER,
             value: res.data
@@ -95,27 +97,28 @@ export const createCustomer = (customer: ICustomer, ListId: any ) => async (disp
 
         console.log("res sucsees", res)
       }
-      catch (e){
-        console.log("errordata",res, e)
+      catch (e) {
+        console.log("errordata", res, e)
       }
     })
-    .catch (err=> {
-    console.log("dataerror", err)
-    err.response ? returnErrors(err.response.data, err.response.status, 'LOGIN_FAIL') : returnErrors('the server is down pls try later', 'LOGIN_FAIL')
-    dispatch({
-      type: LOGIN_FAIL
+    .catch(err => {
+      console.log("dataerror", err)
+      err.response ? returnErrors(err.response.data, err.response.status, 'LOGIN_FAIL') : returnErrors('the server is down pls try later', 'LOGIN_FAIL')
+      dispatch({
+        type: LOGIN_FAIL
+      })
+      console.warn('error in login component', err)
+      alert("login failed")
     })
-    console.warn('error in login component', err)
-    alert("login failed")
-  })
   return true;
 }
 
 const CreateAddress = async (customer: ICustomer) => {
   const address = {
-    id_initiator: 1,
-
-    id_client: 2,
+    //@ts-ignore
+    id_initiator: listIdEntity.idInitiator.value,
+//@ts-ignore
+    id_client: listIdEntity.idClient.value,
 
     id_entity: 3,
 
@@ -245,7 +248,6 @@ const CreateEmail = async (customer: ICustomer) => {
   }
   catch (err) {
     console.log(res.status)
-
     console.warn('error in login component', err)
     alert("login failed")
     throw ("the Customer dont created  ")
@@ -254,29 +256,15 @@ const CreateEmail = async (customer: ICustomer) => {
 }
 
 
-const UpdateCustomer = async (customer: ICustomer) => {
+export const readCustomerId = (idEntity:string,listIdUser:any) => async (dispatch: Function) => {
+  listIdEntity = listIdUser
+  //@ts-ignore
+  console.log("listIdEntity[0].value",listIdEntity.key)
   const updateCustomer = {
-
-    "id_initiator": 1,
-
-    "id_client": 1,
-
-    "id_entity": 3,
-
-    "entity_type_id": "customer",
-
-    "entity_request_method": "update",
-
-    "status_id": 2,
-
-    "first_name": "שם פרטי",
-
-    "gender_id": 2,
-
-    "return_entity": false,
-
-    "last_name_en": "Hooooome"
-
+    "entity_request_method": "read",
+    "id_initiator":1,
+    "id_client": 3,
+    "id_entity": idEntity
   }
   const body = JSON.stringify(updateCustomer);
   console.log("create email ", updateCustomer)
@@ -286,21 +274,32 @@ const UpdateCustomer = async (customer: ICustomer) => {
     }
   };
 
-  let res = await axios.post(basicUrl + '/uspEntity', body, config)
-  try {
-    if (res.status === 200) {
-      if (res.data["err_code"] === 0) {
-        return true
+  axios.post(basicUrl + '/uspEntity', body, config)
+    .then(res => {
+      try {
+        if (res.status === 200) {
+          if (res.data["err_code"] === 0) {
+            dispatch({
+              type: READ_CUSTOMER,
+              value: res.data
+            })
 
+          }
+        }
       }
-    }
-  }
-  catch (err) {
-    console.log(res.status)
-    console.warn('error in login component', err)
-    throw ("the Customer dont created  ")
-  }
-  return false;
+      catch (err) {
+        console.log(res.status)
+        console.warn('error in login component', err)
+        throw ("the Customer dont created  ")
+      }
+    })
+  .catch(err => {
+        dispatch(
+          err.response ? returnErrors(err.response.data, err.response.status, 'LOGIN_FAIL') : returnErrors('the server is down pls try later', 'LOGIN_FAIL')
+        );
+      })
+
+
 }
 
 

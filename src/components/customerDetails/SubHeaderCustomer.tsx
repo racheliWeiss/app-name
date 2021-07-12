@@ -165,7 +165,7 @@ export const SubHeader:React.FunctionComponent <IProp>= (props) => {
 
 }
 const mapStateToProps = (state: IAuthReduxProps) => ({
-  auth: state.auth
+  auth: state.authReducer
 });
 
 

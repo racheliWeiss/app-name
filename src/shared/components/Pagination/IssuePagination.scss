@@ -19,7 +19,7 @@
 }
 
 .issuesPagination .previous {
-    margin-right: 1rem;
+    margin-inline-start: 1rem;
 }
 
 .issuesPagination .next {
@@ -28,4 +28,5 @@
 
 .main-content {
     direction: ltr;  /* Right to Left */
+    margin-inline-start: 500px;
   }

@@ -7,7 +7,7 @@ import customerReducer from './customerReducer';
 
 export default combineReducers({
   error: errorReducer,
-  auth: authReducer,
+  authReducer: authReducer,
   dataReducer:dataReducer,
   customerReducer:customerReducer,
 });

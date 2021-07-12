@@ -4,6 +4,7 @@ import {FETCH_PROTECTED_DATA_REQUEST,LOGIN_FAIL,RECEIVE_PROTECTED_DATA,SET_IS_FE
 import { checkHttpStatus} from '../../utils';
 import { tokenConfig } from './authActions';
 import { returnErrors } from './errorActions';
+import { IConfigHeaders } from '../../modelsType/type/interface';
 
 const blankOptionsMap = {
   customersCondition: null,
@@ -34,6 +35,13 @@ export function fetchProtectedDataRequest() {
     type: FETCH_PROTECTED_DATA_REQUEST
   }
 }
+
+const config: IConfigHeaders = {
+  headers: {
+    'Content-type': 'application/json'
+  }
+};
+
 export const loadOptions = () => async (dispatch: Function, getState:Function ) => {
   const optionsPrm = objectData.map( async currObj =>{
   const entity =
@@ -49,11 +57,8 @@ export const loadOptions = () => async (dispatch: Function, getState:Function ) 
       "category": currObj.category,
   
       "user_language": "HE"
-    }
-
-  
-      
-    const res =await axios.post(basicUrl + "/uspEnum", entity, tokenConfig(getState))
+    } 
+    const res =await axios.post(basicUrl + "/uspEnum", entity, config)
         .then(checkHttpStatus)
         //if failed:
         .catch(err => {
@@ -68,13 +73,14 @@ export const loadOptions = () => async (dispatch: Function, getState:Function ) 
         return res.data;
         
     });
+     console.log(optionsPrm)
       const options = await Promise.all(optionsPrm)
       const optionsMap = {...blankOptionsMap}
       objectData.forEach(({name}, idx)=> {
         //@ts-ignore
         optionsMap[name] = options[idx]
       })
-
+   
       dispatch({type: 'SET_GENERAL_FORM_OPTIONS_MAP', optionsMap})
       
     }

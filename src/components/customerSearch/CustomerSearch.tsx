@@ -1,4 +1,4 @@
-import { PrimaryButton } from "@fluentui/react";
+import { DefaultButton, Link, PrimaryButton } from "@fluentui/react";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
@@ -33,6 +33,20 @@ const CustomerSearch = () => {
   const [item, setItem] = useState<any>()
 
 
+//   const renderItemColumn = (item: any, index: any, column: any) => {
+
+//     let fieldContent = item[column.fieldName];
+//     switch (column.fieldName) {
+//         case "link":
+//           console.log("index in column",index)
+//             return <DefaultButton> <Link to={{
+//                 pathname: '/customer-details',
+//                 state: [{id: 1, name: 'Ford', color: 'red'}]
+//               }}> {t('details')} </Link> </DefaultButton>
+//         default:
+//             return <span >{fieldContent}</span>;
+//     }
+// }
   // useEffect(() => {
   //   getData();
   // }, [])
@@ -44,8 +58,9 @@ const CustomerSearch = () => {
     { key: '2', name: t('address'), fieldName: "address", minWidth: 100, maxWidth: 200 },
     { key: '3', name: t('phone'), fieldName: "phone", minWidth: 100, maxWidth: 200 },
     { key: '4', name: '', fieldName: "link", minWidth: 100, maxWidth: 200 },
+
   ];
-console.log("columns",columns)
+
   let objectItem:any[]=[];
 
   const paginationData = {
@@ -103,32 +118,26 @@ console.log("columns",columns)
         }
       };
       const res = await axios.post(basicUrl + "/search", search, config)
-      console.log("data from ",res.data)
       const objactData = res.data.search_results;
-      console.log("data",objactData)
       setPageCount(res.data.page_size);
       setCurentPage(res.data.page_index)
       setAllResult(res.data.records_count)
-      console.log("page_size", res.data.page_size)
-      console.log("page_index", res.data.page_index)
       objactData.map((obj: any, index: number) => {
         const phoneObject = obj.telephones
         const resultPhone = phoneObject.find(({ is_default }: any) => is_default === true);
-        const phoneNumber = resultPhone.telephone_number.substring(10)
-        
-        let addressObject = obj.addresses
-        let resultAddress = addressObject.find(({ is_default }: any) => is_default === true);
+        const phoneNumber = resultPhone.telephone_number.substring(0,11)
+        const idEntity = obj.id_entity
+        const addressObject = obj.addresses
+        const resultAddress = addressObject.find(({ is_default }: any) => is_default === true);
         let address = resultAddress.address_name
         let cityAddress = resultAddress.address_city
         const addressFull = address + " " + cityAddress;
-        objectItem.push({ key: ++index, name: obj.entity_name, phone: phoneNumber, address: addressFull })
+        objectItem.push({ key: ++index, name: obj.entity_name, phone: phoneNumber, address: addressFull ,idEntity:idEntity})
           // setItem([...item, { key: index, name: obj.entity_name, phone: phoneNumber, address: addressFull }])
           // console.log("items ",item)  
-          console.log(objectItem)
     });
   
       setItem(objectItem);
-      console.log("items ",item)
     }
    
       // const emailObject = obj.emails
@@ -147,22 +156,16 @@ console.log("columns",columns)
 
     useEffect(() => {
       getData();
-      console.log("useEffact cur",curentPage)
     }, [curentPage]);
 
     const onPageChanged  :OnPageChangeCallback= selectedItem => {
-      console.log("selected",selectedItem)
       const newPage = ++selectedItem.selected;
-      console.log("current page NEW PAGW",newPage)
       setCurentPage(newPage);
-      console.log("cureent page ",curentPage)
-
     }
     // const onLoadCustomerClicked =()=>{   
     //   // setSearchDetail(customer)
 
     // }
-
     const onCustomerChanged = (key: string, value: any) => {
       setCutomerSearch(value);
     }
@@ -174,7 +177,7 @@ console.log("columns",columns)
           <SearchBoxSmall onChange={onCustomerChanged} label={t('search')} />
           <PrimaryButton className="bottun" onClick={getData} text={t("searchCustomer")} />
         </div>
-        {item?<CustemTable columns={columns} allItems={item} rederRow={"link"} isFooter={false} />:null}
+        {item?<CustemTable columns={columns} allItems={item}  renderItemColumn rederRow={"link"} isFooter={false} />:null}
         <IssuePagination
           onPageChange={onPageChanged}
           pageCount={pageCount}

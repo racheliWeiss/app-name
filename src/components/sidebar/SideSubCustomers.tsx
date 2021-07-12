@@ -27,16 +27,17 @@ import HomePage from '../HomePage';
     
     
     return (
-      
+        
         <div>
     
          <Switch>
            <Route exact path='/home-page'component={HomePage}/>
             <Route exact path="/customer-search" component={CustomerLocator} />
-            <Route exact path='/customer-details' component={CustomerDetails}/> 
+            <Route exact path='/customer-details/:userId?' component={CustomerDetails}/>
+            {/* <Route path='/customer-details/:userId' component={CustomerDetails}/> */}
+
             <Route exact path='/contact' component={Contact}/> 
             <Route exact path='/representatives' component={Representatives}/> 
-            <Route exact path='/customer-details' component={CustomerDetails}/> 
             <Route exact path='/security' component={Security}/>   
             <Route exact path='/price-list' component={PriceList}/>    
             <Route exact path='/obligo' component={Obligo}/> 

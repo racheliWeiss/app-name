@@ -3,7 +3,7 @@ import { DetailsList, Selection, IColumn, SelectionMode, DetailsRow, IDetailsFoo
 import { DefaultButton, IRenderFunction } from '@fluentui/react';
 import { useEffect, useState } from 'react';
 import "./detaiList.scss"
-import { Link } from 'react-router-dom';
+import {RouteComponentProps, useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useBoolean } from '@fluentui/react-hooks';
 import { CustemDialogAddress, CustemDialogEmail, CustemDialogPhone } from '../dialog/Dialog';
@@ -27,16 +27,18 @@ export interface IDetailsListState {
   rederRow?:string;
   search?:boolean;
   addCustem?:boolean;
-  textBottun?:string
+  textBottun?:string;
+  renderItemColumn?:any
 
 }
+interface PropsInterface extends RouteComponentProps<any> {}
 
 const footerStyle = {
   root: {
       background: '#E1E1E1',
   }
 }
-
+// renderItemColumn=()=>{} ,
 const CustemTable: React.FunctionComponent<IDetailsListState> = (props) => {
   const { allItems , columns, isSelcted = false, isFooter=true, rederRow="",search=false, addCustem=false ,textBottun=""} = props
   let isSelection=SelectionMode.none
@@ -60,9 +62,9 @@ const CustemTable: React.FunctionComponent<IDetailsListState> = (props) => {
   const [t, i18n] = useTranslation();
   const [hideDialog, { toggle: toggleHideDialog }] = useBoolean(true);
   const [selectedItem, setSelectedItem] = useState<Object | undefined>(undefined)
+  const history = useHistory()
   const selection = new Selection({
     onSelectionChanged: () => {
-
       console.log(selection.getSelection());
       setSelectedItem(selection.getSelection())
     }
@@ -75,17 +77,23 @@ const CustemTable: React.FunctionComponent<IDetailsListState> = (props) => {
   const onChange = (ke: string, val: any) => {
     console.log("col" + ke + "0" + val); 
    }
-
+ 
   const renderItemColumn = (item: any, index: any, column: any) => {
-
+   
     let fieldContent = item[column.fieldName];
+    console.log("fieldContent in culmn",fieldContent)
     switch (column.fieldName) {
         case renderRow:
-            return <DefaultButton> <Link to={{
+          //@ts-ignore
+          console.log("index in column",allItems[index].idEntity)
+          index = allItems[index].idEntity
+          return <DefaultButton text={t('details')}name={index} onClick={()=>history.push(`/customer-details/${index}`)}/> 
+              {/* <Link to={{
                 pathname: '/customer-details',
                 state: [{id: 1, name: 'Ford', color: 'red'}]
-              }}> {t('details')} </Link> </DefaultButton>
-
+              }}> {t('details')} </Link>  */}
+              {/* <Link to={`/customer-details/${index}`}> p</Link> 
+              </DefaultButton> */}
         default:
             return <span >{fieldContent}</span>;
     }

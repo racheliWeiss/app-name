@@ -49,7 +49,7 @@ export default interface ComponenetProps {
   }
   
   export interface IAuthReduxProps {
-    auth: { isAuthenticated: boolean };
+    authReducer: { isAuthenticated: boolean };
     error: IError;
   }
   

@@ -13,9 +13,9 @@ const Header = ({ auth }: IAppNavbar) => {
   // }
   
   const isLogin = useSelector((state:any)=>{
-    if(state.auth.isAuthentitcated){
-      console.log("islogin:",state.auth.isAuthentitcated)
-      let obj = JSON.parse(state.auth.user)
+    if(state.authReducer.isAuthentitcated){
+      console.log("islogin:",state.authReducer.isAuthentitcated)
+      let obj = JSON.parse(state.authReducer.user)
       let name = obj.data.user.first_name +" "+obj.data.user.last_name;
        return name; 
     }

@@ -95,7 +95,7 @@ const Login = ({
     );    
 };
 const mapStateToProps = (state: IAuthReduxProps) => ({
-    isAuthenticated: state.auth.isAuthenticated,
+    isAuthenticated: state.authReducer.isAuthenticated,
     error: state.error
   });
 

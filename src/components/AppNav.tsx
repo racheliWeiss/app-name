@@ -11,7 +11,7 @@ const AppNav = () => {
     let check = null;
     const dispatch = useDispatch()
     const isLogin = useSelector((state: any) => {
-        check = state.auth.isAuthentitcated;
+        check = state.authReducer.isAuthentitcated;
         console.log(check)
         return check
     })

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Nav } from "@fluentui/react/lib/Nav";
 import "../../scssPages/sidebar.scss";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -6,7 +6,7 @@ import {faUniversity } from '@fortawesome/free-solid-svg-icons';
 
 import { INavStyles, INavLinkGroup, INavLink } from "@fluentui/react/lib/Nav";
 import { initializeIcons } from "@fluentui/react/lib/Icons";
-import { withRouter } from "react-router-dom";
+import { useHistory, useLocation, withRouter } from "react-router-dom";
 import '../../scssPages/sidebar.scss'
 import { useTranslation } from "react-i18next";
 import { registerIcons } from "@fluentui/react";
@@ -28,12 +28,16 @@ registerIcons({
 
 const Sidebar = (props: any) => {
   const [t, i18n] = useTranslation(); ///function of translate
+  const [selectedKey,setSelectedKey] = useState()
+  const history = useHistory()
+  const location =useLocation()
   const handleNavClick = (
     ev?: React.MouseEvent<HTMLElement>,
     item?: INavLink
   ) => {
     ev?.preventDefault();
     props.history.push(item?.url);
+    // setSelectedKey=(location.pathname)
   };
   const navLinkGroups: INavLinkGroup[] = [
     {
@@ -167,7 +171,7 @@ const Sidebar = (props: any) => {
   ];
   return (
     
-      <Nav className="items" styles={navStyles} groups={navLinkGroups} />
+      <Nav className="items" styles={navStyles} groups={navLinkGroups}   selectedKey={history.location.pathname} />
     
   );
 };
