@@ -14,6 +14,7 @@ import Title from "../../shared/components/Title";
 import { createCustomer, readCustomerId } from "../../store/actions/customerActioin"
 import { loadOptions } from "../../store/actions/dataActions";
 import { useParams } from "react-router-dom";
+import { isNullishCoalesce } from "typescript";
 
 
 
@@ -52,13 +53,10 @@ export interface ICustomer {
   entityNumber: string;
 }
 
-
-
-
 const blankCustomer: ICustomer = {
   gender: 1,
   otherGender: "",
-  CustomerStatus: 1,
+  CustomerStatus: 0,
   entityStatusId: 0,
   firstName: "",
   note: "",
@@ -87,10 +85,19 @@ const blankCustomer: ICustomer = {
   telephoneCountryCode: 0,
   email: "",
   entityNumber: "",
-
 }
 
 
+
+interface Iparms {
+  userId: string
+}
+
+export interface IUserCredentials{
+  "idInitiator":any,
+  "idClient":any,
+  "idBranch":any
+}
 const CustomerDetails = () => {
 
   const options = {
@@ -100,7 +107,6 @@ const CustomerDetails = () => {
     customersCondition: [],
     customersType: []
   }
-   let listIdUser: { key: string; value: any; }[];
 
   const [t, i18n] = useTranslation();
   const dispatch = useDispatch()
@@ -113,40 +119,42 @@ const CustomerDetails = () => {
   const [msgIsCreated, setMsgIsCreated] = useState("")
   const { dataCustomer } = useSelector(({ customerReducer }: any) => customerReducer)
   const fieldsOptionsMapFromReducer = useSelector(({ dataReducer }: any) => dataReducer)
-  // const [listIdUser,setListIdUser] = useState<{ key: string; value: any; }[]>()
-  const {user} = useSelector(({authReducer}:any)=>authReducer)
+   const [userCredentials,setUserCredentials] = useState<IUserCredentials|null>(null)
+  const { user } = useSelector(({ authReducer }: any) => authReducer)
   const params = useParams<Iparms>()
 
-  
-  
-  interface Iparms{
-    userId:string
-  }
-
+  //details of user login
   useEffect(() => {
-    if(!user) return
-    console.log("user : ",user)
-    const userObj= JSON.parse(user)
-    console.log("userObj: ",userObj)
-    listIdUser= [{ key: "idInitiator", value: userObj.data.user.id_entity },
-    { key: " idClient", value: userObj.data.client.id_entity },
-   { key: "idClient", value: userObj.data.branch.id_entity}
-  ]
-  },[]);
+    if (!user) return
+    const userObj = JSON.parse(user)
+    if (!userObj) return
+    console.log("userObj: ", userObj)
+    setUserCredentials({"idInitiator":userObj.data.user.id_entity,
+                       "idClient":userObj.data.client.id_entity,
+                        "idBranch": userObj.data.branch.id_entity 
+    })
+    console.log("UserCredentials : ",userCredentials)
+  }, []);
 
-
-  useEffect(()=>{
-    console.log("params : ",params);
-    if(params?.userId){
+  //id of customer frrom search
+  useEffect(() => {
+    console.log("params : ", params);
+    if (params?.userId) {
       const userId = params.userId
-      console.log("listIdUser : ",listIdUser)
-       callReadCustomer(userId,listIdUser)
+      callReadCustomer(userId, userCredentials)
     }
-  },[params])
+  }, [params])
 
-  const callReadCustomer = async (userId:string,listIdUser: any) => {
-    dispatch(readCustomerId(userId,listIdUser))
+  const callReadCustomer = async (userId: string, listIdUser: any) => {
+    dispatch(readCustomerId(userId, listIdUser))
   }
+
+  //call to option in dropDwan  
+  useEffect(() => {
+    if (!fieldsOptionsMapFromReducer?.data?.generalFormOptionsMa) {
+      callLoadOptions()
+    }
+  }, [])
 
   const callLoadOptions = async () => {
     try {
@@ -154,24 +162,17 @@ const CustomerDetails = () => {
       console.log("good")
 
     } catch (error) {
-      console.log("error in call load options",error)
+      console.log("error in call load options", error)
     }
   }
 
-  useEffect(() => {
-    console.log('CustomerDetails created!')
-    callLoadOptions()
-  }, [])
-
+  //build the option in dropdwan
   const buildObjecOptions = (nameOption: string) => {
     fieldsOptionsMapFromReducer.data.generalFormOptionsMap[nameOption].map((objOptin: { key: string | number; }, index: string | number) => {
       //@ts-ignore
       options[nameOption][index] = { key: objOptin.enum_id, text: objOptin.enum_value }
     });
   }
-
-  //bring id of user
- 
 
   //update the object  option 
   useEffect(() => {
@@ -185,37 +186,50 @@ const CustomerDetails = () => {
   }, [fieldsOptionsMapFromReducer])
 
 
- //function called to options
- 
+  //function called to options
+
 
   //function created customer
   useEffect(() => {
+
     if (dataCustomer?.err_code === 0) {
       setUpdate(false)
-      setMsgIsCreated("Customer created successfully")
-    }
-    else {
-      if (dataCustomer?.err_code) {
-         if(dataCustomer?.err_code !== 0)
-           setMsgIsCreated("The customer's details are incorrect  try again")
+      console.log("typeButton",typeButton)
+      if (typeButton === "creat") {
+        setMsgIsCreated("Customer created successfully")
       }
       else {
-        setMsgIsCreated("")
+        if (dataCustomer?.err_code) {
+          if (dataCustomer?.err_code !== 0)
+            setMsgIsCreated("The customer's details are incorrect  try again")
+        }
+        else {
+          setMsgIsCreated("")
+        }
       }
     }
     if (!dataCustomer?.data) return
     setCustomer({
       ...customer,
-      classId: dataCustomer.data.class.class_name,
+      classId: dataCustomer.data.class.class_id,
       dateBirth: dataCustomer.data.properties.date_birth,
       firstName: dataCustomer.data.properties.first_name,
       lastName: dataCustomer.data.properties.last_name,
+      entitySubTypeId: dataCustomer.data.types.entity_sub_type_id,
       isLocked: dataCustomer.data.properties.is_locked,
+      note: dataCustomer.data.properties.note,
       gender: dataCustomer.data.gender.gender_id,
-      
+      CustomerStatus: dataCustomer.data.status.status_id,
+      // address: dataCustomer.data.addresses.address_name,
+      telephone: dataCustomer.data.telephones.telephone_number,
+      email: dataCustomer.data.emails.email_address,
+      entityNumber: dataCustomer.data.id_entity
     })
     setReadOnly(true)
+   
+    console.log("customer : ",customer)
   }, [dataCustomer])
+
 
   //check what event in button
   const activeButton = (e: any) => {
@@ -226,15 +240,21 @@ const CustomerDetails = () => {
     }
   }
 
- //send the update on customer
+  //send the update on customer
   const handleSubmit = (e: any) => {
     const { name } = e.target;
     setTypeButton(name)
     const requestMethod = typeButton;
     e.preventDefault()
-    dispatch(createCustomer(customer,listIdUser))
+    console.log("listIdUser : ", userCredentials)
+    //undifined כאן אני שולחת את הערכים הבעיה שאני שולחת את המערך  הוא  
+    if(userCredentials){
+      dispatch(createCustomer(customer, userCredentials))
+    }
+   
     //TODO: fill the entire function
   }
+
   //update sate customer in form
   const updateCustomer = (key: string, value: any) => {
     setCustomer({
@@ -328,7 +348,7 @@ const CustomerDetails = () => {
         <hr className="hr text-width"></hr>
         <div>
           <CustomDropdown otherInputId={''} readOnly={readOnly} hasOtherValue={false} options={optionsForm.customersStatus} label={t('customerStatus')} onChange={updateCustomer} selectedKey={customer.entityStatusId} id={'entityStatusId'} othertextInput={t('')} />
-          <CustomTextField value={customer.entityNumber} readOnly={readOnly} required={true} label={t('customerNumber')} onChange={updateCustomer} id={'entityNumber'} />
+          <CustomTextField value={customer.entityNumber} readOnly={readOnly} label={t('customerNumber')} onChange={updateCustomer} id={'entityNumber'} />
           <CustomDropdown otherInputId={''} hasOtherValue={false} options={[]} label={t('nameIDEmployee')} onChange={updateCustomer} selectedKey={customer.idIdentifier} id={'idIdentifier'} othertextInput={t('')} />
         </div>
 

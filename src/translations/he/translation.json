@@ -84,6 +84,7 @@
         "updateAddress":"עדכון כתובת",
         "updateEmail":"עדכון מייל",
         "updatePhone":"עדכון טלפון",
+        "moreDetails" :"יותר פרטים",
         "log":{
         "yes":"כן",
         "no":"לא"

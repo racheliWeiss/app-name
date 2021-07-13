@@ -1,29 +1,29 @@
 import axios from "axios";
 import { Dispatch } from "react";
-import { ICustomer } from "../../components/customerDetails/CustomerDetails";
+import { ICustomer, IUserCredentials } from "../../components/customerDetails/CustomerDetails";
 import { basicUrl } from "../../shared/config";
 import { checkHttpStatus } from "../../utils";
 import { CREATE_CUSTOMER, LOGIN_FAIL, READ_CUSTOMER } from '../actions/types';
 import { returnErrors } from "./errorActions";
 
-let listIdEntity: any[] = []
-export const createCustomer = (customer: ICustomer, listIdEntity: any) => async (dispatch: any,) => {
-  listIdEntity = listIdEntity
+let currUserCredentials: IUserCredentials|null=null
+export const createCustomer = (customer: ICustomer, userCredentials:IUserCredentials) => async (dispatch: any,) => {
+   currUserCredentials = userCredentials
   // Headers
   const config = {
     headers: {
       'Content-Type': 'application/json'
     }
   };
-  console.log("intiator and client", listIdEntity[0].value, listIdEntity[2].value[0])
+  console.log("intiator and client", currUserCredentials)
 
   let isCreate = false;
   const createCustomer = {
-    id_initiator: listIdEntity[0].value,
+    id_initiator: currUserCredentials["idInitiator"],
 
-    id_client: listIdEntity[1].value,
+    id_client: currUserCredentials["idClient"],
 
-    id_branch: listIdEntity[2].value,
+    id_branch: currUserCredentials["idBranch"],
 
     entity_request_method: "create",
 
@@ -116,9 +116,9 @@ export const createCustomer = (customer: ICustomer, listIdEntity: any) => async 
 const CreateAddress = async (customer: ICustomer) => {
   const address = {
     //@ts-ignore
-    id_initiator: listIdEntity.idInitiator.value,
+    id_initiator: currUserCredentials.idInitiator,
 //@ts-ignore
-    id_client: listIdEntity.idClient.value,
+    id_client: currUserCredentials.idClient,
 
     id_entity: 3,
 
@@ -256,10 +256,10 @@ const CreateEmail = async (customer: ICustomer) => {
 }
 
 
-export const readCustomerId = (idEntity:string,listIdUser:any) => async (dispatch: Function) => {
-  listIdEntity = listIdUser
+export const readCustomerId = (idEntity:string,userCredentials:any) => async (dispatch: Function) => {
+  
   //@ts-ignore
-  console.log("listIdEntity[0].value",listIdEntity.key)
+  console.log("listIdEntity[0].value",userCredentials)
   const updateCustomer = {
     "entity_request_method": "read",
     "id_initiator":1,
@@ -267,7 +267,7 @@ export const readCustomerId = (idEntity:string,listIdUser:any) => async (dispatc
     "id_entity": idEntity
   }
   const body = JSON.stringify(updateCustomer);
-  console.log("create email ", updateCustomer)
+  console.log("create updateCustomer ", updateCustomer)
   const config = {
     headers: {
       'Content-Type': 'application/json'

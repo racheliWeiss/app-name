@@ -172,7 +172,6 @@ const CustomerSearch = () => {
     return (
       <div>
         <Subtitle title={t('customerSearch')} />
-        {/* <IconButton/> */}
         <div className="content-search">
           <SearchBoxSmall onChange={onCustomerChanged} label={t('search')} />
           <PrimaryButton className="bottun" onClick={getData} text={t("searchCustomer")} />
