@@ -61,7 +61,7 @@ interface AddInputProp extends MyProps{
 }
 export const CustomTextFieldAddInput: React.FunctionComponent<AddInputProp> = (props) => {
     const [muted, { toggle: setMuted }] = useBoolean(false);
-    const { onChange, label, id,required, iconProps ,othertextItnput,otherInputId} = props;
+    const { readOnly=false , value = "",onChange, label, id,required, iconProps ,othertextItnput,otherInputId} = props;
     return (
         <>
         <TextField
@@ -73,6 +73,8 @@ export const CustomTextFieldAddInput: React.FunctionComponent<AddInputProp> = (p
             iconProps={iconProps}
             onClick={setMuted}
             className="text-field"
+            value={value}
+            readOnly ={readOnly}
             
 
    // onChange={(e, selectedOption) => {

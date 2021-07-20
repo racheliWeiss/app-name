@@ -87,7 +87,7 @@ const CustemTable: React.FunctionComponent<IDetailsListState> = (props) => {
           //@ts-ignore
           console.log("index in column",allItems[index].idEntity)
           index = allItems[index].idEntity
-          return <DefaultButton text={t('details')}name={index} onClick={()=>history.push(`/customer-details/${index}`)}/> 
+          return <DefaultButton text={t('details')}name={index} onClick={()=>history.push({pathname:"/customer-details",state:index})}/> 
            
           {/* <Link to={{
                 pathname: '/customer-details',

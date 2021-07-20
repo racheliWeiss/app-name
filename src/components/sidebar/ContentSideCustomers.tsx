@@ -36,7 +36,9 @@ const Sidebar = (props: any) => {
     item?: INavLink
   ) => {
     ev?.preventDefault();
+    console.log( "props.history.push : "+item?.url)
     props.history.push(item?.url);
+
     // setSelectedKey=(location.pathname)
   };
   const navLinkGroups: INavLinkGroup[] = [

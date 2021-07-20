@@ -256,7 +256,7 @@ const CreateEmail = async (customer: ICustomer) => {
 }
 
 
-export const readCustomerId = (idEntity:string,userCredentials:any) => async (dispatch: Function) => {
+export const readCustomerId = (idEntity:string,userCredentials:IUserCredentials) => async (dispatch: Function) => {
   
   //@ts-ignore
   console.log("listIdEntity[0].value",userCredentials)

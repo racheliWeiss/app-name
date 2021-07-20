@@ -1,4 +1,4 @@
-import { DefaultButton, Link, PrimaryButton } from "@fluentui/react";
+import { PrimaryButton } from "@fluentui/react";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
@@ -111,7 +111,6 @@ const CustomerSearch = () => {
 
         "search_value": customerSearch
       }
-      console.log("object search",search);
       const config = {
         headers: {
           'Content-Type': 'application/json'

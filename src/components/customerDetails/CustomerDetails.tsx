@@ -8,13 +8,13 @@ import './customerDetails.scss'
 import { Icons } from "../../modelsType/Icon";
 import Subtitle from "../../shared/components/Subtitle";
 import '../../scssPages/sub-header.scss';
-import { DefaultButton, IconButton, List, PrimaryButton } from "@fluentui/react";
+import {DefaultButton, IconButton, PrimaryButton } from "@fluentui/react";
 import { useDispatch, useSelector } from "react-redux";
 import Title from "../../shared/components/Title";
 import { createCustomer, readCustomerId } from "../../store/actions/customerActioin"
 import { loadOptions } from "../../store/actions/dataActions";
-import { useParams } from "react-router-dom";
-import { isNullishCoalesce } from "typescript";
+import { useLocation, useParams } from "react-router-dom";
+
 
 
 
@@ -56,7 +56,6 @@ export interface ICustomer {
 const blankCustomer: ICustomer = {
   gender: 1,
   otherGender: "",
-  CustomerStatus: 0,
   entityStatusId: 0,
   firstName: "",
   note: "",
@@ -90,13 +89,14 @@ const blankCustomer: ICustomer = {
 
 
 interface Iparms {
-  userId: string
+  userId?: string,
+  state?: string,
 }
 
-export interface IUserCredentials{
-  "idInitiator":any,
-  "idClient":any,
-  "idBranch":any
+export interface IUserCredentials {
+  "idInitiator": string,
+  "idClient": string,
+  "idBranch": string,
 }
 const CustomerDetails = () => {
 
@@ -112,44 +112,58 @@ const CustomerDetails = () => {
   const dispatch = useDispatch()
   const [readOnly, setReadOnly] = useState(false)
   const [update, setUpdate] = useState(true)
-  const [typeButton, setTypeButton] = useState()
-  const [customer, setCustomer] = useState(blankCustomer)
+  const [typeButton, setTypeButton] = useState<string|null>()
+  const [customer, setCustomer] = useState<ICustomer>(blankCustomer)
   const [optionsForm, setOptionsForm] = useState(options)
   // const [fieldsOptionsMap,setFieldsOptionsMap]=useState(null)
   const [msgIsCreated, setMsgIsCreated] = useState("")
   const { dataCustomer } = useSelector(({ customerReducer }: any) => customerReducer)
   const fieldsOptionsMapFromReducer = useSelector(({ dataReducer }: any) => dataReducer)
-   const [userCredentials,setUserCredentials] = useState<IUserCredentials|null>(null)
-  const { user } = useSelector(({ authReducer }: any) => authReducer)
+  const [userCredentials, setUserCredentials] = useState<IUserCredentials|null>(null)
+  const authReducer = useSelector(({ authReducer }: any) => authReducer)
   const params = useParams<Iparms>()
+  const { state } = useLocation<string>();
 
   //details of user login
   useEffect(() => {
-    if (!user) return
-    const userObj = JSON.parse(user)
-    if (!userObj) return
-    console.log("userObj: ", userObj)
-    setUserCredentials({"idInitiator":userObj.data.user.id_entity,
-                       "idClient":userObj.data.client.id_entity,
-                        "idBranch": userObj.data.branch.id_entity 
+    if (!authReducer?.data?.user) return
+    console.log("userObj: ", "idInitiator", authReducer.data.user.id_entity,
+      "idClient", authReducer.data.client.id_entity,
+      "idBranch: ", authReducer.data.branch.id_entity);
+
+    setUserCredentials({
+      "idInitiator": authReducer.data.user.id_entity,
+      "idClient": authReducer.data.client.id_entity,
+      "idBranch": authReducer.data.branch.id_entity
     })
-    console.log("UserCredentials : ",userCredentials)
-  }, []);
+    console.log("UserCredentials : ", userCredentials)
+  }, [authReducer]);
 
-  //id of customer frrom search
+  //id of customer from search customer
   useEffect(() => {
-    console.log("params : ", params);
-    if (params?.userId) {
-      const userId = params.userId
-      callReadCustomer(userId, userCredentials)
+    console.log("params state : ", state);
+    if (!state) {
+      setCustomer(blankCustomer);
     }
-  }, [params])
+    // if (params?.userId) {
+    //     const userId = params.userId
+    //     callReadCustomer(userId, userCredentials)
+    //     console.log("params : ",params)
+    // // }
 
+    if (state) {
+      const userId = state
+      callReadCustomer(userId, userCredentials)
+      console.log("state : ", state)
+    }
+  }, [state])
+
+  //call to all detail ofuser id from customer search
   const callReadCustomer = async (userId: string, listIdUser: any) => {
     dispatch(readCustomerId(userId, listIdUser))
   }
 
-  //call to option in dropDwan  
+  //call to option in dropDwan  modify to index db and laoding project
   useEffect(() => {
     if (!fieldsOptionsMapFromReducer?.data?.generalFormOptionsMa) {
       callLoadOptions()
@@ -174,7 +188,7 @@ const CustomerDetails = () => {
     });
   }
 
-  //update the object  option 
+  //update the object in  option 
   useEffect(() => {
     if (!fieldsOptionsMapFromReducer?.data?.generalFormOptionsMap) return
     const nameOptions = ["customersCondition", "customersType", "genders", "typeIdentityNumbers", "customersStatus"]
@@ -186,21 +200,23 @@ const CustomerDetails = () => {
   }, [fieldsOptionsMapFromReducer])
 
 
-  //function called to options
 
 
-  //function created customer
+
+  //function show to client if  customer created 
   useEffect(() => {
 
     if (dataCustomer?.err_code === 0) {
       setUpdate(false)
-      console.log("typeButton",typeButton)
-      if (typeButton === "creat") {
+      console.log("typeButton", typeButton)
+      setMsgIsCreated("Customer created successfully")
+      if (typeButton === "create") {
         setMsgIsCreated("Customer created successfully")
+        setReadOnly(true);
       }
       else {
         if (dataCustomer?.err_code) {
-          if (dataCustomer?.err_code !== 0)
+          if (dataCustomer.err_code !== 0)
             setMsgIsCreated("The customer's details are incorrect  try again")
         }
         else {
@@ -209,49 +225,74 @@ const CustomerDetails = () => {
       }
     }
     if (!dataCustomer?.data) return
-    setCustomer({
-      ...customer,
-      classId: dataCustomer.data.class.class_id,
-      dateBirth: dataCustomer.data.properties.date_birth,
-      firstName: dataCustomer.data.properties.first_name,
-      lastName: dataCustomer.data.properties.last_name,
-      entitySubTypeId: dataCustomer.data.types.entity_sub_type_id,
-      isLocked: dataCustomer.data.properties.is_locked,
-      note: dataCustomer.data.properties.note,
-      gender: dataCustomer.data.gender.gender_id,
-      CustomerStatus: dataCustomer.data.status.status_id,
-      // address: dataCustomer.data.addresses.address_name,
-      telephone: dataCustomer.data.telephones.telephone_number,
-      email: dataCustomer.data.emails.email_address,
-      entityNumber: dataCustomer.data.id_entity
-    })
-    setReadOnly(true)
-   
-    console.log("customer : ",customer)
+    if (dataCustomer?.data?.emails) {
+      setCustomer({
+        ...customer,
+        classId: dataCustomer.data.class.class_id,
+        dateBirth: dataCustomer.data.properties.date_birth,
+        firstName: dataCustomer.data.properties.first_name,
+        lastName: dataCustomer.data.properties.last_name,
+        entitySubTypeId: dataCustomer.data.types.entity_sub_type_id,
+        isLocked: dataCustomer.data.properties.is_locked,
+        note: dataCustomer.data.properties.note,
+        gender: dataCustomer.data.gender.gender_id,
+        entityStatusId: dataCustomer.data.status.status_id,
+        // address: dataCustomer.data.addresses.address_name,
+        telephone: dataCustomer.data.telephones.telephone_number,
+        email: dataCustomer.data.emails.email_address,
+        entityNumber: dataCustomer.data.id_entity
+      })
+
+      setReadOnly(true)
+    }
+
+
+    console.log("customer update : ", customer)
   }, [dataCustomer])
 
 
   //check what event in button
-  const activeButton = (e: any) => {
-    const { name } = e.target;
+  const activeButton = (e:any) => {
+     const {name}:any = e.target;
+   console.log("e.target : ",name)
     setTypeButton(name)
-    if (name === "read" || name === "creat") {
+    console.log("blankCustomer : ",blankCustomer)
+    setCustomer(blankCustomer)
+    if (name === "create") {
       setReadOnly(false)
+      setUpdate(true)
+      console.log("TypeButton :",typeButton)
+    }
+    if (name === "update") {
+      setReadOnly(false)
+
     }
   }
-
+   
+  //button create customer
+  const createButton=()=>{
+    setCustomer(blankCustomer)
+    setTypeButton("create")
+    setReadOnly(false)
+    setUpdate(true)
+    console.log("TypeButton :",typeButton)
+  }
+  
+  //button to update customer
+  const updateButton = ()=>{
+    setReadOnly(false)
+  }
   //send the update on customer
-  const handleSubmit = (e: any) => {
-    const { name } = e.target;
+  const handleSubmit = (e:any) => {
+    const {name} = e?.name;
     setTypeButton(name)
     const requestMethod = typeButton;
     e.preventDefault()
     console.log("listIdUser : ", userCredentials)
-    //undifined כאן אני שולחת את הערכים הבעיה שאני שולחת את המערך  הוא  
-    if(userCredentials){
+    if (userCredentials) {
       dispatch(createCustomer(customer, userCredentials))
     }
-   
+
     //TODO: fill the entire function
   }
 
@@ -264,14 +305,16 @@ const CustomerDetails = () => {
   }
 
 
+
   return (
     <form onSubmit={(e) => handleSubmit(e)}>
       <div className="sub-header">
         <Title
           title={t("customers")} />
         <div className="divider"></div>
-        <PrimaryButton className='button' onClick={activeButton} checked={false} text={t('createCustomer')} iconProps={Icons.addFriend} name="create" />
-        <DefaultButton className='button edit-button' onClick={activeButton} checked={false} text={t('editing')} iconProps={Icons.editContact} disabled={update} name="update" />
+        // {/* <button name="root" onClick={(e)=>activeButton(e)} >נכגחאו</button> */}
+        <PrimaryButton ariaDescription="create" className='button'  allowDisabledFocus onClick={createButton} checked={false}  name="create" text={t('createCustomer')}iconProps={Icons.addFriend}/>
+        <DefaultButton className='button edit-button' onClick={updateButton} checked={false} text={t('editing')} iconProps={Icons.editContact} disabled={update} name="update" />
         <DefaultButton className='button delete-button' checked={false} iconProps={Icons.userRemove} text={t('deletion')} id={'Deletion'} name="delete" />
         <DefaultButton className='button save-upload' type="submit" checked={false} text={t('save')} iconProps={Icons.cloudUpload} />
         <IconButton
@@ -309,7 +352,7 @@ const CustomerDetails = () => {
         </div>
         <div></div>
         <div>
-          <CustomTextFieldAddInput value={customer.firstName} readOnly={readOnly} required={true} label={t('firstName')} onChange={updateCustomer} id={'firstName'} iconProps={Icons.add} otherInputId={'MiddleName'} othertextItnput={t("middleName")} />
+          <CustomTextFieldAddInput value={customer.firstName} required={true} label={t('firstName')} onChange={updateCustomer} id={'firstName'} iconProps={Icons.add} otherInputId={'MiddleName'} othertextItnput={t("middleName")} />
           <CustomTextField value={customer.lastName} required={true} label={t('lastName')} onChange={updateCustomer} id={'lastName'} />
           <CustomTextField value={customer.dateBirth} type="date" required={true} label={t('dateOfBirth')} onChange={updateCustomer} id={'dateBirth'} iconProps={Icons.calendar} />
           <CustomDropdown otherInputId={'OtherGender'} hasOtherValue={true} options={optionsForm.genders} label={t('gander')} onChange={updateCustomer} selectedKey={customer.gender} id={'gender'} othertextInput={t('other')} />
